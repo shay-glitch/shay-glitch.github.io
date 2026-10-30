@@ -197,6 +197,21 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
 .status{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--ink-2);background:var(--surface-2);padding:6px 10px;border-radius:999px}
 .status i{width:7px;height:7px;border-radius:50%;background:var(--warn)}
 
+
+.urge{position:fixed;inset:0;z-index:40;background:#000;display:flex;flex-direction:column;animation:fade .3s ease}
+.urge[hidden]{display:none}
+.urge-photo{flex:1;min-height:30vh;background:linear-gradient(180deg,#2a0b0e,#000);background-size:cover;background-position:center;position:relative}
+.urge-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,#000)}
+.urge-body{padding:0 max(22px,env(safe-area-inset-left,0px)) calc(env(safe-area-inset-bottom) + 22px);margin-top:-40px;position:relative}
+.urge-body .tag{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.06em;padding:6px 11px;border-radius:999px;background:var(--bad)}
+.urge-body h3{font-size:28px;font-weight:800;letter-spacing:-.02em;margin:10px 0 8px;text-wrap:balance}
+.urge-steps{margin:0;padding-inline-start:20px;color:var(--ink-2);font-size:16px;line-height:1.7}
+.urge-timer{font-size:54px;font-weight:800;letter-spacing:-.03em;margin:10px 0 0;color:var(--warn)}
+.heat{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.heat i{aspect-ratio:1;border-radius:7px;background:var(--surface-2)}
+.heat i.j{box-shadow:inset 0 0 0 2px var(--bad)}
+.heat i.t{outline:2px solid var(--ink);outline-offset:1px}
+.heat-days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:6px;text-align:center;font-size:11px;color:var(--ink-3);font-weight:600}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -211,6 +226,16 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
   <div class="btns"><button class="pill-btn" id="sheetNo">ביטול</button><button class="pill-btn primary" id="sheetOk">שמור</button></div>
 </div>
 
+<div class="urge" id="urge" role="dialog" aria-modal="true" aria-labelledby="urgeT" hidden>
+  <div class="urge-photo" id="urgePhoto"></div>
+  <div class="urge-body">
+    <div class="tag">עצור. 20 דקות.</div>
+    <h3 id="urgeT">החשק עובר. ההחלטה נשארת.</h3>
+    <ol class="urge-steps"><li>כוס מים, עכשיו.</li><li>5 דקות הליכה או 20 דקות המתנה.</li><li>אם עדיין רעב: חלבון וירק, לא זבל.</li></ol>
+    <div class="urge-timer num" id="urgeTimer">20:00</div>
+    <div class="btns"><button class="pill-btn meal" id="urgeWin">ניצחתי את החשק</button><button class="pill-btn bad" id="urgeLost">אכלתי בכל זאת</button></div>
+  </div>
+</div>
 <main class="wrap">
 
 <!-- TODAY -->
@@ -240,7 +265,7 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
     <button class="act w" id="qWater"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.7c-.3 0-.6.1-.8.4C9.4 5.4 5 11 5 15a7 7 0 0 0 14 0c0-4-4.4-9.6-6.2-11.9-.2-.3-.5-.4-.8-.4Z"/></svg></span>כוס מים</button>
     <button class="act m" id="qMeal"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 3v8a2 2 0 0 0 2 2v8M5 3v5M9 3v5M17 21V3c-2 0-4 2-4 6v4h4"/></svg></span>ארוחה</button>
     <button class="act s" id="qWalk"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><circle cx="13" cy="4" r="2"/><path d="M10.3 8.4 7 10.2V14h2v-2.6l1.6-.9-1.4 7.1-3.3-.7-.4 2 5.2 1 1.3-5.9 2 2V22h2v-6.4l-2.1-2 .6-3A6.7 6.7 0 0 0 19 13v-2c-1.8 0-3.3-1-4.1-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5 0-.8.2l-1.1.4Z"/></svg></span>הליכה</button>
-    <button class="act j" id="qJunk"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg></span>נשברתי</button>
+    <button class="act j" id="qUrge"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg></span>בא לי זבל</button>
   </div>
 
   <div class="card">
@@ -281,6 +306,7 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
 <section class="page" id="p-insights">
   <header class="hdr"><div><div class="eyebrow">ה־CRM של הגוף</div><h1>תובנות</h1></div></header>
   <div class="stats" id="stats"></div>
+  <div class="card"><h2>4 שבועות <small>ירוק מלא = 100 · מסגרת אדומה = נשבר</small></h2><div class="heat" id="heat"></div><div class="heat-days" id="heatDays"></div></div>
   <div class="card"><h2>מה הנתונים אומרים</h2><div id="insights"></div></div>
   <div class="card"><h2>יומן פעולות <small>מה באמת עשיתי</small></h2><div class="tl" id="timeline"></div></div>
 </section>
@@ -394,6 +420,7 @@ function handleUrl(){
   if(q.has("steps")){ const n=parseInt(q.get("steps"),10); if(n>=0&&n<200000){ const d=day(); d.steps=n; d.stepsAt=new Date().toTimeString().slice(0,5); msg=`צעדים עודכנו: ${fmt(n)}`; } }
   if(q.has("water")){ const n=parseInt(q.get("water"),10)||1; day().water=Math.max(0,day().water+n); logEvent("water","כוס מים (מקיצור)"); msg=`+${n} כוס מים`; }
   if(q.has("weight")){ addWeight(parseFloat(q.get("weight"))); msg="משקל נשמר"; }
+  if(q.has("meal")){ const i=parseInt(q.get("meal"),10); if(i>=0&&i<=2){ const d=day(); if(!d.meals[i]){ d.meals[i]=1; logEvent("meal",["ארוחת בוקר","צהריים","ערב"][i]+" מסודרת"); } msg="ארוחה מסודרת נרשמה"; } }
   if(msg){ save(); toast(msg); history.replaceState(null,"",location.pathname); }
 }
 
@@ -496,6 +523,16 @@ function renderInsights(){
   const proj=projection(); if(proj) ins.push(["var(--meal)",proj[0],proj[1]]);
   if(!ins.length) ins.push(["var(--ink-3)","עוד אין מספיק נתונים","אחרי כמה ימים של רישום יופיעו כאן הדפוסים שלך."]);
   $("insights").innerHTML=ins.map(([c,b,s])=>`<div class="insight"><i class="dot" style="background:${c}"></i><div><b>${b}</b><span>${s}</span></div></div>`).join("");
+  // 4-week heatmap: columns are weekdays (Sun..Sat), rows are weeks, today highlighted
+  const t0=new Date(); t0.setHours(12,0,0,0); const start=new Date(t0); start.setDate(t0.getDate()-t0.getDay()-21);
+  let hm=""; for(let i=0;i<28;i++){ const x=new Date(start); x.setDate(start.getDate()+i); const k=today(x), v=S.days[k];
+    if(x>t0){ hm+='<i style="opacity:.25"></i>'; continue; }
+    const sc2=v?scoreOf(v):0, a=v?.15+.85*sc2/100:0;
+    hm+=`<i class="${v&&v.junk?"j ":""}${k===today()?"t":""}" style="${v?`background:color-mix(in srgb,var(--meal) ${Math.round(a*100)}%,var(--surface-2))`:""}" title="${k} · ${sc2}"></i>`; }
+  $("insights").innerHTML=ins.map(([c,b,s])=>`<div class="insight"><i class="dot" style="background:${c}"></i><div><b>${b}</b><span>${s}</span></div></div>`).join("");
+  $("heat").innerHTML=hm; $("heatDays").innerHTML="אבגדהוש".split("").map(c=>`<span>${c}</span>`).join("");
+  const wins=S.coachEvents.filter(e=>e.type==="urge-win").length;
+  if(wins) ins.unshift(["var(--meal)",`ניצחת את החשק ${wins} פעמים`,"כל פעם כזו היא ההוכחה שאתה חזק יותר מהזבל."]);
   // timeline
   const ev=S.coachEvents.slice(0,60);
   $("timeline").innerHTML=ev.length?ev.map(e=>{const t=new Date(e.at);return `<div class="tl-item"><time class="num">${t.toLocaleDateString("he-IL",{day:"numeric",month:"numeric"})}<br>${t.toTimeString().slice(0,5)}</time><b>${e.label}</b></div>`}).join(""):'<p class="sub" style="margin:0">כל כוס, ארוחה, הליכה ושבירה יירשמו כאן עם שעה.</p>';
@@ -599,7 +636,20 @@ $("qWater").onclick=addWater; $("waterAdd").onclick=addWater;
 $("waterSub").onclick=()=>{ day().water=Math.max(0,day().water-1); save(); render(); };
 $("qMeal").onclick=()=>{ const d=day(), h=new Date().getHours(), i=h<11?0:h<17?1:2; if(d.meals[i]) return toast("הארוחה הזו כבר נרשמה"); d.meals[i]=1; logEvent("meal",["ארוחת בוקר","צהריים","ערב"][i]+" מסודרת"); save(); render(); haptic(); toast("ארוחה מסודרת נרשמה"); };
 $("qWalk").onclick=()=>{ logEvent("walk","יצאתי להליכה"); save(); render(); haptic(); toast("יאללה. 15 דקות ≈ 1,500 צעדים"); };
-$("qJunk").onclick=()=>{ day().junk++; logEvent("junk","נשברתי"); save(); render(); haptic([30,60,30]); toast("נרשם. מעכשיו: מים והליכה."); };
+let urgeTick, urgeUrl;
+async function openUrge(){
+  const all=await allPhotos(), warn=all.filter(p=>p.kind==="warn"), thin=all.filter(p=>(p.kind||"thin")==="thin"), set=warn.length?warn:thin;
+  if(urgeUrl) URL.revokeObjectURL(urgeUrl);
+  $("urgePhoto").style.backgroundImage=set.length?`url(${urgeUrl=URL.createObjectURL(set[Math.floor(Math.random()*set.length)].blob)})`:"";
+  $("urge").hidden=false; logEvent("urge","בא לי זבל: עצרתי לבדוק"); save(); haptic([40,80,40]);
+  const end=Date.now()+20*60e3; clearInterval(urgeTick);
+  const tick=()=>{ const ms=Math.max(0,end-Date.now()); $("urgeTimer").textContent=`${String(Math.floor(ms/60e3)).padStart(2,"0")}:${String(Math.floor(ms/1e3)%60).padStart(2,"0")}`; };
+  tick(); urgeTick=setInterval(tick,1000);
+}
+const closeUrge=()=>{ $("urge").hidden=true; clearInterval(urgeTick); render(); };
+$("qUrge").onclick=openUrge;
+$("urgeWin").onclick=()=>{ logEvent("urge-win","ניצחתי את החשק"); day().water++; save(); closeUrge(); toast("ניצחת. נרשמה גם כוס מים."); haptic(); };
+$("urgeLost").onclick=()=>{ day().junk++; logEvent("junk","אכלתי זבל"); save(); closeUrge(); toast("נרשם. זה לא מוחק את היום. מים והליכה."); };
 $("unjunk").onclick=()=>{ day().junk=0; S.coachEvents=S.coachEvents.filter(e=>!(e.type==="junk"&&e.at.slice(0,10)===new Date().toISOString().slice(0,10))); save(); render(); };
 document.querySelectorAll("#meals button").forEach(b=>b.onclick=()=>{ const d=day(), i=+b.dataset.m; d.meals[i]=d.meals[i]?0:1; if(d.meals[i]) logEvent("meal",["ארוחת בוקר","צהריים","ערב"][i]+" מסודרת"); save(); render(); haptic(); });
 $("stepsEdit").onclick=()=>sheet("כמה צעדים עכשיו?","המספר מ־Garmin Connect",day().steps,v=>{ if(v>=0){ day().steps=Math.round(v); day().stepsAt=""; save(); render(); } });
