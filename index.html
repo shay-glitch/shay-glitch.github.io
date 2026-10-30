@@ -6,431 +6,297 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="שי בריאות">
-<meta name="theme-color" content="#0a0f14">
+<meta name="theme-color" content="#090d12">
 <link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9zQYyAAAEVElEQVR4nO3Wy21VQRBFUc9bSGRCCARGRCREOmZk2Q9hMNxPdZ1agz1311nvyk/r0+dnKaWn6j9AOjOgFRXQigpoRQW0ogJaUQGtqIBwQmro9bXCb2fF+DMnIY1XJ3IrmNg0z0BI3K9V+9mS7VW5N80A5S8bUZ/6iiO5hZl+UbrQzjFv5/4ajV0l0yns7/Mn0mQAMgHf3np1e2H7XDw7TkvJmD9gRzhzgVJ9bW+6QwAAABJRU5ErkJggg==">
-<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9zQYyAAAEVElEQVR4nO3Wy21VQRBFUc9bSGRCCARGRCREOmZk2Q9hMNxPdZ1agz1311nvyk/r0+dnKaWn6j9AOjOgFRXQigpoRQW0ogJaUQGtqIBwQmro9bXCb2fF+DMnIY1XJ3IrmNg0z0BI3K9V+9mS7VW5N80A5S8bUZ/6iiO5hZl+UbrQzjFv5/4ajV0l0yns7/Mn0mQAMgHf3np1e2H7XDw7TkvJmD9gRzhzgVJ9bW+6QwAAABJRU5ErkJggg==">
 <title>שי בריאות</title>
 <style>
   :root {
-    --bg: #070b10;
-    --bg-2: #0d141b;
-    --panel: rgba(17, 24, 31, 0.88);
-    --panel-strong: rgba(19, 26, 34, 1);
-    --panel-soft: rgba(24, 32, 40, 0.9);
-    --line: rgba(136, 161, 182, 0.18);
-    --line-strong: rgba(136, 161, 182, 0.32);
-    --ink: #edf3f8;
-    --muted: #9ba7b3;
-    --go: #41d08b;
-    --go-strong: #2ec27d;
-    --warn: #ffcc66;
-    --warn-strong: #ffb648;
-    --bad: #ff657f;
-    --bad-strong: #ff4d69;
-    --water: #54b0ff;
-    --water-strong: #2893ff;
-    --accent: #b69cff;
-    --shadow: 0 18px 44px rgba(0,0,0,.38);
+    --bg: #060a0d;
+    --bg2: #111821;
+    --panel: rgba(18,24,30,.92);
+    --panel-2: rgba(14,19,25,.9);
+    --panel-3: rgba(22,27,35,.9);
+    --line: rgba(255,255,255,.08);
+    --ink: #ecf5ff;
+    --muted: #a7b3c0;
+    --green: #4fe3a5;
+    --green-deep: #87e9b7;
+    --amber: #f6c45a;
+    --red: #ff5f7c;
+    --blue: #57b3ff;
+    --purple: #8270ff;
+    --shadow: 0 18px 44px rgba(0,0,0,.42);
   }
 
-  * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  * { box-sizing: border-box; }
   html, body {
-    margin:0; min-height:100%;
+    margin: 0; min-height: 100%;
     background:
-      radial-gradient(circle at top, rgba(92,112,147,.28), transparent 35%),
-      radial-gradient(circle at 80% 10%, rgba(112,81,255,.16), transparent 22%),
-      linear-gradient(180deg, #071018 0%, #0a0f14 26%, #0b1117 100%);
-    color:var(--ink); font-family:-apple-system,"SF Pro Text","Segoe UI",Arial,sans-serif;
+      radial-gradient(circle at 50% 0%, rgba(113,131,174,.24), transparent 28%),
+      linear-gradient(180deg, #060a0d 0%, #0b1117 100%);
+    color: var(--ink);
+    font-family: -apple-system, "SF Pro Text", "Segoe UI", Arial, sans-serif;
   }
 
   body {
-    padding:calc(env(safe-area-inset-top) + 18px) 16px calc(env(safe-area-inset-bottom) + 96px);
+    display:flex; justify-content:center; align-items:flex-start;
+    padding:16px;
   }
 
-  h1 { margin:0; font-size:26px; letter-spacing:-.03em; line-height:1.08; }
-  small { color:var(--muted); }
-
-  .top {
-    display:flex; justify-content:space-between; align-items:flex-end; gap:12px; margin-bottom:12px;
+  .phone {
+    width: min(100vw - 20px, 410px);
+    min-height: 846px;
+    background: linear-gradient(180deg, rgba(12,16,19,.96), rgba(7,10,13,1));
+    border-radius: 30px;
+    border: 1px solid rgba(255,255,255,.08);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    position: relative;
   }
 
-  .top small { display:block; margin-top:4px; font-size:12px; letter-spacing:.08em; text-transform:uppercase; }
-
-  .score { width:78px; height:78px; flex:none; filter:drop-shadow(0 12px 24px rgba(65,208,139,.18)); }
-
-  .hero {
-    position:relative; border-radius:24px; overflow:hidden; margin-bottom:14px; background:linear-gradient(135deg, rgba(18,24,31,1), rgba(18,24,31,.78)); border:1px solid var(--line); box-shadow:var(--shadow);
-  }
-  .hero img { width:100%; max-height:320px; object-fit:cover; display:block; }
-  .hero .cap {
-    position:absolute; left:0; right:0; bottom:0; padding:14px 16px 16px; background:linear-gradient(180deg, transparent, rgba(4,8,11,.9));
-    font-size:18px; font-weight:800; line-height:1.35;
-  }
-  .hero.empty {
-    padding:20px 16px; min-height:120px; display:flex; align-items:center; justify-content:center; color:var(--muted); text-align:center; border:1px dashed var(--line-strong); background:rgba(255,255,255,.02);
+  .portrait {
+    position: relative;
+    height: 640px;
+    background:
+      linear-gradient(180deg, rgba(13,17,22,.15), rgba(10,13,18,.78)),
+      radial-gradient(circle at 52% 32%, rgba(152,155,158,.7), rgba(66,73,82,.25) 18%, transparent 32%),
+      linear-gradient(90deg, rgba(49,55,62,.8) 0%, rgba(13,17,20,.82) 40%, rgba(34,40,48,.6) 100%);
   }
 
-  .nag {
-    border-radius:22px; padding:16px 18px; font-size:17px; line-height:1.45; font-weight:800; margin-bottom:14px; border:1px solid transparent; box-shadow:var(--shadow);
-  }
-  .nag.bad { background:linear-gradient(135deg, rgba(65,17,27,.9), rgba(90,24,24,.72)); border-color:rgba(255,101,127,.34); color:#ffdfe6; }
-  .nag.warn { background:linear-gradient(135deg, rgba(68,48,11,.9), rgba(89,66,25,.76)); border-color:rgba(255,204,102,.33); color:#fff0c8; }
-  .nag.go { background:linear-gradient(135deg, rgba(9,54,39,.9), rgba(11,67,45,.7)); border-color:rgba(65,208,139,.33); color:#d9ffe7; }
-
-  .card {
-    background:linear-gradient(180deg, rgba(19,26,34,.88), rgba(14,20,27,.94));
-    border:1px solid var(--line);
-    border-radius:24px;
-    padding:16px 16px 14px;
-    margin-bottom:12px;
-    box-shadow:var(--shadow);
-    backdrop-filter: blur(18px);
+  .portrait::before {
+    content:"";
+    position:absolute; inset:0;
+    background:
+      linear-gradient(90deg, rgba(255,255,255,.06), transparent 22%, transparent 78%, rgba(255,255,255,.05)),
+      radial-gradient(circle at 60% 28%, rgba(188,191,196,.28), transparent 18%),
+      linear-gradient(0deg, rgba(13,16,22,.25), transparent 32%);
   }
 
-  .label {
-    color:var(--muted); font-size:12px; letter-spacing:.08em; text-transform:uppercase; margin-bottom:10px; font-weight:700;
+  .portrait::after {
+    content:"";
+    position:absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 50% 24%, rgba(150,150,150,.2), transparent 20%),
+      linear-gradient(90deg, transparent 0%, rgba(0,0,0,.3) 38%, rgba(0,0,0,.18) 100%);
   }
 
-  .row { display:flex; align-items:center; gap:14px; }
-  .big { font-size:42px; font-weight:900; letter-spacing:-.05em; line-height:1; }
-  .unit { color:var(--muted); font-size:15px; font-weight:700; margin-inline-start:2px; }
-
-  .bar { height:12px; background:rgba(255,255,255,.06); border-radius:999px; overflow:hidden; margin-top:12px; }
-  .bar i { display:block; height:100%; border-radius:999px; transition:width .3s ease; }
-
-  .btns { display:flex; gap:10px; margin-top:14px; }
-  button {
-    font:inherit; border:0; border-radius:16px; padding:15px 14px; font-size:17px; font-weight:800; color:var(--ink); background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.06); flex:1; cursor:pointer; transition:transform .15s ease, opacity .15s ease;
-  }
-  button:active { transform:scale(.98); }
-  .b-water { background:linear-gradient(135deg, var(--water), var(--water-strong)); color:#03263d; }
-  .b-go { background:linear-gradient(135deg, var(--go), var(--go-strong)); color:#0a1d12; }
-  .b-bad { background:linear-gradient(135deg, rgba(255,101,127,.8), rgba(255,77,105,.95)); color:#fff; }
-
-  .glasses { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; direction:ltr; }
-  .glasses span {
-    width:18px; height:26px; border-radius:5px 5px 8px 8px; border:1.5px solid rgba(84,176,255,.9); background:transparent; box-shadow:inset 0 0 0 1px rgba(255,255,255,.04);
-  }
-  .glasses span.full { background:linear-gradient(180deg, rgba(84,176,255,.82), rgba(40,147,255,.98)); border-color:rgba(84,176,255,.9); }
-
-  .week { display:flex; gap:7px; align-items:flex-end; height:86px; direction:ltr; margin-top:10px; }
-  .week div { flex:1; text-align:center; font-size:11px; color:var(--muted); }
-  .week b { display:block; border-radius:8px 8px 3px 3px; margin-bottom:5px; min-height:8px; background:linear-gradient(180deg, rgba(126,139,168,.7), rgba(255,255,255,.05)); }
-
-  .muted { color:var(--muted); font-size:13px; }
-  .streak { margin-top:12px; color:var(--ink); font-size:14px; font-weight:700; }
-
-  .meals { display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:8px; margin-top:12px; }
-  .meals button { font-size:15px; padding:12px 10px; }
-  .meals button.on { background:linear-gradient(135deg, rgba(65,208,139,.96), rgba(46,194,125,.96)); color:#0a1f10; border-color:transparent; }
-
-  .line { font-size:16px; color:#dfe7ef; line-height:1.58; }
-
-  .pgrid { display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:8px; margin-top:12px; }
-  .pgrid img { width:100%; aspect-ratio:1; object-fit:cover; border-radius:14px; display:block; border:1px solid rgba(255,255,255,.06); }
-
-  input {
-    width:100%; border-radius:12px; border:1px solid var(--line-strong); background:rgba(10,14,18,.9); color:var(--ink); font:inherit; font-size:18px; padding:12px 14px; text-align:center; outline:none; box-shadow:inset 0 1px 0 rgba(255,255,255,.02);
+  .score-chip {
+    position:absolute; left:20px; top:18px; z-index:3;
+    background: rgba(0,0,0,.7);
+    color: var(--ink);
+    border-radius: 999px;
+    min-width: 78px; height: 46px;
+    display:flex; align-items:center; justify-content:center;
+    border:1px solid rgba(255,255,255,.1);
+    font-weight:800;
+    font-size: 20px;
+    box-shadow: 0 8px 18px rgba(0,0,0,.28);
   }
 
-  .tabs {
-    position:fixed; left:10px; right:10px; bottom:14px; display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:8px; padding:8px; border-radius:20px; background:rgba(7,11,16,.8); border:1px solid rgba(255,255,255,.08); backdrop-filter:blur(14px); box-shadow:0 16px 34px rgba(0,0,0,.42);
+  .title-top {
+    position:absolute; top:22px; right:22px; z-index:3;
+    text-align:right; font-weight:800; color: var(--ink);
+    line-height:1.05;
   }
-  .tabs button {
-    background:none; border:0; color:var(--muted); padding:10px 8px; border-radius:12px; font-weight:800; font-size:14px;
+  .title-top .date { font-size: 13px; color: var(--muted); letter-spacing:.06em; text-transform:uppercase; }
+  .title-top .name { font-size: 22px; letter-spacing:-.03em; }
+
+  .mic {
+    position:absolute; left: 50%; bottom: 118px; transform: translateX(-50%); width: 110px; height: 180px; z-index:2;
+    border-radius: 0 0 90px 90px;
+    background: linear-gradient(90deg, rgba(255,255,255,.08), rgba(70,76,84,.12));
+    filter: blur(.2px);
+    border-left: 3px solid rgba(255,255,255,.08);
+    border-right: 3px solid rgba(255,255,255,.08);
   }
-  .tabs button.on {
-    color:var(--ink); background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.06);
+  .mic::before {
+    content:""; position:absolute; left:50%; transform:translateX(-50%); bottom:-8px; width:44px; height:140px; border-radius: 999px; background: linear-gradient(90deg, rgba(18,20,22,.8), rgba(52,60,68,.8));
+    box-shadow: 0 0 0 2px rgba(255,255,255,.04);
+  }
+  .mic::after {
+    content:""; position:absolute; left:50%; transform:translateX(-50%); bottom:-18px; width:74px; height:24px; border-radius: 18px; background: rgba(30,35,41,.85);
   }
 
-  .page { display:none; }
-  .page.on { display:block; }
-
-  .toast {
-    position:fixed; top:calc(env(safe-area-inset-top) + 14px); left:50%; transform:translateX(-50%) translateY(-8px); background:rgba(14,20,27,.96); color:var(--ink); border:1px solid rgba(255,255,255,.08); box-shadow:var(--shadow); border-radius:999px; padding:10px 18px; font-size:14px; font-weight:700; opacity:0; pointer-events:none; transition:all .2s ease; z-index:30;
+  .warning-box {
+    position:absolute; right:18px; bottom:18px; z-index:3; background: rgba(0,0,0,.56); border:1px solid rgba(255,255,255,.08); border-radius: 18px; padding: 12px 14px 10px; width: 160px;
   }
-  .toast.on { opacity:1; transform:translateX(-50%) translateY(0); }
+  .warning-box .label { color: var(--muted); font-size: 10px; letter-spacing:.06em; text-transform:uppercase; }
+  .warning-box .big { font-size: 32px; font-weight: 900; margin-top: 6px; }
+  .warning-box .small { color: var(--muted); font-size: 12px; }
 
-  code {
-    direction:ltr; display:inline-block; background:rgba(255,255,255,.04); padding:4px 7px; border-radius:8px; line-height:1.5; font-size:13px; }
+  .info-block {
+    position:absolute; left: 20px; bottom: 18px; z-index:3; width: calc(100% - 190px);
+    color: var(--ink);
+  }
+  .info-block .q {
+    font-size: 15px; line-height: 1.4; font-weight: 700; margin-bottom: 8px;
+  }
+  .info-block .q strong { font-size: 18px; }
+  .info-block .line {
+    font-size: 12px; letter-spacing: .04em; color: var(--muted);
+  }
 
-  ol { margin:0; padding-inline-start:18px; }
-  ol li { margin-bottom:10px; line-height:1.55; color:#dfe7ef; }
+  .panel {
+    position: relative;
+    margin-top: -12px; z-index: 3;
+    background: linear-gradient(180deg, rgba(17,22,28,.82), rgba(12,14,18,.96));
+    border-top-left-radius: 26px; border-top-right-radius: 26px;
+    border-top: 1px solid rgba(255,255,255,.09);
+    padding: 14px 14px 90px;
+  }
 
-  @media (min-width:520px) {
-    body { max-width:420px; margin:0 auto; }
-    .tabs { max-width:420px; left:50%; transform:translateX(-50%); }
+  .mini-card {
+    background: linear-gradient(180deg, rgba(17,24,30,.9), rgba(12,15,20,.96));
+    border:1px solid rgba(255,255,255,.08); border-radius: 24px; padding: 15px 16px 14px; margin-bottom: 12px;
+    box-shadow: 0 10px 28px rgba(0,0,0,.22);
+  }
+
+  .mini-head { display:flex; justify-content:space-between; align-items:center; margin-bottom: 12px; }
+  .mini-head .t { color: var(--muted); font-size: 12px; text-transform:uppercase; letter-spacing:.08em; }
+  .mini-head .v { font-size: 12px; font-weight:800; color: var(--ink); }
+
+  .ring-wrap { display:flex; align-items:center; justify-content:space-between; gap:14px; }
+  .ring-wrap .left { flex:1; }
+  .ring-wrap .meta { font-size: 13px; color: var(--muted); line-height:1.8; }
+  .ring {
+    width: 118px; height: 118px; position:relative; border-radius:50%;
+    background: conic-gradient(var(--green) 0 58%, rgba(255,255,255,.06) 58% 100%);
+    display:grid; place-items:center;
+  }
+  .ring::before {
+    content:""; position:absolute; inset:12px; border-radius:50%; background:#111821; border:1px solid rgba(255,255,255,.08);
+  }
+  .ring .value {
+    position:relative; z-index: 1; font-weight: 900; font-size: 20px; color: var(--ink);
+  }
+
+  .stack {
+    display:flex; justify-content:space-between; align-items:flex-start; gap: 10px; margin-top: 12px;
+  }
+  .stack .detail { flex:1; }
+  .stack .detail .num { font-size: 17px; font-weight:800; }
+  .stack .detail .sub { font-size: 12px; color: var(--muted); }
+  .stack .pill {
+    display:inline-flex; align-items:center; justify-content:center; height: 30px; min-width: 52px; border-radius: 999px; font-size: 12px; font-weight: 800; background: rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.06);
+  }
+  .stack .pill.green { background: rgba(79,227,165,.12); color: var(--green); }
+  .stack .pill.amber { background: rgba(246,196,90,.12); color: var(--amber); }
+
+  .bottom-nav {
+    position: fixed; bottom: 12px; left: 50%; transform: translateX(-50%);
+    width: min(92vw, 390px); height: 68px; padding: 10px 12px 8px;
+    border-radius: 22px; background: rgba(7,11,15,.85); border: 1px solid rgba(255,255,255,.08);
+    box-shadow: 0 18px 28px rgba(0,0,0,.32); display:grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap:8px; backdrop-filter: blur(12px);
+  }
+  .nav-item {
+    display:flex; flex-direction:column; align-items:center; justify-content:center; color: var(--muted); font-size: 11px; gap:4px; font-weight:700;
+  }
+  .nav-item .dot { width: 20px; height:20px; border-radius: 6px; background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.06); display:grid; place-items:center; }
+  .nav-item.active { color: var(--ink); }
+  .nav-item.active .dot { background: rgba(255,255,255,.12); }
+  .nav-item .bell { width: 12px; height: 12px; border:2px solid currentColor; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom: 0; position:relative; }
+  .nav-item .bell::after { content:""; position:absolute; left:50%; bottom:-7px; transform:translateX(-50%); width:8px; height:8px; border-radius:50%; border:2px solid currentColor; }
+  .nav-item .house { width: 13px; height: 13px; border:2px solid currentColor; border-top: 0; border-radius: 2px; position: relative; }
+  .nav-item .house::before { content:""; position:absolute; left:50%; top:-9px; transform:translateX(-50%); width:0; height:0; border-left:7px solid transparent; border-right:7px solid transparent; border-bottom:9px solid currentColor; }
+  .nav-item .stats { width: 15px; height: 15px; position:relative; }
+  .nav-item .stats::before, .nav-item .stats::after { content:""; position:absolute; left:0; right:0; bottom:0; height:2px; background:currentColor; border-radius:3px; }
+  .nav-item .stats::before { bottom: 3px; width: 90%; left: 5%; }
+  .nav-item .stats::after { bottom: 9px; width: 60%; left: 20%; }
+  .nav-item .user { width: 14px; height: 14px; border-radius:50%; border:2px solid currentColor; position:relative; }
+  .nav-item .user::after { content:""; position:absolute; left:50%; bottom:-6px; transform:translateX(-50%); width:10px; height:8px; border:2px solid currentColor; border-top:0; border-radius:0 0 8px 8px; }
+
+  @media (max-width: 420px) {
+    body { padding: 0; }
+    .phone { width:100vw; min-height:100vh; border-radius:0; }
+    .bottom-nav { width: calc(100vw - 18px); }
   }
 </style>
 </head>
 <body>
-<div class="toast" id="toast"></div>
-
-<section class="page on" id="p-today">
-  <div class="top">
-    <div>
-      <h1>שי בריאות</h1>
-      <small id="dayN"></small>
+  <div class="phone">
+    <div class="portrait">
+      <div class="score-chip">67</div>
+      <div class="title-top">
+        <div class="date">יום 30, באוקטובר</div>
+        <div class="name">ערב, שי</div>
+      </div>
+      <div class="mic"></div>
+      <div class="info-block">
+        <div class="q"><strong>אתה רוצה?</strong></div>
+        <div class="line">הזמן שלך לא מול היצר, הוא מול ההחלטה.</div>
+      </div>
+      <div class="warning-box">
+        <div class="label">ציון</div>
+        <div class="big">67</div>
+        <div class="small">בלעדית</div>
+      </div>
     </div>
-    <svg class="score" viewBox="0 0 100 100" id="scoreRing"></svg>
+
+    <div class="panel">
+      <div class="mini-card">
+        <div class="mini-head">
+          <div class="t">מצב</div>
+          <div class="v">מושלם</div>
+        </div>
+        <div class="ring-wrap">
+          <div class="left">
+            <div class="meta">אחוזי עמידה ב-יום</div>
+            <div class="meta">דחיפות: <span style="color:var(--green); font-weight:700;">פעיל</span></div>
+          </div>
+          <div class="ring"><div class="value">67%</div></div>
+        </div>
+      </div>
+
+      <div class="mini-card">
+        <div class="mini-head">
+          <div class="t">מטרות</div>
+          <div class="v">היום</div>
+        </div>
+        <div class="stack">
+          <div class="detail">
+            <div class="num">6,120/10,000</div>
+            <div class="sub">צעדים</div>
+          </div>
+          <div class="pill green">ממוצע</div>
+        </div>
+        <div class="stack" style="margin-top:16px;">
+          <div class="detail">
+            <div class="num">5/12</div>
+            <div class="sub">כוסות מים</div>
+          </div>
+          <div class="pill amber">נכנס</div>
+        </div>
+      </div>
+
+      <div class="mini-card">
+        <div class="mini-head">
+          <div class="t">כיוון</div>
+          <div class="v">מחר</div>
+        </div>
+        <div class="stack">
+          <div class="detail">
+            <div class="num">לאכול נקי</div>
+            <div class="sub">ארוחות מסודרות: 0/3</div>
+          </div>
+          <div class="pill green">כושר</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom-nav">
+      <div class="nav-item"><div class="dot"><span class="bell"></span></div>תצוגה</div>
+      <div class="nav-item"><div class="dot"><span class="house"></span></div>תמונה</div>
+      <div class="nav-item active"><div class="dot"><span class="stats"></span></div>היום</div>
+      <div class="nav-item"><div class="dot"><span class="stats"></span></div>יעדים</div>
+      <div class="nav-item"><div class="dot"><span class="user"></span></div>פרופיל</div>
+    </div>
   </div>
-  <div class="hero empty" id="hero"></div>
-  <div class="nag" id="nag"></div>
-  <div class="card"><div class="label">החוק של עכשיו</div><div class="line" id="rule"></div></div>
 
-  <div class="card">
-    <div class="label">צעדים היום <span class="muted" id="stepsSrc"></span></div>
-    <div class="row"><div class="big" id="steps">0</div><span class="unit" id="stepsGoal"></span></div>
-    <div class="bar"><i id="stepsBar" style="background:linear-gradient(90deg, var(--go), var(--go-strong));"></i></div>
-    <div class="btns"><button id="stepsEdit">עדכון ידני</button></div>
-  </div>
-
-  <div class="card">
-    <div class="label">מים היום</div>
-    <div class="row"><div class="big" id="water">0</div><span class="unit" id="waterGoal"></span></div>
-    <div class="glasses" id="glasses"></div>
-    <div class="btns"><button class="b-water" id="waterAdd">+ כוס מים</button><button id="waterSub" style="flex:.35">-1</button></div>
-  </div>
-
-  <div class="card">
-    <div class="label">אוכל</div>
-    <div class="row"><div class="big" id="cleanTxt">נקי</div></div>
-    <div class="streak" id="streak"></div>
-    <div class="btns"><button class="b-bad" id="junk">אכלתי זבל</button><button class="b-go" id="unjunk">טעות, אני נקי</button></div>
-  </div>
-
-  <div class="card">
-    <div class="label">ארוחות מסודרות (חלבון + ירק, בלי זבל)</div>
-    <div class="meals" id="meals"><button data-m="0">בוקר</button><button data-m="1">צהריים</button><button data-m="2">ערב</button></div>
-    <p class="muted" id="mealsTxt"></p>
-  </div>
-
-  <div class="card">
-    <div class="label">7 ימים אחרונים (ציון יומי)</div>
-    <div class="week" id="week"></div>
-  </div>
-</section>
-
-<section class="page" id="p-weight">
-  <div class="top"><h1>משקל</h1><small id="wTarget"></small></div>
-  <div class="card">
-    <div class="label">שקילה של הבוקר (ק"ג)</div>
-    <input id="wIn" type="number" step="0.1" inputmode="decimal" placeholder="100.0">
-    <div class="btns"><button class="b-go" id="wSave">שמור</button></div>
-    <p class="muted" id="wStatus"></p>
-  </div>
-  <div class="card"><svg id="wChart" viewBox="0 0 340 180" width="100%"></svg></div>
-</section>
-
-<section class="page" id="p-photos">
-  <div class="top"><h1>למה אני עושה את זה</h1></div>
-  <div class="card">
-    <div class="label">כשהייתי רזה (מופיע כל יום)</div>
-    <div class="btns"><button class="b-go" id="addPh">+ תמונות רזה</button></div>
-    <div class="pgrid" id="pgrid"></div>
-  </div>
-  <div class="card">
-    <div class="label">לאן אני לא חוזר (מופיע כשאני נשבר)</div>
-    <div class="btns"><button class="b-bad" id="addWarn">+ תמונות אזהרה</button></div>
-    <div class="pgrid" id="pgridWarn"></div>
-    <p class="muted">כל התמונות נשמרות רק בטלפון ולא עולות לאינטרנט.</p>
-    <p class="muted">לחיצה ארוכה על תמונה מוחקת אותה.</p>
-  </div>
-</section>
-
-<section class="page" id="p-setup">
-  <div class="top"><h1>חיבורים</h1></div>
-  <div class="card">
-    <div class="label">יעדים</div>
-    <div class="row"><span style="flex:1">צעדים</span><input id="gSteps" type="number" inputmode="numeric" style="width:130px"></div><br>
-    <div class="row"><span style="flex:1">כוסות מים (250 מ"ל)</span><input id="gWater" type="number" inputmode="numeric" style="width:130px"></div>
-    <div class="btns"><button id="gSave">שמור יעדים</button></div>
-  </div>
-  <div class="card">
-    <div class="label">צעדים מגרמין, אוטומטית</div>
-    <ol>
-      <li>באפליקציית <b>Garmin Connect</b>: אני, הגדרות, אפליקציות מחוברות, <b>Apple Health</b>, להדליק צעדים ומשקל.</li>
-      <li>באפליקציית <b>קיצורים</b>: אוטומציה, שעה ביום, כל שעתיים מ-08:00 עד 22:00, להפעיל מיד.</li>
-      <li>פעולות: <b>מצא דגימות בריאות</b> (צעדים, היום), <b>חשב סטטיסטיקה</b> (סכום), <b>פתח כתובת</b>:<br><code id="shortcutUrl"></code></li>
-    </ol>
-    <p class="muted">המספר נכנס לאפליקציה בכל פעם שהקיצור רץ. אין סיסמאות, אין טוקנים.</p>
-  </div>
-  <div class="card">
-    <div class="label">שתישב לך על הנשמה</div>
-    <ol>
-      <li>בקיצורים: אוטומציה כל שעה 09:00-21:00, פעולה <b>הצג התראה</b>: "שי. כוס מים. עכשיו."</li>
-      <li>כפתור ההתראה פותח את: <code id="waterUrl"></code> שמוסיף כוס בלחיצה אחת.</li>
-      <li>21:30: התראה "המטבח סגור. מים בלבד."</li>
-    </ol>
-  </div>
-  <div class="card">
-    <div class="label">גיבוי</div>
-    <div class="btns"><button id="exp">ייצוא</button><button id="imp">ייבוא</button></div>
-    <p class="muted">הנתונים נשמרים רק בטלפון שלך.</p>
-  </div>
-</section>
-
-<nav class="tabs">
-  <button class="on" data-p="p-today">היום</button>
-  <button data-p="p-weight">משקל</button>
-  <button data-p="p-photos">תמונות</button>
-  <button data-p="p-setup">חיבורים</button>
-</nav>
-
-<script>
-const START = "2026-09-23", W_START = 100, W_GOAL = 90, W_GOAL_DATE = "2027-02-28", W_MILE = 95, W_MILE_DATE = "2026-12-06";
-const LINES = [
-  "אתה לא צריך מוטיבציה. אתה צריך לעשות את הדבר הבא: כוס מים.",
-  "זבל זה החלטה של 3 שניות. תגיד לא ל-3 שניות.",
-  "מסלול נבנה ב-שגרה. לא ביומיים.",
-  "היום חזק יותר מהרגע. אתה כבר עברת את זה פעם.",
-  "המטבח סגור. מים, תנועה, חלבון." 
-];
-const EMPTY_HERO = 'אין עדיין תמונות. לשונית "תמונות", ותוסיף 5 תמונות מהתקופה שהיית רזה.';
-const KEY = "shay95";
-const $ = id => document.getElementById(id);
-const today = (d = new Date()) => d.toLocaleDateString("sv-SE");
-const load = () => { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch { return {}; } };
-let S = Object.assign({ goals: { steps: 10000, water: 12 }, days: {}, weights: [] }, load());
-const save = () => localStorage.setItem(KEY, JSON.stringify(S));
-const day = (k = today()) => { const d = (S.days[k] ||= { steps: 0, water: 0, junk: 0, stepsAt: "" }); d.meals ||= [0, 0, 0]; return d; };
-const toast = t => { $("toast").textContent = t; $("toast").classList.add("on"); setTimeout(() => $("toast").classList.remove("on"), 1800); };
-
-function scoreOf(d) {
-  if (!d) return 0;
-  const s = Math.min(1, d.steps / S.goals.steps) * 30;
-  const w = Math.min(1, d.water / S.goals.water) * 25;
-  const m = ((d.meals || []).filter(Boolean).length / 3) * 20;
-  return Math.round(s + w + m + (d.junk ? 0 : 25));
-}
-function cleanStreak() {
-  let n = 0; const d = new Date();
-  for (;;) {
-    const k = today(d); const x = S.days[k];
-    if (k < START || (x && x.junk)) break;
-    if (!x && k !== today()) break;
-    n++; d.setDate(d.getDate() - 1);
-  }
-  return n;
-}
-
-function handleUrl() {
-  const q = new URLSearchParams(location.search); let msg = "";
-  if (q.has("steps")) { const n = parseInt(q.get("steps"), 10); if (n >= 0 && n < 200000) { const d = day(); d.steps = n; d.stepsAt = new Date().toTimeString().slice(0, 5); msg = `צעדים ${n}`; } }
-  if (q.has("water")) { const n = parseInt(q.get("water"), 10) || 1; const d = day(); d.water = Math.max(0, d.water + n); msg = `+${n} כוס מים`; }
-  if (q.has("weight")) { addWeight(parseFloat(q.get("weight"))); msg = "משקל נשמר"; }
-  if (msg) { save(); toast(msg); history.replaceState(null, "", location.pathname); }
-}
-
-function nag(d) {
-  const h = new Date().getHours(), sg = S.goals.steps, wg = S.goals.water;
-  const stepsDue = Math.round(sg * Math.min(1, Math.max(0, (h - 7) / 14)));
-  const waterDue = Math.round(wg * Math.min(1, Math.max(0, (h - 7) / 14)));
-  const lines = [];
-  if (d.junk) lines.push(["bad", `אכלת זבל היום. זה לא מוחק את היום. מים, הליכה, וחזרה למסלול עכשיו.`]);
-  if (d.water < waterDue - 2) lines.push(["bad", `שי. השעה ${h}:00 ושתית ${d.water} כוסות במקום ${waterDue}. קום, כוס מים, עכשיו.`]);
-  else if (d.water < waterDue) lines.push(["warn", `אתה מאחור במים: ${d.water} מתוך ${waterDue} עד עכשיו. עוד כוס.`]);
-  if (d.steps < stepsDue * 0.6 && h >= 10) lines.push(["bad", `${d.steps.toLocaleString()} צעדים בלבד. אתה צריך ${stepsDue.toLocaleString()} עד עכשיו. 15 דקות הליכה יחזירו אותך למסלול.`]);
-  else if (d.steps < stepsDue && h >= 10) lines.push(["warn", `חסרים ${(stepsDue - d.steps).toLocaleString()} צעדים לקצב של היום. שיחת המעטפת הבאה היא הליכה.`]);
-  const mealsDue = h >= 20 ? 3 : h >= 14 ? 2 : h >= 10 ? 1 : 0;
-  if ((d.meals || []).filter(Boolean).length < mealsDue - 1) lines.push(["warn", "דילגת על ארוחה. ככה מגיעים לזבל בערב. תאכל עכשיו משהו מסודר: חלבון + ירק."]);
-  if (h >= 21 && !d.junk) lines.push(["warn", "21:00. המטבח סגור. רק מים. אין זבל, אין טשטוש."]);
-  if (!lines.length) lines.push(["go", d.steps >= sg && d.water >= wg ? "יום מושלם. ככה נראה מי שמגיע ל-95." : "אתה בקצב. תמשיך בדיוק ככה."]);
-  const worst = lines.find(l => l[0] === "bad") || lines.find(l => l[0] === "warn") || lines[0];
-  $("nag").className = "nag " + worst[0]; $("nag").textContent = worst[1];
-}
-
-function ring(score) {
-  const c = 2 * Math.PI * 42, col = score >= 80 ? "var(--go)" : score >= 50 ? "var(--warn)" : "var(--bad)";
-  $("scoreRing").innerHTML = `<circle cx="50" cy="50" r="42" fill="none" stroke="#202a31" stroke-width="9"/><circle cx="50" cy="50" r="42" fill="none" stroke="${col}" stroke-width="9" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${c - (score / 100) * c}" transform="rotate(-90 50 50)"/>`;
-}
-
-function render() {
-  const d = day(), g = S.goals;
-  const n = Math.floor((new Date(today()) - new Date(START)) / 864e5) + 1;
-  $("dayN").textContent = `יום ${n} | מינוס 10 ק"ג ב-4 חודשים`;
-  $("rule").textContent = LINES[(n + new Date().getHours()) % LINES.length];
-  document.querySelectorAll("#meals button").forEach(b => b.classList.toggle("on", !!d.meals[+b.dataset.m]));
-  const mc = d.meals.filter(Boolean).length; $("mealsTxt").textContent = mc === 3 ? "3 ארוחות מסודרות. ככה בונים 90." : `${mc} מתוך 3`;
-  showHero();
-  $("steps").textContent = d.steps.toLocaleString(); $("stepsGoal").textContent = `/ ${g.steps.toLocaleString()}`;
-  $("stepsBar").style.width = Math.min(100, d.steps / g.steps * 100) + "%";
-  $("stepsSrc").textContent = d.stepsAt ? `(מגרמין, ${d.stepsAt})` : "";
-  $("water").textContent = d.water; $("waterGoal").textContent = `/ ${g.water} כוסות (${(d.water * 0.25).toFixed(2)} ל')`;
-  $("glasses").innerHTML = Array.from({ length: Math.max(g.water, d.water) }, (_, i) => `<span class="${i < d.water ? "full" : ""}"></span>`).join("");
-  $("cleanTxt").textContent = d.junk ? `זבל x${d.junk}` : "נקי ✅"; $("cleanTxt").style.color = d.junk ? "var(--bad)" : "var(--go)";
-  const st = cleanStreak(); $("streak").textContent = st === 1 ? "יום נקי ראשון ברצף" : st ? `${st} ימים נקיים ברצף` : "הרצף מתחיל מחר בבוקר";
-  ring(scoreOf(d)); nag(d);
-  const wk = []; for (let i = 6; i >= 0; i--) { const x = new Date(); x.setDate(x.getDate() - i); const k = today(x); const sc = scoreOf(S.days[k]); wk.push(`<div><b style="height:${Math.max(12, sc / 100 * 58)}px;background:${sc>=80?"linear-gradient(180deg, rgba(65,208,139,.96), rgba(46,194,125,.9))":sc>=50?"linear-gradient(180deg, rgba(255,204,102,.9), rgba(255,182,72,.85))":"linear-gradient(180deg, rgba(255,101,127,.92), rgba(255,77,105,.8))"};"></b>${x.toLocaleDateString('he-IL',{day:'numeric'})}</div>`); }
-  $("week").innerHTML = wk.join("");
-  $("gSteps").value = g.steps; $("gWater").value = g.water;
-  const base = location.href.split(/[?#]/)[0];
-  $("shortcutUrl").textContent = base + "?steps=[סכום הצעדים]"; $("waterUrl").textContent = base + "?water=1";
-  renderWeight();
-}
-
-function addWeight(v) {
-  if (!(v > 40 && v < 250)) return toast("משקל לא תקין");
-  S.weights = S.weights.filter(w => w.d !== today()); S.weights.push({ d: today(), v: +v.toFixed(1) }); S.weights.sort((a, b) => a.d.localeCompare(b.d)); save();
-}
-function renderWeight() {
-  const ws = [{ d: "2026-10-11", v: W_START }, ...S.weights.filter(w => w.d !== "2026-10-11")];
-  const last = ws[ws.length - 1];
-  const daysLeft = Math.ceil((new Date(W_GOAL_DATE) - new Date(today())) / 864e5);
-  $("wTarget").textContent = `${W_GOAL} ק"ג עד 28.02 (${daysLeft} ימים) | אבן דרך ${W_MILE} עד 06.12`;
-  const need = last.v - W_GOAL;
-  $("wStatus").textContent = need <= 0 ? "הגעת ל-90. אתה עשית את זה." : `עכשיו ${last.v} ק"ג. נשארו ${need.toFixed(1)} ק"ג, כלומר ${(need / Math.max(1, daysLeft)).toFixed(2)} ק"ג ליום.`;
-  const x0 = new Date("2026-10-11"), x1 = new Date(W_GOAL_DATE), X = d => 20 + (new Date(d) - x0) / (x1 - x0) * 300, Y = v => 20 + (101 - v) / 12 * 140;
-  const pts = ws.map(w => `${X(w.d).toFixed(1)},${Y(w.v).toFixed(1)}`).join(" ");
-  $("wChart").innerHTML = `<line x1="${X("2026-10-11")}" y1="${Y(100)}" x2="${X(W_GOAL_DATE)}" y2="${Y(90)}" stroke="#41d08b" stroke-dasharray="5 5" stroke-width="2"/><text x="${X(W_GOAL_DATE)-4}" y="${Y(90)-8}" fill="#41d08b" font-size="12" text-anchor="end">90 ב-28.02</text><circle cx="${X(W_MILE_DATE)}" cy="${Y(W_MILE)}" r="5" fill="none" stroke="#ffcc66" stroke-width="2"/><text x="${X(W_MILE_DATE)}" y="${Y(W_MILE)+18}" fill="#ffcc66" font-size="11" text-anchor="middle">95</text><polyline points="${pts}" fill="none" stroke="#edf3f8" stroke-width="3" stroke-linejoin="round"/><circle cx="${X(ws[ws.length - 1].d)}" cy="${Y(last.v)}" r="5" fill="#edf3f8"/><text x="20" y="14" fill="#9ba7b3" font-size="12">100</text><text x="20" y="${Y(90)+4}" fill="#9ba7b3" font-size="12">90</text>`;
-}
-
-const DB = new Promise((ok, no) => { const r = indexedDB.open("shay-health", 1); r.onupgradeneeded = () => r.result.createObjectStore("photos", { keyPath: "id" }); r.onsuccess = () => ok(r.result); r.onerror = no; });
-const put = async p => { const db = await DB; return new Promise((ok, no) => { const t = db.transaction("photos", "readwrite"); t.objectStore("photos").put(p); t.oncomplete = ok; t.onerror = no; }); };
-const del = async id => { const db = await DB; return new Promise((ok, no) => { const t = db.transaction("photos", "readwrite"); t.objectStore("photos").delete(id); t.oncomplete = ok; t.onerror = no; }); };
-const allPhotos = async () => { const db = await DB; return new Promise(ok => { const r = db.transaction("photos").objectStore("photos").getAll(); r.onsuccess = () => ok(r.result || []); }); };
-async function shrink(file) { const img = await createImageBitmap(file); const k = Math.min(1, 1080 / Math.max(img.width, img.height)); const c = document.createElement("canvas"); c.width = Math.max(1, img.width * k); c.height = Math.max(1, img.height * k); const ctx = c.getContext("2d"); ctx.drawImage(img, 0, 0, c.width, c.height); return new Promise(resolve => c.toBlob(blob => resolve(blob), "image/jpeg", 0.88)); }
-let heroUrl;
-async function showHero() {
-  const all = await allPhotos(), el = $("hero"), d = day(), h = new Date().getHours();
-  const thin = all.filter(p => (p.kind || "thin") === "thin"), warn = all.filter(p => p.kind === "warn");
-  const slipping = d.junk > 0 || (h >= 18 && scoreOf(d) < 50);
-  const set = slipping && warn.length ? warn : thin.length ? thin : warn;
-  if (!set.length) { el.className = "hero empty"; el.textContent = EMPTY_HERO; return; }
-  const p = set[(new Date().getDate() + h) % set.length];
-  const cap = set === warn ? "לזה אתה רוצה לחזור? עצור עכשיו." : "אתה רוצה להגיע לזה? אתה כבר היית שם.";
-  if (heroUrl) URL.revokeObjectURL(heroUrl); heroUrl = URL.createObjectURL(p.blob);
-  el.className = "hero"; el.innerHTML = '<img alt=""><div class="cap"></div>'; el.querySelector("img").src = heroUrl; el.querySelector(".cap").textContent = cap;
-  el.style.borderColor = set === warn ? "rgba(255,101,127,.5)" : "rgba(136,161,182,.18)";
-}
-async function renderPhotos() {
-  const ps = await allPhotos(); $("pgrid").innerHTML = ""; $("pgridWarn").innerHTML = "";
-  for (const p of ps) {
-    const i = document.createElement("img"); i.src = URL.createObjectURL(p.blob); let t;
-    i.ontouchstart = i.onmousedown = () => t = setTimeout(async () => { if (confirm("למחוק את התמונה?")) { await del(p.id); renderPhotos(); showHero(); } }, 700);
-    i.ontouchend = i.onmouseup = () => clearTimeout(t);
-    $(p.kind === "warn" ? "pgridWarn" : "pgrid").appendChild(i);
-  }
-}
-const addPhotos = kind => { const i = document.createElement("input"); i.type = "file"; i.accept = "image/*"; i.multiple = true; i.onchange = async () => { for (const f of i.files) { const blob = await shrink(f); await put({ id: crypto.randomUUID(), kind, blob }); } renderPhotos(); showHero(); }; i.click(); };
-$("addPh").onclick = () => addPhotos("thin");
-$("addWarn").onclick = () => addPhotos("warn");
-document.querySelectorAll("#meals button").forEach(b => b.onclick = () => { const d = day(); d.meals[+b.dataset.m] = d.meals[+b.dataset.m] ? 0 : 1; save(); render(); });
-$("waterAdd").onclick = () => { day().water++; save(); render(); if (navigator.vibrate) navigator.vibrate(20); };
-$("waterSub").onclick = () => { day().water = Math.max(0, day().water - 1); save(); render(); };
-$("junk").onclick = () => { day().junk++; save(); render(); };
-$("unjunk").onclick = () => { day().junk = 0; save(); render(); };
-$("stepsEdit").onclick = () => { const v = prompt("כמה צעדים עכשיו?", day().steps); if (v !== null && +v >= 0) { day().steps = parseInt(v, 10) || 0; day().stepsAt = ""; save(); render(); } };
-$("wSave").onclick = () => { addWeight(parseFloat($("wIn").value)); $("wIn").value = ""; render(); toast("נשמר"); };
-$("gSave").onclick = () => { S.goals = { steps: Math.max(1000, +$("gSteps").value || 10000), water: Math.max(4, +$("gWater").value || 12) }; save(); render(); toast("היעדים נשמרו"); };
-$("exp").onclick = () => { const b = new Blob([JSON.stringify(S, null, 1)], { type: "application/json" }); const a = document.createElement("a"); a.href = URL.createObjectURL(b); a.download = `shay-health-${today()}.json`; a.click(); };
-$("imp").onclick = () => { const i = document.createElement("input"); i.type = "file"; i.accept = ".json"; i.onchange = async () => { try { S = JSON.parse(await i.files[0].text()); save(); render(); toast("ייבוא הושלם"); } catch { toast("קובץ לא תקין"); } }; i.click(); };
-document.querySelectorAll(".tabs button").forEach(b => b.onclick = () => { document.querySelectorAll(".tabs button,.page").forEach(x => x.classList.remove("on")); b.classList.add("on"); $(b.dataset.p).classList.add("on"); });
-document.addEventListener("visibilitychange", () => { if (!document.hidden) render(); });
-setInterval(render, 60000);
-if ("serviceWorker" in navigator && location.protocol === "https:") navigator.serviceWorker.register("sw.js");
-handleUrl(); render();
-</script>
+  <script>
+    if ('serviceWorker' in navigator && location.protocol === 'https:') {
+      navigator.serviceWorker.register('sw.js').catch(() => {});
+    }
+  </script>
 </body>
 </html>
