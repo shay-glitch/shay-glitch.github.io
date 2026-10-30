@@ -114,11 +114,16 @@ h1{font-size:22px;font-weight:800;letter-spacing:-.3px}
 </div>
 
 <div class="card">
- <h2>🔥 תמונות מוטיבציה</h2>
- <div class="mut">העלה כאן תמונות שלך כשהיית רזה. הן נשמרות במכשיר שלך בלבד. לחיצה על תמונה מוחקת אותה.</div>
- <div class="btnrow"><button class="btn blue" onclick="document.getElementById('photoIn').click()">הוסף תמונה</button></div>
- <input type="file" id="photoIn" accept="image/*" style="display:none" onchange="addPhoto(this)">
- <div id="photos" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:10px"></div>
+ <h2>🔥 לפני ואחרי</h2>
+ <div class="mut">שתי שורות: מי אתה רוצה להיות, וממה אתה לא חוזר. הכל נשמר במכשיר שלך בלבד. לחיצה על תמונה מוחקת אותה.</div>
+ <div class="mut" style="margin-top:10px;font-weight:700;color:var(--mint)">רזה</div>
+ <div class="btnrow"><button class="btn blue" onclick="document.getElementById('photoIn_fit').click()">הוסף תמונה רזה</button></div>
+ <input type="file" id="photoIn_fit" accept="image/*" style="display:none" onchange="addPhoto(this,'fit')">
+ <div id="photos_fit" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:10px"></div>
+ <div class="mut" style="margin-top:14px;font-weight:700;color:var(--red)">לפני</div>
+ <div class="btnrow"><button class="btn warn" onclick="document.getElementById('photoIn_before').click()">הוסף תמונה לפני</button></div>
+ <input type="file" id="photoIn_before" accept="image/*" style="display:none" onchange="addPhoto(this,'before')">
+ <div id="photos_before" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:10px"></div>
 </div>
 
 <div class="card">
@@ -149,7 +154,7 @@ function flash(t){const f=document.getElementById('flash');f.textContent=t;f.cla
 function addWater(ml){const d=day();const t=today();d[t].water=Math.max(0,(d[t].water||0)+ml);save(d);render();if(ml>0)flash('כל הכבוד, עוד כוס 👍')}
 function enterSteps(){const v=prompt('כמה צעדים היום? (מאפליקציית גרמין)');if(!v)return;const n=parseInt(v.replace(/\D/g,''));if(isNaN(n))return;const d=day();d[today()].steps=n;save(d);render();flash('עודכן: '+n.toLocaleString('he')+' צעדים')}
 function logJunk(){const d=day();d[today()].junk=true;d[today()].junkAt=new Date().toISOString();save(d);render();flash('יום חדש מחר. בלי אשמה 🙌')}
-function streak(){const d=load();let s=0;for(let i=0;i<60;i++){const dt=new Date();dt.setDate(dt.getDate()-i);const k=dt.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');const r=d[k];if(!r){if(i===0){continue}else break}
+function streak(){const d=load();let s=0;for(let i=0;i<60;i++){const dt=new Date();dt.setDate(dt.getDate()-i);const k=dt.getFullYear()+'-'+String(dt.getMonth()+1).padStart(2,'0')+'-'+String(dt.getDate()).padStart(2,'0');const r=d[k];if(!r){if(i===0){continue}else break}
  const good=(r.water||0)>=GOALS.water*250*0.75&&((r.steps||0)>=GOALS.steps*0.7)&&!r.junk;if(i===0){if(good)s++}else if(good)s++;else break}return s}
 function render(){
  const t=today();const d=day()[t];
@@ -193,8 +198,8 @@ document.getElementById('motto').textContent=MOTTO[new Date().getDate()%MOTTO.le
 function enterWeight(){const v=prompt('משקל נוכחי בקילו?');if(!v)return;const n=parseFloat(v.replace(',','.'));if(isNaN(n)||n<30||n>250)return;const d=load();if(!d.weightStart){d.weightStart=n;d.wStart=new Date().toISOString()}d['w_'+today()]=n;d.lastWeight=n;save(d);renderWeight()}
 function renderWeight(){const d=load();const cur=d.lastWeight;document.getElementById('wNow').textContent=cur?(cur+' קיגו'):'לא הוזן';
  if(d.weightStart&&cur){const done=Math.max(0,d.weightStart-cur);document.getElementById('wBar').style.width=Math.min(100,done/10*100)+'%';const days=Math.max(0,120-Math.floor((Date.now()-new Date(d.wStart))/86400000));const weeks=((120-days)/7)||1;const pace=(done/weeks).toFixed(2);document.getElementById('wPace').textContent='הורדת '+done.toFixed(1)+' קיגו. נותרו '+(10-done).toFixed(1)+' קיגו ו-'+days+' ימים. קצב: '+pace+' קיגו/שבוע.'}}
-function addPhoto(inp){const f=inp.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{const d=load();d.photos=d.photos||[];d.photos.unshift(r.result);d.photos=d.photos.slice(0,12);save(d);renderPhotos();flash('נשמר. תסתכל על זה כשקשה 🙌')};r.readAsDataURL(f);inp.value=''}
-function renderPhotos(){const d=load();const box=document.getElementById('photos');box.innerHTML='';(d.photos||[]).forEach((p,i)=>{const im=document.createElement('img');im.src=p;im.style.cssText='width:100%;aspect-ratio:1;object-fit:cover;border-radius:12px;border:1px solid var(--line)';im.onclick=()=>{const dd=load();dd.photos.splice(i,1);save(dd);renderPhotos()};box.appendChild(im)})}
+function addPhoto(inp,kind){const f=inp.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{const d=load();const key='photos_'+kind;d[key]=d[key]||[];d[key].unshift(r.result);d[key]=d[key].slice(0,12);save(d);renderPhotos();flash(kind==='fit'?'נשמר. תסתכל על זה כשקשה 🙌':'נשמר. תזכורת למה לא חוזרים.')};r.readAsDataURL(f);inp.value=''}
+function renderPhotos(){const d=load();if(d.photos&&!d.photos_fit){d.photos_fit=d.photos;delete d.photos;save(d)}['fit','before'].forEach(kind=>{const box=document.getElementById('photos_'+kind);box.innerHTML='';(d['photos_'+kind]||[]).forEach((p,i)=>{const im=document.createElement('img');im.src=p;im.style.cssText='width:100%;aspect-ratio:1;object-fit:cover;border-radius:12px;border:1px solid var(--line)';im.onclick=()=>{const dd=load();dd['photos_'+kind].splice(i,1);save(dd);renderPhotos()};box.appendChild(im)})})}
 renderWeight();renderPhotos();
 
 render();
