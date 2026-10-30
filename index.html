@@ -6,65 +6,162 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="שי בריאות">
-<meta name="theme-color" content="#0b0d10">
+<meta name="theme-color" content="#0a0f14">
 <link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9zQYyAAAEVElEQVR4nO3Wy21VQRBFUc9bSGRCCARGRCREOmZk2Q9hMNxPdZ1agz1311nvyk/r0+dnKaWn6j9AOjOgFRXQigpoRQW0ogJaUQGtqIBWVEArKqAVFdCKCmhFBbSiAlpRAa2ogFZUQCsqoBUV0Af68uPbZVW/rWtAf7Ar8UJ+XkC/UzVewP8voN9UDRTu440HXQ0RbqBBBhvoSZAnwx4DuhrVDlVvADTIYAMN8mTYcaCrkXSsejOgYYY6GXQ1hqSqtxwPuhpAYtWbjgVdPXxy1duOAl099qSqt44HXT3wxKo3jwVdPexRFNV/wwTUbUBXD3rn0NVv6oy6BejqIatHrX5z9fujQFcPuNuI1bfY7R6tQBvNfWJAG8qtYkAbx91iQE8fxA2DQE8dwT0DQU88vrsC3f7g7jsA9JRjVzfhzuWgJxx5p9LvXQo6+bC7l3r7WNDVYDqUeP8y0InH7FjaDiWg047YvaQ9okBXw+hcyia3g045XGIJ20SAroaQVPd9bgWd8AVIr/tG7UFXA0is8063ge58pL/19fvzKVW/I2GvtqCrB08H3XWzW0B3/bUD3W+3lqCrh54CuuN2l4PudhCge28INNBRG14KutMhgM7YEmigo7ZsA7p60Omgu+x5Geguv2igszZtAbp6SKD77Ao00FG7XgJ690cDnbsv0EBH7Qs00FH7bg26ejig+218Ouidf71A5+8MNNBRO28LunowoHtuDTTQUVsDDXTU1qeC3vX/KqD3Bn3m3luCrh4K6L6bAw101OZAAx21OdBAR20ONNBRmwMNdNTmQAMdtTnQQEdtDjTQUZsDDXTU5tuBrh4IaKC3fRzQQEc9Dmigox4HNNBRjwMa6KjHAQ101OOABjrqcUADHfU4oIEue1z1MEcCeijo6uNfFdDhoKuPfHdTQZ+FeVvQUwN6D8wL6HMCGuiogAY6qomgd/z/eQF9TkADHRXQe2BeQJ/TNNC7fp0X0OcENNBRAQ10VJNA74x5Aa1/DWjFdCZmoFXe7pgX0PpoHb7OC2h9NKAVUxfMC2h9JKAVUyfMC2j9qbMxA63SumFeQOu9On6dF9D6XV0xL6D1a1dgBlpldca8gNbbun+dF9B6KQHzAlrrQsxA6/aSMC+gZ5eGeQE9tysxA63buhpyJeYF9KzSMS+g5zQB8wI6vzsgA61bmoZ5AZ3ZnZB3wryAzupuyLthXkBnVAF5R8wL6N5VQd4V8wK6X5WId8e8gO5RNeAumBfQe1aNtivmBXQ+wkmYgQY6CjPQQEdhBhrmGMhAAx2HGWigozAvoIFOgfwS0CdUjRHm14A+oWqQIL8G9AlVwwT5NaAPVo0T5MeAPlg1UpAfA/pg1VhBfgzog1WjBfkxoA9WjRfix4A+GMR7BfSBAN4voA8E734BraiAVlRAKyqgFRXQigpoRQW0ogJaUQGtqIBWVEArKqAVFdCKCmhFBbSiAlpRAa2ogFZUPwFdTk7vXKQ9QAAAAABJRU5ErkJggg==">
-<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9zQYyAAAEVElEQVR4nO3Wy21VQRBFUc9bSGRCCARGRCREOmZk2Q9hMNxPdZ1agz1311nvyk/r0+dnKaWn6j9AOjOgFRXQigpoRQW0ogJaUQGtqIBWVEArKqAVFdCKCmhFBbSiAlpRAa2ogFZUQCsqoBUV0Af68uPbZVW/rWtAf7Ar8UJ+XkC/UzVewP8voN9UDRTu440HXQ0RbqBBBhvoSZAnwx4DuhrVDlVvADTIYAMN8mTYcaCrkXSsejOgYYY6GXQ1hqSqtxwPuhpAYtWbjgVdPXxy1duOAl099qSqt44HXT3wxKo3jwVdPexRFNV/wwTUbUBXD3rn0NVv6oy6BejqIatHrX5z9fujQFcPuNuI1bfY7R6tQBvNfWJAG8qtYkAbx91iQE8fxA2DQE8dwT0DQU88vrsC3f7g7jsA9JRjVzfhzuWgJxx5p9LvXQo6+bC7l3r7WNDVYDqUeP8y0InH7FjaDiWg047YvaQ9okBXw+hcyia3g045XGIJ20SAroaQVPd9bgWd8AVIr/tG7UFXA0is8063ge58pL/19fvzKVW/I2GvtqCrB08H3XWzW0B3/bUD3W+3lqCrh54CuuN2l4PudhCge28INNBRG14KutMhgM7YEmigo7ZsA7p60Omgu+x5Geguv2igszZtAbp6SKD77Ao00FG7XgJ690cDnbsv0EBH7Qs00FH7bg26ejig+218Ouidf71A5+8MNNBRO28LunowoHtuDTTQUVsDDXTU1qeC3vX/KqD3Bn3m3luCrh4K6L6bAw101OZAAx21OdBAR20ONNBRmwMNdNTmQAMdtTnQQEdtDjTQUZsDDXTU5tuBrh4IaKC3fRzQQEc9Dmigox4HNNBRjwMa6KjHAQ101OOABjrqcUADHfU4oIEue1z1MEcCeijo6uNfFdDhoKuPfHdTQZ+FeVvQUwN6D8wL6HMCGuiogAY6qomgd/z/eQF9TkADHRXQe2BeQJ/TNNC7fp0X0OcENNBRAQ10VJNA74x5Aa1/DWjFdCZmoFXe7pgX0PpoHb7OC2h9NKAVUxfMC2h9JKAVUyfMC2j9qbMxA63SumFeQOu9On6dF9D6XV0xL6D1a1dgBlpldca8gNbbun+dF9B6KQHzAlrrQsxA6/aSMC+gZ5eGeQE9tysxA63buhpyJeYF9KzSMS+g5zQB8wI6vzsgA61bmoZ5AZ3ZnZB3wryAzupuyLthXkBnVAF5R8wL6N5VQd4V8wK6X5WId8e8gO5RNeAumBfQe1aNtivmBXQ+wkmYgQY6CjPQQEdhBhrmGMhAAx2HGWigozAvoIFOgfwS0CdUjRHm14A+oWqQIL8G9AlVwwT5NaAPVo0T5MeAPlg1UpAfA/pg1VhBfgzog1WjBfkxoA9WjRfix4A+GMR7BfSBAN4voA8E734BraiAVlRAKyqgFRXQigpoRQW0ogJaUQGtqIBWVEArKqAVFdCKCmhFBbSiAlpRAa2ogFZUPwFdTk7vXKQ9QAAAAABJRU5ErkJggg==">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9zQYyAAAEVElEQVR4nO3Wy21VQRBFUc9bSGRCCARGRCREOmZk2Q9hMNxPdZ1agz1311nvyk/r0+dnKaWn6j9AOjOgFRXQigpoRQW0ogJaUQGtqIBwQmro9bXCb2fF+DMnIY1XJ3IrmNg0z0BI3K9V+9mS7VW5N80A5S8bUZ/6iiO5hZl+UbrQzjFv5/4ajV0l0yns7/Mn0mQAMgHf3np1e2H7XDw7TkvJmD9gRzhzgVJ9bW+6QwAAABJRU5ErkJggg==">
+<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9zQYyAAAEVElEQVR4nO3Wy21VQRBFUc9bSGRCCARGRCREOmZk2Q9hMNxPdZ1agz1311nvyk/r0+dnKaWn6j9AOjOgFRXQigpoRQW0ogJaUQGtqIBwQmro9bXCb2fF+DMnIY1XJ3IrmNg0z0BI3K9V+9mS7VW5N80A5S8bUZ/6iiO5hZl+UbrQzjFv5/4ajV0l0yns7/Mn0mQAMgHf3np1e2H7XDw7TkvJmD9gRzhzgVJ9bW+6QwAAABJRU5ErkJggg==">
 <title>שי בריאות</title>
 <style>
-  :root { --bg:#0b0d10; --card:#15191e; --line:#232a31; --ink:#f2f4f6; --muted:#8a96a3; --go:#2fd67b; --warn:#ffb020; --bad:#ff4d4d; --water:#3fa9ff; }
+  :root {
+    --bg: #070b10;
+    --bg-2: #0d141b;
+    --panel: rgba(17, 24, 31, 0.88);
+    --panel-strong: rgba(19, 26, 34, 1);
+    --panel-soft: rgba(24, 32, 40, 0.9);
+    --line: rgba(136, 161, 182, 0.18);
+    --line-strong: rgba(136, 161, 182, 0.32);
+    --ink: #edf3f8;
+    --muted: #9ba7b3;
+    --go: #41d08b;
+    --go-strong: #2ec27d;
+    --warn: #ffcc66;
+    --warn-strong: #ffb648;
+    --bad: #ff657f;
+    --bad-strong: #ff4d69;
+    --water: #54b0ff;
+    --water-strong: #2893ff;
+    --accent: #b69cff;
+    --shadow: 0 18px 44px rgba(0,0,0,.38);
+  }
+
   * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-  html,body { margin:0; background:var(--bg); color:var(--ink); font-family:-apple-system,"SF Pro Text","Segoe UI",Arial,sans-serif; }
-  body { padding:calc(env(safe-area-inset-top) + 12px) 14px calc(env(safe-area-inset-bottom) + 90px); }
-  h1 { font-size:28px; margin:0; letter-spacing:.5px; }
-  .top { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:12px; }
-  .top small { color:var(--muted); font-size:13px; }
-  .nag { border-radius:16px; padding:16px; font-size:18px; font-weight:700; line-height:1.4; margin-bottom:14px; }
-  .nag.bad { background:#3a1416; color:#ffd2d2; border:1px solid #5c1f22; }
-  .nag.warn { background:#3a2a0d; color:#ffe2a8; border:1px solid #5c4316; }
-  .nag.go { background:#0f2f1e; color:#c6f5da; border:1px solid #1d4d33; }
-  .card { background:var(--card); border:1px solid var(--line); border-radius:18px; padding:16px; margin-bottom:12px; }
+  html, body {
+    margin:0; min-height:100%;
+    background:
+      radial-gradient(circle at top, rgba(92,112,147,.28), transparent 35%),
+      radial-gradient(circle at 80% 10%, rgba(112,81,255,.16), transparent 22%),
+      linear-gradient(180deg, #071018 0%, #0a0f14 26%, #0b1117 100%);
+    color:var(--ink); font-family:-apple-system,"SF Pro Text","Segoe UI",Arial,sans-serif;
+  }
+
+  body {
+    padding:calc(env(safe-area-inset-top) + 18px) 16px calc(env(safe-area-inset-bottom) + 96px);
+  }
+
+  h1 { margin:0; font-size:26px; letter-spacing:-.03em; line-height:1.08; }
+  small { color:var(--muted); }
+
+  .top {
+    display:flex; justify-content:space-between; align-items:flex-end; gap:12px; margin-bottom:12px;
+  }
+
+  .top small { display:block; margin-top:4px; font-size:12px; letter-spacing:.08em; text-transform:uppercase; }
+
+  .score { width:78px; height:78px; flex:none; filter:drop-shadow(0 12px 24px rgba(65,208,139,.18)); }
+
+  .hero {
+    position:relative; border-radius:24px; overflow:hidden; margin-bottom:14px; background:linear-gradient(135deg, rgba(18,24,31,1), rgba(18,24,31,.78)); border:1px solid var(--line); box-shadow:var(--shadow);
+  }
+  .hero img { width:100%; max-height:320px; object-fit:cover; display:block; }
+  .hero .cap {
+    position:absolute; left:0; right:0; bottom:0; padding:14px 16px 16px; background:linear-gradient(180deg, transparent, rgba(4,8,11,.9));
+    font-size:18px; font-weight:800; line-height:1.35;
+  }
+  .hero.empty {
+    padding:20px 16px; min-height:120px; display:flex; align-items:center; justify-content:center; color:var(--muted); text-align:center; border:1px dashed var(--line-strong); background:rgba(255,255,255,.02);
+  }
+
+  .nag {
+    border-radius:22px; padding:16px 18px; font-size:17px; line-height:1.45; font-weight:800; margin-bottom:14px; border:1px solid transparent; box-shadow:var(--shadow);
+  }
+  .nag.bad { background:linear-gradient(135deg, rgba(65,17,27,.9), rgba(90,24,24,.72)); border-color:rgba(255,101,127,.34); color:#ffdfe6; }
+  .nag.warn { background:linear-gradient(135deg, rgba(68,48,11,.9), rgba(89,66,25,.76)); border-color:rgba(255,204,102,.33); color:#fff0c8; }
+  .nag.go { background:linear-gradient(135deg, rgba(9,54,39,.9), rgba(11,67,45,.7)); border-color:rgba(65,208,139,.33); color:#d9ffe7; }
+
+  .card {
+    background:linear-gradient(180deg, rgba(19,26,34,.88), rgba(14,20,27,.94));
+    border:1px solid var(--line);
+    border-radius:24px;
+    padding:16px 16px 14px;
+    margin-bottom:12px;
+    box-shadow:var(--shadow);
+    backdrop-filter: blur(18px);
+  }
+
+  .label {
+    color:var(--muted); font-size:12px; letter-spacing:.08em; text-transform:uppercase; margin-bottom:10px; font-weight:700;
+  }
+
   .row { display:flex; align-items:center; gap:14px; }
-  .label { color:var(--muted); font-size:14px; margin-bottom:6px; }
-  .big { font-size:40px; font-weight:800; line-height:1; }
-  .unit { color:var(--muted); font-size:15px; margin-inline-start:4px; font-weight:500; }
-  .bar { height:12px; background:#0e1114; border-radius:8px; overflow:hidden; margin-top:12px; }
-  .bar i { display:block; height:100%; border-radius:8px; transition:width .4s; }
+  .big { font-size:42px; font-weight:900; letter-spacing:-.05em; line-height:1; }
+  .unit { color:var(--muted); font-size:15px; font-weight:700; margin-inline-start:2px; }
+
+  .bar { height:12px; background:rgba(255,255,255,.06); border-radius:999px; overflow:hidden; margin-top:12px; }
+  .bar i { display:block; height:100%; border-radius:999px; transition:width .3s ease; }
+
   .btns { display:flex; gap:10px; margin-top:14px; }
-  button { font:inherit; border:0; border-radius:14px; padding:14px; font-size:17px; font-weight:700; color:var(--ink); background:#222a32; flex:1; }
-  button:active { transform:scale(.97); }
-  .b-water { background:var(--water); color:#00131f; font-size:20px; }
-  .b-go { background:var(--go); color:#002010; }
-  .b-bad { background:#2a1517; color:#ff9a9a; border:1px solid #4a2023; }
-  .score { width:84px; height:84px; flex:none; }
-  .glasses { display:flex; flex-wrap:wrap; gap:6px; margin-top:12px; direction:ltr; }
-  .glasses span { width:20px; height:26px; border-radius:3px 3px 6px 6px; border:2px solid var(--water); }
-  .glasses span.full { background:var(--water); }
-  .week { display:flex; gap:6px; align-items:flex-end; height:70px; direction:ltr; margin-top:10px; }
+  button {
+    font:inherit; border:0; border-radius:16px; padding:15px 14px; font-size:17px; font-weight:800; color:var(--ink); background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.06); flex:1; cursor:pointer; transition:transform .15s ease, opacity .15s ease;
+  }
+  button:active { transform:scale(.98); }
+  .b-water { background:linear-gradient(135deg, var(--water), var(--water-strong)); color:#03263d; }
+  .b-go { background:linear-gradient(135deg, var(--go), var(--go-strong)); color:#0a1d12; }
+  .b-bad { background:linear-gradient(135deg, rgba(255,101,127,.8), rgba(255,77,105,.95)); color:#fff; }
+
+  .glasses { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; direction:ltr; }
+  .glasses span {
+    width:18px; height:26px; border-radius:5px 5px 8px 8px; border:1.5px solid rgba(84,176,255,.9); background:transparent; box-shadow:inset 0 0 0 1px rgba(255,255,255,.04);
+  }
+  .glasses span.full { background:linear-gradient(180deg, rgba(84,176,255,.82), rgba(40,147,255,.98)); border-color:rgba(84,176,255,.9); }
+
+  .week { display:flex; gap:7px; align-items:flex-end; height:86px; direction:ltr; margin-top:10px; }
   .week div { flex:1; text-align:center; font-size:11px; color:var(--muted); }
-  .week b { display:block; border-radius:6px 6px 2px 2px; margin-bottom:4px; min-height:3px; }
-  input { font:inherit; font-size:20px; width:100%; padding:12px; border-radius:12px; border:1px solid var(--line); background:#0e1114; color:var(--ink); text-align:center; }
+  .week b { display:block; border-radius:8px 8px 3px 3px; margin-bottom:5px; min-height:8px; background:linear-gradient(180deg, rgba(126,139,168,.7), rgba(255,255,255,.05)); }
+
   .muted { color:var(--muted); font-size:13px; }
-  .streak { font-size:15px; margin-top:8px; }
-  svg text { font-family:inherit; }
-  .tabs { position:fixed; bottom:0; left:0; right:0; display:flex; background:#0e1114ee; backdrop-filter:blur(10px); border-top:1px solid var(--line); padding:8px 10px calc(env(safe-area-inset-bottom) + 8px); }
-  .tabs button { background:none; font-size:14px; color:var(--muted); padding:8px; }
-  .tabs button.on { color:var(--ink); }
-  .page { display:none; } .page.on { display:block; }
-  .hero { position:relative; border-radius:18px; overflow:hidden; margin-bottom:12px; background:#15191e; border:1px solid var(--line); }
-  .hero img { width:100%; max-height:340px; object-fit:cover; display:block; }
-  .hero .cap { position:absolute; bottom:0; left:0; right:0; padding:14px; background:linear-gradient(transparent,#000c); font-size:22px; font-weight:800; }
-  .hero.empty { padding:18px; text-align:center; color:var(--muted); }
-  .meals { display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin-top:12px; }
-  .meals button { font-size:15px; padding:12px 6px; }
-  .meals button.on { background:var(--go); color:#002010; }
-  .line { font-size:16px; color:#cfd6dd; margin-top:6px; }
-  .pgrid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px; margin-top:12px; }
-  .pgrid img { width:100%; aspect-ratio:1; object-fit:cover; border-radius:10px; }
-  .toast { position:fixed; top:calc(env(safe-area-inset-top) + 10px); left:50%; transform:translateX(-50%); background:#222a32; padding:10px 16px; border-radius:12px; font-size:15px; opacity:0; transition:opacity .3s; pointer-events:none; z-index:9; }
-  .toast.on { opacity:1; }
-  ol li { margin-bottom:10px; line-height:1.5; }
-  code { background:#0e1114; padding:2px 6px; border-radius:6px; direction:ltr; display:inline-block; font-size:13px; }
+  .streak { margin-top:12px; color:var(--ink); font-size:14px; font-weight:700; }
+
+  .meals { display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:8px; margin-top:12px; }
+  .meals button { font-size:15px; padding:12px 10px; }
+  .meals button.on { background:linear-gradient(135deg, rgba(65,208,139,.96), rgba(46,194,125,.96)); color:#0a1f10; border-color:transparent; }
+
+  .line { font-size:16px; color:#dfe7ef; line-height:1.58; }
+
+  .pgrid { display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:8px; margin-top:12px; }
+  .pgrid img { width:100%; aspect-ratio:1; object-fit:cover; border-radius:14px; display:block; border:1px solid rgba(255,255,255,.06); }
+
+  input {
+    width:100%; border-radius:12px; border:1px solid var(--line-strong); background:rgba(10,14,18,.9); color:var(--ink); font:inherit; font-size:18px; padding:12px 14px; text-align:center; outline:none; box-shadow:inset 0 1px 0 rgba(255,255,255,.02);
+  }
+
+  .tabs {
+    position:fixed; left:10px; right:10px; bottom:14px; display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:8px; padding:8px; border-radius:20px; background:rgba(7,11,16,.8); border:1px solid rgba(255,255,255,.08); backdrop-filter:blur(14px); box-shadow:0 16px 34px rgba(0,0,0,.42);
+  }
+  .tabs button {
+    background:none; border:0; color:var(--muted); padding:10px 8px; border-radius:12px; font-weight:800; font-size:14px;
+  }
+  .tabs button.on {
+    color:var(--ink); background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.06);
+  }
+
+  .page { display:none; }
+  .page.on { display:block; }
+
+  .toast {
+    position:fixed; top:calc(env(safe-area-inset-top) + 14px); left:50%; transform:translateX(-50%) translateY(-8px); background:rgba(14,20,27,.96); color:var(--ink); border:1px solid rgba(255,255,255,.08); box-shadow:var(--shadow); border-radius:999px; padding:10px 18px; font-size:14px; font-weight:700; opacity:0; pointer-events:none; transition:all .2s ease; z-index:30;
+  }
+  .toast.on { opacity:1; transform:translateX(-50%) translateY(0); }
+
+  code {
+    direction:ltr; display:inline-block; background:rgba(255,255,255,.04); padding:4px 7px; border-radius:8px; line-height:1.5; font-size:13px; }
+
+  ol { margin:0; padding-inline-start:18px; }
+  ol li { margin-bottom:10px; line-height:1.55; color:#dfe7ef; }
+
+  @media (min-width:520px) {
+    body { max-width:420px; margin:0 auto; }
+    .tabs { max-width:420px; left:50%; transform:translateX(-50%); }
+  }
 </style>
 </head>
 <body>
@@ -72,7 +169,10 @@
 
 <section class="page on" id="p-today">
   <div class="top">
-    <div><h1>שי בריאות</h1><small id="dayN"></small></div>
+    <div>
+      <h1>שי בריאות</h1>
+      <small id="dayN"></small>
+    </div>
     <svg class="score" viewBox="0 0 100 100" id="scoreRing"></svg>
   </div>
   <div class="hero empty" id="hero"></div>
@@ -82,7 +182,7 @@
   <div class="card">
     <div class="label">צעדים היום <span class="muted" id="stepsSrc"></span></div>
     <div class="row"><div class="big" id="steps">0</div><span class="unit" id="stepsGoal"></span></div>
-    <div class="bar"><i id="stepsBar" style="background:var(--go)"></i></div>
+    <div class="bar"><i id="stepsBar" style="background:linear-gradient(90deg, var(--go), var(--go-strong));"></i></div>
     <div class="btns"><button id="stepsEdit">עדכון ידני</button></div>
   </div>
 
@@ -180,7 +280,13 @@
 
 <script>
 const START = "2026-09-23", W_START = 100, W_GOAL = 90, W_GOAL_DATE = "2027-02-28", W_MILE = 95, W_MILE_DATE = "2026-12-06";
-const LINES = ["אתה לא צריך מוטיבציה. אתה צריך לעשות את הדבר הבא: כוס מים.", "זבל זה החלטה של 3 שניות. תגיד לא ל-3 שניות.", "רעב? קודם כוס מים, אחר כך מחליטים.", "כל הליכה של 15 דקות היא 1,500 צעדים לכיוון 90.", "מי שמגיע ל-90 לא מתמקח עם עצמו. הוא פשוט עושה.", "אוכל מסודר: חלבון, ירק, מים. זה כל הסוד.", "בנית חברות מאפס. אתה יכול לבנות גם את הגוף שלך.", "המטבח נסגר ב-21:00. בלי משא ומתן.", "תסתכל על התמונה. זה אתה. זה לא חלום, זה זיכרון.", "יום נקי אחד בכל פעם. רק היום."];
+const LINES = [
+  "אתה לא צריך מוטיבציה. אתה צריך לעשות את הדבר הבא: כוס מים.",
+  "זבל זה החלטה של 3 שניות. תגיד לא ל-3 שניות.",
+  "מסלול נבנה ב-שגרה. לא ביומיים.",
+  "היום חזק יותר מהרגע. אתה כבר עברת את זה פעם.",
+  "המטבח סגור. מים, תנועה, חלבון." 
+];
 const EMPTY_HERO = 'אין עדיין תמונות. לשונית "תמונות", ותוסיף 5 תמונות מהתקופה שהיית רזה.';
 const KEY = "shay95";
 const $ = id => document.getElementById(id);
@@ -200,15 +306,19 @@ function scoreOf(d) {
 }
 function cleanStreak() {
   let n = 0; const d = new Date();
-  for (;;) { const k = today(d); const x = S.days[k]; if (k < START || (x && x.junk)) break; if (!x && k !== today()) break; n++; d.setDate(d.getDate() - 1); }
+  for (;;) {
+    const k = today(d); const x = S.days[k];
+    if (k < START || (x && x.junk)) break;
+    if (!x && k !== today()) break;
+    n++; d.setDate(d.getDate() - 1);
+  }
   return n;
 }
 
-// URL actions from iPhone Shortcuts: ?steps=8421  ?water=1  ?weight=99.4
 function handleUrl() {
   const q = new URLSearchParams(location.search); let msg = "";
-  if (q.has("steps")) { const n = parseInt(q.get("steps"), 10); if (n >= 0 && n < 200000) { const d = day(); d.steps = n; d.stepsAt = new Date().toTimeString().slice(0, 5); msg = `צעדים עודכנו: ${n.toLocaleString()}`; } }
-  if (q.has("water")) { const n = parseInt(q.get("water"), 10) || 1; day().water = Math.max(0, day().water + n); msg = `+${n} כוס מים`; }
+  if (q.has("steps")) { const n = parseInt(q.get("steps"), 10); if (n >= 0 && n < 200000) { const d = day(); d.steps = n; d.stepsAt = new Date().toTimeString().slice(0, 5); msg = `צעדים ${n}`; } }
+  if (q.has("water")) { const n = parseInt(q.get("water"), 10) || 1; const d = day(); d.water = Math.max(0, d.water + n); msg = `+${n} כוס מים`; }
   if (q.has("weight")) { addWeight(parseFloat(q.get("weight"))); msg = "משקל נשמר"; }
   if (msg) { save(); toast(msg); history.replaceState(null, "", location.pathname); }
 }
@@ -218,14 +328,14 @@ function nag(d) {
   const stepsDue = Math.round(sg * Math.min(1, Math.max(0, (h - 7) / 14)));
   const waterDue = Math.round(wg * Math.min(1, Math.max(0, (h - 7) / 14)));
   const lines = [];
-  if (d.junk) lines.push(["bad", `אכלת זבל היום. זה לא מוחק את היום. מים, הליכה, ומחר מתחילים נקי.`]);
+  if (d.junk) lines.push(["bad", `אכלת זבל היום. זה לא מוחק את היום. מים, הליכה, וחזרה למסלול עכשיו.`]);
   if (d.water < waterDue - 2) lines.push(["bad", `שי. השעה ${h}:00 ושתית ${d.water} כוסות במקום ${waterDue}. קום, כוס מים, עכשיו.`]);
   else if (d.water < waterDue) lines.push(["warn", `אתה מאחור במים: ${d.water} מתוך ${waterDue} עד עכשיו. עוד כוס.`]);
-  if (d.steps < stepsDue * 0.6 && h >= 10) lines.push(["bad", `${d.steps.toLocaleString()} צעדים בלבד. אתה צריך ${stepsDue.toLocaleString()} עד עכשיו. 15 דקות הליכה. עכשיו.`]);
-  else if (d.steps < stepsDue && h >= 10) lines.push(["warn", `חסרים ${(stepsDue - d.steps).toLocaleString()} צעדים לקצב של היום. שיחת הטלפון הבאה בהליכה.`]);
+  if (d.steps < stepsDue * 0.6 && h >= 10) lines.push(["bad", `${d.steps.toLocaleString()} צעדים בלבד. אתה צריך ${stepsDue.toLocaleString()} עד עכשיו. 15 דקות הליכה יחזירו אותך למסלול.`]);
+  else if (d.steps < stepsDue && h >= 10) lines.push(["warn", `חסרים ${(stepsDue - d.steps).toLocaleString()} צעדים לקצב של היום. שיחת המעטפת הבאה היא הליכה.`]);
   const mealsDue = h >= 20 ? 3 : h >= 14 ? 2 : h >= 10 ? 1 : 0;
-  if ((d.meals || []).filter(Boolean).length < mealsDue - 1) lines.push(["warn", "דילגת על ארוחה. ככה מגיעים לזבל בערב. תאכל עכשיו משהו מסודר: חלבון וירק."]);
-  if (h >= 21 && !d.junk) lines.push(["warn", "21:00. המטבח סגור. רק מים."]);
+  if ((d.meals || []).filter(Boolean).length < mealsDue - 1) lines.push(["warn", "דילגת על ארוחה. ככה מגיעים לזבל בערב. תאכל עכשיו משהו מסודר: חלבון + ירק."]);
+  if (h >= 21 && !d.junk) lines.push(["warn", "21:00. המטבח סגור. רק מים. אין זבל, אין טשטוש."]);
   if (!lines.length) lines.push(["go", d.steps >= sg && d.water >= wg ? "יום מושלם. ככה נראה מי שמגיע ל-95." : "אתה בקצב. תמשיך בדיוק ככה."]);
   const worst = lines.find(l => l[0] === "bad") || lines.find(l => l[0] === "warn") || lines[0];
   $("nag").className = "nag " + worst[0]; $("nag").textContent = worst[1];
@@ -233,7 +343,7 @@ function nag(d) {
 
 function ring(score) {
   const c = 2 * Math.PI * 42, col = score >= 80 ? "var(--go)" : score >= 50 ? "var(--warn)" : "var(--bad)";
-  $("scoreRing").innerHTML = `<circle cx="50" cy="50" r="42" fill="none" stroke="#232a31" stroke-width="9"/><circle cx="50" cy="50" r="42" fill="none" stroke="${col}" stroke-width="9" stroke-linecap="round" stroke-dasharray="${c * score / 100} ${c}" transform="rotate(-90 50 50)"/><text x="50" y="58" text-anchor="middle" font-size="26" font-weight="800" fill="#f2f4f6">${score}</text>`;
+  $("scoreRing").innerHTML = `<circle cx="50" cy="50" r="42" fill="none" stroke="#202a31" stroke-width="9"/><circle cx="50" cy="50" r="42" fill="none" stroke="${col}" stroke-width="9" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${c - (score / 100) * c}" transform="rotate(-90 50 50)"/>`;
 }
 
 function render() {
@@ -250,9 +360,9 @@ function render() {
   $("water").textContent = d.water; $("waterGoal").textContent = `/ ${g.water} כוסות (${(d.water * 0.25).toFixed(2)} ל')`;
   $("glasses").innerHTML = Array.from({ length: Math.max(g.water, d.water) }, (_, i) => `<span class="${i < d.water ? "full" : ""}"></span>`).join("");
   $("cleanTxt").textContent = d.junk ? `זבל x${d.junk}` : "נקי ✅"; $("cleanTxt").style.color = d.junk ? "var(--bad)" : "var(--go)";
-  const st = cleanStreak(); $("streak").textContent = st === 1 ? "יום נקי ראשון ברצף" : st ? `${st} ימים נקיים ברצף` :"הרצף מתחיל מחר בבוקר";
+  const st = cleanStreak(); $("streak").textContent = st === 1 ? "יום נקי ראשון ברצף" : st ? `${st} ימים נקיים ברצף` : "הרצף מתחיל מחר בבוקר";
   ring(scoreOf(d)); nag(d);
-  const wk = []; for (let i = 6; i >= 0; i--) { const x = new Date(); x.setDate(x.getDate() - i); const k = today(x); const sc = scoreOf(S.days[k]); wk.push(`<div><b style="height:${Math.max(3, sc * .55)}px;background:${sc >= 80 ? "var(--go)" : sc >= 50 ? "var(--warn)" : "var(--bad)"}"></b>${"אבגדהוש"[x.getDay()]}</div>`); }
+  const wk = []; for (let i = 6; i >= 0; i--) { const x = new Date(); x.setDate(x.getDate() - i); const k = today(x); const sc = scoreOf(S.days[k]); wk.push(`<div><b style="height:${Math.max(12, sc / 100 * 58)}px;background:${sc>=80?"linear-gradient(180deg, rgba(65,208,139,.96), rgba(46,194,125,.9))":sc>=50?"linear-gradient(180deg, rgba(255,204,102,.9), rgba(255,182,72,.85))":"linear-gradient(180deg, rgba(255,101,127,.92), rgba(255,77,105,.8))"};"></b>${x.toLocaleDateString('he-IL',{day:'numeric'})}</div>`); }
   $("week").innerHTML = wk.join("");
   $("gSteps").value = g.steps; $("gWater").value = g.water;
   const base = location.href.split(/[?#]/)[0];
@@ -270,23 +380,17 @@ function renderWeight() {
   const daysLeft = Math.ceil((new Date(W_GOAL_DATE) - new Date(today())) / 864e5);
   $("wTarget").textContent = `${W_GOAL} ק"ג עד 28.02 (${daysLeft} ימים) | אבן דרך ${W_MILE} עד 06.12`;
   const need = last.v - W_GOAL;
-  $("wStatus").textContent = need <= 0 ? "הגעת ל-90. אתה עשית את זה." : `עכשיו ${last.v} ק"ג. נשארו ${need.toFixed(1)} ק"ג, כלומר ${(need / Math.max(1, daysLeft / 7)).toFixed(2)} ק"ג בשבוע.`;
+  $("wStatus").textContent = need <= 0 ? "הגעת ל-90. אתה עשית את זה." : `עכשיו ${last.v} ק"ג. נשארו ${need.toFixed(1)} ק"ג, כלומר ${(need / Math.max(1, daysLeft)).toFixed(2)} ק"ג ליום.`;
   const x0 = new Date("2026-10-11"), x1 = new Date(W_GOAL_DATE), X = d => 20 + (new Date(d) - x0) / (x1 - x0) * 300, Y = v => 20 + (101 - v) / 12 * 140;
   const pts = ws.map(w => `${X(w.d).toFixed(1)},${Y(w.v).toFixed(1)}`).join(" ");
-  $("wChart").innerHTML = `<line x1="${X("2026-10-11")}" y1="${Y(100)}" x2="${X(W_GOAL_DATE)}" y2="${Y(90)}" stroke="#2fd67b" stroke-dasharray="5 5" stroke-width="2"/>
-    <text x="${X(W_GOAL_DATE) - 4}" y="${Y(90) - 8}" fill="#2fd67b" font-size="12" text-anchor="end">90 ב-28.02</text>
-    <circle cx="${X(W_MILE_DATE)}" cy="${Y(W_MILE)}" r="5" fill="none" stroke="#ffb020" stroke-width="2"/><text x="${X(W_MILE_DATE)}" y="${Y(W_MILE) + 18}" fill="#ffb020" font-size="11" text-anchor="middle">95 ב-06.12</text>
-    <polyline points="${pts}" fill="none" stroke="#f2f4f6" stroke-width="3" stroke-linejoin="round"/>
-    ${ws.map(w => `<circle cx="${X(w.d)}" cy="${Y(w.v)}" r="4" fill="#f2f4f6"/>`).join("")}
-    <text x="20" y="14" fill="#8a96a3" font-size="12">100</text><text x="20" y="${Y(90) + 4}" fill="#8a96a3" font-size="12">90</text>`;
+  $("wChart").innerHTML = `<line x1="${X("2026-10-11")}" y1="${Y(100)}" x2="${X(W_GOAL_DATE)}" y2="${Y(90)}" stroke="#41d08b" stroke-dasharray="5 5" stroke-width="2"/><text x="${X(W_GOAL_DATE)-4}" y="${Y(90)-8}" fill="#41d08b" font-size="12" text-anchor="end">90 ב-28.02</text><circle cx="${X(W_MILE_DATE)}" cy="${Y(W_MILE)}" r="5" fill="none" stroke="#ffcc66" stroke-width="2"/><text x="${X(W_MILE_DATE)}" y="${Y(W_MILE)+18}" fill="#ffcc66" font-size="11" text-anchor="middle">95</text><polyline points="${pts}" fill="none" stroke="#edf3f8" stroke-width="3" stroke-linejoin="round"/><circle cx="${X(ws[ws.length - 1].d)}" cy="${Y(last.v)}" r="5" fill="#edf3f8"/><text x="20" y="14" fill="#9ba7b3" font-size="12">100</text><text x="20" y="${Y(90)+4}" fill="#9ba7b3" font-size="12">90</text>`;
 }
 
-// Photos: stored in IndexedDB on the phone only, never uploaded.
 const DB = new Promise((ok, no) => { const r = indexedDB.open("shay-health", 1); r.onupgradeneeded = () => r.result.createObjectStore("photos", { keyPath: "id" }); r.onsuccess = () => ok(r.result); r.onerror = no; });
 const put = async p => { const db = await DB; return new Promise((ok, no) => { const t = db.transaction("photos", "readwrite"); t.objectStore("photos").put(p); t.oncomplete = ok; t.onerror = no; }); };
 const del = async id => { const db = await DB; return new Promise((ok, no) => { const t = db.transaction("photos", "readwrite"); t.objectStore("photos").delete(id); t.oncomplete = ok; t.onerror = no; }); };
 const allPhotos = async () => { const db = await DB; return new Promise(ok => { const r = db.transaction("photos").objectStore("photos").getAll(); r.onsuccess = () => ok(r.result || []); }); };
-async function shrink(file) { const img = await createImageBitmap(file); const k = Math.min(1, 1080 / Math.max(img.width, img.height)); const c = document.createElement("canvas"); c.width = Math.round(img.width * k); c.height = Math.round(img.height * k); c.getContext("2d").drawImage(img, 0, 0, c.width, c.height); return new Promise(ok => c.toBlob(ok, "image/jpeg", .8)); }
+async function shrink(file) { const img = await createImageBitmap(file); const k = Math.min(1, 1080 / Math.max(img.width, img.height)); const c = document.createElement("canvas"); c.width = Math.max(1, img.width * k); c.height = Math.max(1, img.height * k); const ctx = c.getContext("2d"); ctx.drawImage(img, 0, 0, c.width, c.height); return new Promise(resolve => c.toBlob(blob => resolve(blob), "image/jpeg", 0.88)); }
 let heroUrl;
 async function showHero() {
   const all = await allPhotos(), el = $("hero"), d = day(), h = new Date().getHours();
@@ -298,7 +402,7 @@ async function showHero() {
   const cap = set === warn ? "לזה אתה רוצה לחזור? עצור עכשיו." : "אתה רוצה להגיע לזה? אתה כבר היית שם.";
   if (heroUrl) URL.revokeObjectURL(heroUrl); heroUrl = URL.createObjectURL(p.blob);
   el.className = "hero"; el.innerHTML = '<img alt=""><div class="cap"></div>'; el.querySelector("img").src = heroUrl; el.querySelector(".cap").textContent = cap;
-  el.style.borderColor = set === warn ? "var(--bad)" : "var(--line)";
+  el.style.borderColor = set === warn ? "rgba(255,101,127,.5)" : "rgba(136,161,182,.18)";
 }
 async function renderPhotos() {
   const ps = await allPhotos(); $("pgrid").innerHTML = ""; $("pgridWarn").innerHTML = "";
@@ -309,7 +413,7 @@ async function renderPhotos() {
     $(p.kind === "warn" ? "pgridWarn" : "pgrid").appendChild(i);
   }
 }
-const addPhotos = kind => { const i = document.createElement("input"); i.type = "file"; i.accept = "image/*"; i.multiple = true; i.onchange = async () => { for (const f of i.files) await put({ id: Date.now() + Math.random(), kind, blob: await shrink(f) }); toast("נוספו " + i.files.length + " תמונות"); renderPhotos(); showHero(); }; i.click(); };
+const addPhotos = kind => { const i = document.createElement("input"); i.type = "file"; i.accept = "image/*"; i.multiple = true; i.onchange = async () => { for (const f of i.files) { const blob = await shrink(f); await put({ id: crypto.randomUUID(), kind, blob }); } renderPhotos(); showHero(); }; i.click(); };
 $("addPh").onclick = () => addPhotos("thin");
 $("addWarn").onclick = () => addPhotos("warn");
 document.querySelectorAll("#meals button").forEach(b => b.onclick = () => { const d = day(); d.meals[+b.dataset.m] = d.meals[+b.dataset.m] ? 0 : 1; save(); render(); });
@@ -320,9 +424,9 @@ $("unjunk").onclick = () => { day().junk = 0; save(); render(); };
 $("stepsEdit").onclick = () => { const v = prompt("כמה צעדים עכשיו?", day().steps); if (v !== null && +v >= 0) { day().steps = parseInt(v, 10) || 0; day().stepsAt = ""; save(); render(); } };
 $("wSave").onclick = () => { addWeight(parseFloat($("wIn").value)); $("wIn").value = ""; render(); toast("נשמר"); };
 $("gSave").onclick = () => { S.goals = { steps: Math.max(1000, +$("gSteps").value || 10000), water: Math.max(4, +$("gWater").value || 12) }; save(); render(); toast("היעדים נשמרו"); };
-$("exp").onclick = () => { const b = new Blob([JSON.stringify(S, null, 1)], { type: "application/json" }); const a = document.createElement("a"); a.href = URL.createObjectURL(b); a.download = `shay95-${today()}.json`; a.click(); };
-$("imp").onclick = () => { const i = document.createElement("input"); i.type = "file"; i.accept = ".json"; i.onchange = async () => { try { S = JSON.parse(await i.files[0].text()); save(); render(); toast("שוחזר"); } catch { toast("קובץ לא תקין"); } }; i.click(); };
-document.querySelectorAll(".tabs button").forEach(b => b.onclick = () => { document.querySelectorAll(".tabs button,.page").forEach(x => x.classList.remove("on")); b.classList.add("on"); $(b.dataset.p).classList.add("on"); scrollTo(0, 0); if (b.dataset.p === "p-photos") renderPhotos(); });
+$("exp").onclick = () => { const b = new Blob([JSON.stringify(S, null, 1)], { type: "application/json" }); const a = document.createElement("a"); a.href = URL.createObjectURL(b); a.download = `shay-health-${today()}.json`; a.click(); };
+$("imp").onclick = () => { const i = document.createElement("input"); i.type = "file"; i.accept = ".json"; i.onchange = async () => { try { S = JSON.parse(await i.files[0].text()); save(); render(); toast("ייבוא הושלם"); } catch { toast("קובץ לא תקין"); } }; i.click(); };
+document.querySelectorAll(".tabs button").forEach(b => b.onclick = () => { document.querySelectorAll(".tabs button,.page").forEach(x => x.classList.remove("on")); b.classList.add("on"); $(b.dataset.p).classList.add("on"); });
 document.addEventListener("visibilitychange", () => { if (!document.hidden) render(); });
 setInterval(render, 60000);
 if ("serviceWorker" in navigator && location.protocol === "https:") navigator.serviceWorker.register("sw.js");
