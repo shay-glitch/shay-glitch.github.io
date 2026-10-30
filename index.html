@@ -2,208 +2,331 @@
 <html lang="he" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#0b0f14">
-<meta name="apple-mobile-web-app-title" content="רזה">
-<title>רזה</title>
+<meta name="apple-mobile-web-app-title" content="שי בריאות">
+<meta name="theme-color" content="#0b0d10">
 <link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9zQYyAAAEVElEQVR4nO3Wy21VQRBFUc9bSGRCCARGRCREOmZk2Q9hMNxPdZ1agz1311nvyk/r0+dnKaWn6j9AOjOgFRXQigpoRQW0ogJaUQGtqIBWVEArKqAVFdCKCmhFBbSiAlpRAa2ogFZUQCsqoBUV0Af68uPbZVW/rWtAf7Ar8UJ+XkC/UzVewP8voN9UDRTu440HXQ0RbqBBBhvoSZAnwx4DuhrVDlVvADTIYAMN8mTYcaCrkXSsejOgYYY6GXQ1hqSqtxwPuhpAYtWbjgVdPXxy1duOAl099qSqt44HXT3wxKo3jwVdPexRFNV/wwTUbUBXD3rn0NVv6oy6BejqIatHrX5z9fujQFcPuNuI1bfY7R6tQBvNfWJAG8qtYkAbx91iQE8fxA2DQE8dwT0DQU88vrsC3f7g7jsA9JRjVzfhzuWgJxx5p9LvXQo6+bC7l3r7WNDVYDqUeP8y0InH7FjaDiWg047YvaQ9okBXw+hcyia3g045XGIJ20SAroaQVPd9bgWd8AVIr/tG7UFXA0is8063ge58pL/19fvzKVW/I2GvtqCrB08H3XWzW0B3/bUD3W+3lqCrh54CuuN2l4PudhCge28INNBRG14KutMhgM7YEmigo7ZsA7p60Omgu+x5Geguv2igszZtAbp6SKD77Ao00FG7XgJ690cDnbsv0EBH7Qs00FH7bg26ejig+218Ouidf71A5+8MNNBRO28LunowoHtuDTTQUVsDDXTU1qeC3vX/KqD3Bn3m3luCrh4K6L6bAw101OZAAx21OdBAR20ONNBRmwMNdNTmQAMdtTnQQEdtDjTQUZsDDXTU5tuBrh4IaKC3fRzQQEc9Dmigox4HNNBRjwMa6KjHAQ101OOABjrqcUADHfU4oIEue1z1MEcCeijo6uNfFdDhoKuPfHdTQZ+FeVvQUwN6D8wL6HMCGuiogAY6qomgd/z/eQF9TkADHRXQe2BeQJ/TNNC7fp0X0OcENNBRAQ10VJNA74x5Aa1/DWjFdCZmoFXe7pgX0PpoHb7OC2h9NKAVUxfMC2h9JKAVUyfMC2j9qbMxA63SumFeQOu9On6dF9D6XV0xL6D1a1dgBlpldca8gNbbun+dF9B6KQHzAlrrQsxA6/aSMC+gZ5eGeQE9tysxA63buhpyJeYF9KzSMS+g5zQB8wI6vzsgA61bmoZ5AZ3ZnZB3wryAzupuyLthXkBnVAF5R8wL6N5VQd4V8wK6X5WId8e8gO5RNeAumBfQe1aNtivmBXQ+wkmYgQY6CjPQQEdhBhrmGMhAAx2HGWigozAvoIFOgfwS0CdUjRHm14A+oWqQIL8G9AlVwwT5NaAPVo0T5MeAPlg1UpAfA/pg1VhBfgzog1WjBfkxoA9WjRfix4A+GMR7BfSBAN4voA8E734BraiAVlRAKyqgFRXQigpoRQW0ogJaUQGtqIBWVEArKqAVFdCKCmhFBbSiAlpRAa2ogFZUPwFdTk7vXKQ9QAAAAABJRU5ErkJggg==">
+<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9zQYyAAAEVElEQVR4nO3Wy21VQRBFUc9bSGRCCARGRCREOmZk2Q9hMNxPdZ1agz1311nvyk/r0+dnKaWn6j9AOjOgFRXQigpoRQW0ogJaUQGtqIBWVEArKqAVFdCKCmhFBbSiAlpRAa2ogFZUQCsqoBUV0Af68uPbZVW/rWtAf7Ar8UJ+XkC/UzVewP8voN9UDRTu440HXQ0RbqBBBhvoSZAnwx4DuhrVDlVvADTIYAMN8mTYcaCrkXSsejOgYYY6GXQ1hqSqtxwPuhpAYtWbjgVdPXxy1duOAl099qSqt44HXT3wxKo3jwVdPexRFNV/wwTUbUBXD3rn0NVv6oy6BejqIatHrX5z9fujQFcPuNuI1bfY7R6tQBvNfWJAG8qtYkAbx91iQE8fxA2DQE8dwT0DQU88vrsC3f7g7jsA9JRjVzfhzuWgJxx5p9LvXQo6+bC7l3r7WNDVYDqUeP8y0InH7FjaDiWg047YvaQ9okBXw+hcyia3g045XGIJ20SAroaQVPd9bgWd8AVIr/tG7UFXA0is8063ge58pL/19fvzKVW/I2GvtqCrB08H3XWzW0B3/bUD3W+3lqCrh54CuuN2l4PudhCge28INNBRG14KutMhgM7YEmigo7ZsA7p60Omgu+x5Geguv2igszZtAbp6SKD77Ao00FG7XgJ690cDnbsv0EBH7Qs00FH7bg26ejig+218Ouidf71A5+8MNNBRO28LunowoHtuDTTQUVsDDXTU1qeC3vX/KqD3Bn3m3luCrh4K6L6bAw101OZAAx21OdBAR20ONNBRmwMNdNTmQAMdtTnQQEdtDjTQUZsDDXTU5tuBrh4IaKC3fRzQQEc9Dmigox4HNNBRjwMa6KjHAQ101OOABjrqcUADHfU4oIEue1z1MEcCeijo6uNfFdDhoKuPfHdTQZ+FeVvQUwN6D8wL6HMCGuiogAY6qomgd/z/eQF9TkADHRXQe2BeQJ/TNNC7fp0X0OcENNBRAQ10VJNA74x5Aa1/DWjFdCZmoFXe7pgX0PpoHb7OC2h9NKAVUxfMC2h9JKAVUyfMC2j9qbMxA63SumFeQOu9On6dF9D6XV0xL6D1a1dgBlpldca8gNbbun+dF9B6KQHzAlrrQsxA6/aSMC+gZ5eGeQE9tysxA63buhpyJeYF9KzSMS+g5zQB8wI6vzsgA61bmoZ5AZ3ZnZB3wryAzupuyLthXkBnVAF5R8wL6N5VQd4V8wK6X5WId8e8gO5RNeAumBfQe1aNtivmBXQ+wkmYgQY6CjPQQEdhBhrmGMhAAx2HGWigozAvoIFOgfwS0CdUjRHm14A+oWqQIL8G9AlVwwT5NaAPVo0T5MeAPlg1UpAfA/pg1VhBfgzog1WjBfkxoA9WjRfix4A+GMR7BfSBAN4voA8E734BraiAVlRAKyqgFRXQigpoRQW0ogJaUQGtqIBWVEArKqAVFdCKCmhFBbSiAlpRAa2ogFZUPwFdTk7vXKQ9QAAAAABJRU5ErkJggg==">
+<title>שי בריאות</title>
 <style>
-:root{--bg:#0b0f14;--card:#141b23;--line:#232e3a;--txt:#e8eef5;--dim:#8ba1b5;--mint:#2dd4bf;--blue:#38bdf8;--red:#f87171;--gold:#fbbf24}
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-body{background:var(--bg);color:var(--txt);font-family:-apple-system,"SF Pro Display","Segoe UI",system-ui,sans-serif;min-height:100vh;padding-bottom:env(safe-area-inset-bottom)}
-.wrap{max-width:430px;margin:0 auto;padding:16px 16px 40px}
-header{display:flex;justify-content:space-between;align-items:center;padding:14px 2px 6px}
-h1{font-size:22px;font-weight:800;letter-spacing:-.3px}
-.sub{color:var(--dim);font-size:13px;margin-top:2px}
-.streak{display:flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:14px;font-weight:700}
-.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;margin-top:14px}
-.card h2{font-size:15px;font-weight:700;color:var(--dim);margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
-.ringwrap{display:flex;align-items:center;gap:16px}
-.ring{position:relative;width:104px;height:104px;flex:none}
-.ring svg{transform:rotate(-90deg)}
-.ring .val{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;font-size:20px}
-.ring .val small{font-size:11px;color:var(--dim);font-weight:600}
-.big{font-size:26px;font-weight:800}
-.mut{color:var(--dim);font-size:13px;margin-top:4px;line-height:1.5}
-.btn{border:none;border-radius:14px;padding:14px;font-size:15px;font-weight:700;width:100%;color:#06231f;background:var(--mint);font-family:inherit}
-.btn.blue{background:var(--blue);color:#06283c}
-.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--txt)}
-.btn.warn{background:var(--red);color:#3a0a0a}
-.btnrow{display:flex;gap:10px;margin-top:12px}
-.btnrow .btn{flex:1}
-.chips{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
-.chip{border:1px solid var(--line);background:#0f151c;color:var(--txt);border-radius:10px;padding:9px 12px;font-size:13px;font-weight:600;font-family:inherit}
-.log{margin-top:10px;font-size:12.5px;color:var(--dim);line-height:1.7}
-.chart{display:flex;align-items:flex-end;gap:7px;height:86px;margin-top:6px}
-.bar{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:5px;height:100%}
-.bar .fill{width:100%;border-radius:7px 7px 3px 3px;background:linear-gradient(180deg,var(--blue),#1d6fa5);min-height:3px}
-.bar .day{font-size:10.5px;color:var(--dim)}
-.toggle{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);font-size:14.5px}
-.switch{position:relative;width:48px;height:28px;flex:none}
-.switch input{opacity:0;width:100%;height:100%;position:absolute;margin:0}
-.sl{position:absolute;inset:0;background:#2a3947;border-radius:999px;transition:.2s}
-.sl:before{content:"";position:absolute;width:22px;height:22px;border-radius:50%;background:#fff;top:3px;right:3px;transition:.2s}
-.switch input:checked+.sl{background:var(--mint)}
-.switch input:checked+.sl:before{transform:translateX(-20px)}
-.foot{color:#54697d;font-size:11.5px;text-align:center;margin-top:26px;line-height:1.7}
-.flash{position:fixed;left:50%;transform:translateX(-50%);bottom:34px;background:var(--mint);color:#052c26;font-weight:700;padding:11px 22px;border-radius:999px;font-size:14px;opacity:0;transition:.25s;pointer-events:none;z-index:9}
-.flash.on{opacity:1;bottom:48px}
+  :root { --bg:#0b0d10; --card:#15191e; --line:#232a31; --ink:#f2f4f6; --muted:#8a96a3; --go:#2fd67b; --warn:#ffb020; --bad:#ff4d4d; --water:#3fa9ff; }
+  * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html,body { margin:0; background:var(--bg); color:var(--ink); font-family:-apple-system,"SF Pro Text","Segoe UI",Arial,sans-serif; }
+  body { padding:calc(env(safe-area-inset-top) + 12px) 14px calc(env(safe-area-inset-bottom) + 90px); }
+  h1 { font-size:28px; margin:0; letter-spacing:.5px; }
+  .top { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:12px; }
+  .top small { color:var(--muted); font-size:13px; }
+  .nag { border-radius:16px; padding:16px; font-size:18px; font-weight:700; line-height:1.4; margin-bottom:14px; }
+  .nag.bad { background:#3a1416; color:#ffd2d2; border:1px solid #5c1f22; }
+  .nag.warn { background:#3a2a0d; color:#ffe2a8; border:1px solid #5c4316; }
+  .nag.go { background:#0f2f1e; color:#c6f5da; border:1px solid #1d4d33; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:18px; padding:16px; margin-bottom:12px; }
+  .row { display:flex; align-items:center; gap:14px; }
+  .label { color:var(--muted); font-size:14px; margin-bottom:6px; }
+  .big { font-size:40px; font-weight:800; line-height:1; }
+  .unit { color:var(--muted); font-size:15px; margin-inline-start:4px; font-weight:500; }
+  .bar { height:12px; background:#0e1114; border-radius:8px; overflow:hidden; margin-top:12px; }
+  .bar i { display:block; height:100%; border-radius:8px; transition:width .4s; }
+  .btns { display:flex; gap:10px; margin-top:14px; }
+  button { font:inherit; border:0; border-radius:14px; padding:14px; font-size:17px; font-weight:700; color:var(--ink); background:#222a32; flex:1; }
+  button:active { transform:scale(.97); }
+  .b-water { background:var(--water); color:#00131f; font-size:20px; }
+  .b-go { background:var(--go); color:#002010; }
+  .b-bad { background:#2a1517; color:#ff9a9a; border:1px solid #4a2023; }
+  .score { width:84px; height:84px; flex:none; }
+  .glasses { display:flex; flex-wrap:wrap; gap:6px; margin-top:12px; direction:ltr; }
+  .glasses span { width:20px; height:26px; border-radius:3px 3px 6px 6px; border:2px solid var(--water); }
+  .glasses span.full { background:var(--water); }
+  .week { display:flex; gap:6px; align-items:flex-end; height:70px; direction:ltr; margin-top:10px; }
+  .week div { flex:1; text-align:center; font-size:11px; color:var(--muted); }
+  .week b { display:block; border-radius:6px 6px 2px 2px; margin-bottom:4px; min-height:3px; }
+  input { font:inherit; font-size:20px; width:100%; padding:12px; border-radius:12px; border:1px solid var(--line); background:#0e1114; color:var(--ink); text-align:center; }
+  .muted { color:var(--muted); font-size:13px; }
+  .streak { font-size:15px; margin-top:8px; }
+  svg text { font-family:inherit; }
+  .tabs { position:fixed; bottom:0; left:0; right:0; display:flex; background:#0e1114ee; backdrop-filter:blur(10px); border-top:1px solid var(--line); padding:8px 10px calc(env(safe-area-inset-bottom) + 8px); }
+  .tabs button { background:none; font-size:14px; color:var(--muted); padding:8px; }
+  .tabs button.on { color:var(--ink); }
+  .page { display:none; } .page.on { display:block; }
+  .hero { position:relative; border-radius:18px; overflow:hidden; margin-bottom:12px; background:#15191e; border:1px solid var(--line); }
+  .hero img { width:100%; max-height:340px; object-fit:cover; display:block; }
+  .hero .cap { position:absolute; bottom:0; left:0; right:0; padding:14px; background:linear-gradient(transparent,#000c); font-size:22px; font-weight:800; }
+  .hero.empty { padding:18px; text-align:center; color:var(--muted); }
+  .meals { display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin-top:12px; }
+  .meals button { font-size:15px; padding:12px 6px; }
+  .meals button.on { background:var(--go); color:#002010; }
+  .line { font-size:16px; color:#cfd6dd; margin-top:6px; }
+  .pgrid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px; margin-top:12px; }
+  .pgrid img { width:100%; aspect-ratio:1; object-fit:cover; border-radius:10px; }
+  .toast { position:fixed; top:calc(env(safe-area-inset-top) + 10px); left:50%; transform:translateX(-50%); background:#222a32; padding:10px 16px; border-radius:12px; font-size:15px; opacity:0; transition:opacity .3s; pointer-events:none; z-index:9; }
+  .toast.on { opacity:1; }
+  ol li { margin-bottom:10px; line-height:1.5; }
+  code { background:#0e1114; padding:2px 6px; border-radius:6px; direction:ltr; display:inline-block; font-size:13px; }
 </style>
 </head>
 <body>
-<div class="wrap">
-<header>
- <div><h1>רזה</h1><div class="sub" id="today"></div><div class="sub" style="color:var(--mint);font-weight:700" id="motto"></div></div>
- <div class="streak" id="streakBox">🔥 <span id="streak">0</span></div>
-</header>
+<div class="toast" id="toast"></div>
 
-<div class="card">
- <h2>💧 מים <span id="waterGoal" style="font-weight:600">יעד: 8 כוסות</span></h2>
- <div class="ringwrap">
-  <div class="ring">
-   <svg width="104" height="104"><circle cx="52" cy="52" r="44" stroke="#232e3a" stroke-width="9" fill="none"/><circle id="waterRing" cx="52" cy="52" r="44" stroke="var(--blue)" stroke-width="9" fill="none" stroke-linecap="round" stroke-dasharray="276.5" stroke-dashoffset="276.5"/></svg>
-   <div class="val"><span id="waterN">0</span><small>מתוך 8</small></div>
+<section class="page on" id="p-today">
+  <div class="top">
+    <div><h1>שי בריאות</h1><small id="dayN"></small></div>
+    <svg class="score" viewBox="0 0 100 100" id="scoreRing"></svg>
   </div>
-  <div style="flex:1">
-   <div class="big" id="waterMl">0 מ״ל</div>
-   <div class="mut">כוס = 250 מ״ל. שתה לאט, כל הזמן.</div>
+  <div class="hero empty" id="hero"></div>
+  <div class="nag" id="nag"></div>
+  <div class="card"><div class="label">החוק של עכשיו</div><div class="line" id="rule"></div></div>
+
+  <div class="card">
+    <div class="label">צעדים היום <span class="muted" id="stepsSrc"></span></div>
+    <div class="row"><div class="big" id="steps">0</div><span class="unit" id="stepsGoal"></span></div>
+    <div class="bar"><i id="stepsBar" style="background:var(--go)"></i></div>
+    <div class="btns"><button id="stepsEdit">עדכון ידני</button></div>
   </div>
- </div>
- <div class="btnrow">
-  <button class="btn blue" onclick="addWater(250)">+ כוס</button>
-  <button class="btn ghost" onclick="addWater(-250)">−</button>
- </div>
-</div>
 
-<div class="card">
- <h2>👟 צעדים <span id="stepGoal" style="font-weight:600">יעד: 10,000</span></h2>
- <div class="ringwrap">
-  <div class="ring">
-   <svg width="104" height="104"><circle cx="52" cy="52" r="44" stroke="#232e3a" stroke-width="9" fill="none"/><circle id="stepRing" cx="52" cy="52" r="44" stroke="var(--mint)" stroke-width="9" fill="none" stroke-linecap="round" stroke-dasharray="276.5" stroke-dashoffset="276.5"/></svg>
-   <div class="val"><span id="stepN">0</span><small>צעדים</small></div>
+  <div class="card">
+    <div class="label">מים היום</div>
+    <div class="row"><div class="big" id="water">0</div><span class="unit" id="waterGoal"></span></div>
+    <div class="glasses" id="glasses"></div>
+    <div class="btns"><button class="b-water" id="waterAdd">+ כוס מים</button><button id="waterSub" style="flex:.35">-1</button></div>
   </div>
-  <div style="flex:1">
-   <div class="big" id="stepPct">0%</div>
-   <div class="mut">מחובר לגרמין דרך השרת שלי (בהקמה). בינתיים הזן ידנית או סנכרן מאפליקציית גרמין.</div>
+
+  <div class="card">
+    <div class="label">אוכל</div>
+    <div class="row"><div class="big" id="cleanTxt">נקי</div></div>
+    <div class="streak" id="streak"></div>
+    <div class="btns"><button class="b-bad" id="junk">אכלתי זבל</button><button class="b-go" id="unjunk">טעות, אני נקי</button></div>
   </div>
- </div>
- <div class="btnrow">
-  <button class="btn" onclick="enterSteps()">הזנת צעדים</button>
- </div>
-</div>
 
-<div class="card">
- <h2>🚫 ג'אנק <span id="cleanLabel" style="font-weight:600"></span></h2>
- <div class="big" id="cleanDays">0</div>
- <div class="mut" id="cleanMut">ימים נקיים ברצף. לחיצה על "נפלתי" מאפסת את הרצף ביום זה, בלי דרמה.</div>
- <div class="btnrow">
-  <button class="btn warn" onclick="logJunk()">נפלתי היום</button>
- </div>
- <div class="log" id="junkLog"></div>
-</div>
+  <div class="card">
+    <div class="label">ארוחות מסודרות (חלבון + ירק, בלי זבל)</div>
+    <div class="meals" id="meals"><button data-m="0">בוקר</button><button data-m="1">צהריים</button><button data-m="2">ערב</button></div>
+    <p class="muted" id="mealsTxt"></p>
+  </div>
 
-<div class="card">
- <h2>⚖️ משקל <span style="font-weight:600">יעד: 10- קילו ב-4 חודשים</span></h2>
- <div class="big" id="wNow">לא הוזן</div>
- <div class="mut">הזן משקל פעם בשבוע. קצב היעד: כ-0.8 קילו בשבוע.</div>
- <div style="height:10px;background:#232e3a;border-radius:99px;margin-top:10px;overflow:hidden"><div id="wBar" style="height:100%;width:0%;background:linear-gradient(90deg,var(--mint),var(--blue));transition:.3s"></div></div>
- <div class="mut" id="wPace" style="margin-top:6px"></div>
- <div class="btnrow"><button class="btn" onclick="enterWeight()">עדכון משקל</button></div>
-</div>
+  <div class="card">
+    <div class="label">7 ימים אחרונים (ציון יומי)</div>
+    <div class="week" id="week"></div>
+  </div>
+</section>
 
-<div class="card">
- <h2>🔥 לפני ואחרי</h2>
- <div class="mut">שתי שורות: מי אתה רוצה להיות, וממה אתה לא חוזר. הכל נשמר במכשיר שלך בלבד. לחיצה על תמונה מוחקת אותה.</div>
- <div class="mut" style="margin-top:10px;font-weight:700;color:var(--mint)">רזה</div>
- <div class="btnrow"><button class="btn blue" onclick="document.getElementById('photoIn_fit').click()">הוסף תמונה רזה</button></div>
- <input type="file" id="photoIn_fit" accept="image/*" style="display:none" onchange="addPhoto(this,'fit')">
- <div id="photos_fit" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:10px"></div>
- <div class="mut" style="margin-top:14px;font-weight:700;color:var(--red)">לפני</div>
- <div class="btnrow"><button class="btn warn" onclick="document.getElementById('photoIn_before').click()">הוסף תמונה לפני</button></div>
- <input type="file" id="photoIn_before" accept="image/*" style="display:none" onchange="addPhoto(this,'before')">
- <div id="photos_before" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:10px"></div>
-</div>
+<section class="page" id="p-weight">
+  <div class="top"><h1>משקל</h1><small id="wTarget"></small></div>
+  <div class="card">
+    <div class="label">שקילה של הבוקר (ק"ג)</div>
+    <input id="wIn" type="number" step="0.1" inputmode="decimal" placeholder="100.0">
+    <div class="btns"><button class="b-go" id="wSave">שמור</button></div>
+    <p class="muted" id="wStatus"></p>
+  </div>
+  <div class="card"><svg id="wChart" viewBox="0 0 340 180" width="100%"></svg></div>
+</section>
 
-<div class="card">
- <h2>📊 שבוע אחרון</h2>
- <div class="chart" id="chart"></div>
-</div>
+<section class="page" id="p-photos">
+  <div class="top"><h1>למה אני עושה את זה</h1></div>
+  <div class="card">
+    <div class="label">כשהייתי רזה (מופיע כל יום)</div>
+    <div class="btns"><button class="b-go" id="addPh">+ תמונות רזה</button></div>
+    <div class="pgrid" id="pgrid"></div>
+  </div>
+  <div class="card">
+    <div class="label">לאן אני לא חוזר (מופיע כשאני נשבר)</div>
+    <div class="btns"><button class="b-bad" id="addWarn">+ תמונות אזהרה</button></div>
+    <div class="pgrid" id="pgridWarn"></div>
+    <p class="muted">כל התמונות נשמרות רק בטלפון ולא עולות לאינטרנט.</p>
+    <p class="muted">לחיצה ארוכה על תמונה מוחקת אותה.</p>
+  </div>
+</section>
 
-<div class="card">
- <h2>⚙️ הגדרות</h2>
- <div class="toggle"><span>תזכורת שתייה (בין 8:00 ל-23:00)</span>
-  <label class="switch"><input type="checkbox" id="remindWater" onchange="toggleRemind(this.checked)"><span class="sl"></span></label></div>
- <div class="toggle" style="border:none"><span>סנכרון גרמין</span>
-  <button class="chip" onclick="garminStatus()">סטטוס</button></div>
- <div class="mut" id="garminMut" style="margin-top:8px">החיבור לגרמין יופעל בשרת מאובטח ברגע שהמפתח יישמר במקום מוגן.</div>
-</div>
+<section class="page" id="p-setup">
+  <div class="top"><h1>חיבורים</h1></div>
+  <div class="card">
+    <div class="label">יעדים</div>
+    <div class="row"><span style="flex:1">צעדים</span><input id="gSteps" type="number" inputmode="numeric" style="width:130px"></div><br>
+    <div class="row"><span style="flex:1">כוסות מים (250 מ"ל)</span><input id="gWater" type="number" inputmode="numeric" style="width:130px"></div>
+    <div class="btns"><button id="gSave">שמור יעדים</button></div>
+  </div>
+  <div class="card">
+    <div class="label">צעדים מגרמין, אוטומטית</div>
+    <ol>
+      <li>באפליקציית <b>Garmin Connect</b>: אני, הגדרות, אפליקציות מחוברות, <b>Apple Health</b>, להדליק צעדים ומשקל.</li>
+      <li>באפליקציית <b>קיצורים</b>: אוטומציה, שעה ביום, כל שעתיים מ-08:00 עד 22:00, להפעיל מיד.</li>
+      <li>פעולות: <b>מצא דגימות בריאות</b> (צעדים, היום), <b>חשב סטטיסטיקה</b> (סכום), <b>פתח כתובת</b>:<br><code id="shortcutUrl"></code></li>
+    </ol>
+    <p class="muted">המספר נכנס לאפליקציה בכל פעם שהקיצור רץ. אין סיסמאות, אין טוקנים.</p>
+  </div>
+  <div class="card">
+    <div class="label">שתישב לך על הנשמה</div>
+    <ol>
+      <li>בקיצורים: אוטומציה כל שעה 09:00-21:00, פעולה <b>הצג התראה</b>: "שי. כוס מים. עכשיו."</li>
+      <li>כפתור ההתראה פותח את: <code id="waterUrl"></code> שמוסיף כוס בלחיצה אחת.</li>
+      <li>21:30: התראה "המטבח סגור. מים בלבד."</li>
+    </ol>
+  </div>
+  <div class="card">
+    <div class="label">גיבוי</div>
+    <div class="btns"><button id="exp">ייצוא</button><button id="imp">ייבוא</button></div>
+    <p class="muted">הנתונים נשמרים רק בטלפון שלך.</p>
+  </div>
+</section>
 
-<div class="foot">רזה · נבנה עבור שי · המידע נשמר במכשיר שלך בלבד</div>
-</div>
-<div class="flash" id="flash"></div>
+<nav class="tabs">
+  <button class="on" data-p="p-today">היום</button>
+  <button data-p="p-weight">משקל</button>
+  <button data-p="p-photos">תמונות</button>
+  <button data-p="p-setup">חיבורים</button>
+</nav>
+
 <script>
-const K='raze_v1';
-const GOALS={water:8,steps:10000};
-function today(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
-function load(){try{return JSON.parse(localStorage.getItem(K))||{}}catch(e){return{}}}
-function save(d){localStorage.setItem(K,JSON.stringify(d))}
-function day(){const d=load();const t=today();if(!d[t])d[t]={water:0,steps:null,junk:false};return d}
-function flash(t){const f=document.getElementById('flash');f.textContent=t;f.classList.add('on');setTimeout(()=>f.classList.remove('on'),1600)}
-function addWater(ml){const d=day();const t=today();d[t].water=Math.max(0,(d[t].water||0)+ml);save(d);render();if(ml>0)flash('כל הכבוד, עוד כוס 👍')}
-function enterSteps(){const v=prompt('כמה צעדים היום? (מאפליקציית גרמין)');if(!v)return;const n=parseInt(v.replace(/\D/g,''));if(isNaN(n))return;const d=day();d[today()].steps=n;save(d);render();flash('עודכן: '+n.toLocaleString('he')+' צעדים')}
-function logJunk(){const d=day();d[today()].junk=true;d[today()].junkAt=new Date().toISOString();save(d);render();flash('יום חדש מחר. בלי אשמה 🙌')}
-function streak(){const d=load();let s=0;for(let i=0;i<60;i++){const dt=new Date();dt.setDate(dt.getDate()-i);const k=dt.getFullYear()+'-'+String(dt.getMonth()+1).padStart(2,'0')+'-'+String(dt.getDate()).padStart(2,'0');const r=d[k];if(!r){if(i===0){continue}else break}
- const good=(r.water||0)>=GOALS.water*250*0.75&&((r.steps||0)>=GOALS.steps*0.7)&&!r.junk;if(i===0){if(good)s++}else if(good)s++;else break}return s}
-function render(){
- const t=today();const d=day()[t];
- const wN=Math.min((d.water||0)/250,GOALS.water);
- document.getElementById('waterN').textContent=Math.floor(wN*10)/10;
- document.getElementById('waterMl').textContent=(d.water||0)+' מ״ל';
- document.getElementById('waterRing').style.strokeDashoffset=276.5*(1-wN/GOALS.water);
- const st=d.steps||0;const sN=Math.min(st/GOALS.steps,1);
- document.getElementById('stepN').textContent=st.toLocaleString('he');
- document.getElementById('stepPct').textContent=Math.round(sN*100)+'%';
- document.getElementById('stepRing').style.strokeDashoffset=276.5*(1-sN);
- let cs=0;{let i=0;const now=new Date();while(true){const dt=new Date(now);dt.setDate(dt.getDate()-i);const k=dt.getFullYear()+'-'+String(dt.getMonth()+1).padStart(2,'0')+'-'+String(dt.getDate()).padStart(2,'0');const r=load()[k];if(r&&r.junk)break;if(i>90)break;cs++;i++}}
- document.getElementById('cleanDays').textContent=cs+' ימים נקיים';
- document.getElementById('cleanDays').className='big';
- document.getElementById('cleanLabel').textContent='רצף נוכחי';
- document.getElementById('streak').textContent=streak();
- document.getElementById('today').textContent=new Date().toLocaleDateString('he-IL',{weekday:'long',day:'numeric',month:'long'});
- const names=['א','ב','ג','ד','ה','ש','ש'];const ch=document.getElementById('chart');ch.innerHTML='';
- let max=1;const rows=[];
- for(let i=6;i>=0;i--){const dt=new Date();dt.setDate(dt.getDate()-i);const k=dt.getFullYear()+'-'+String(dt.getMonth()+1).padStart(2,'0')+'-'+String(dt.getDate()).padStart(2,'0');const r=load()[k]||{};const v=Math.max(r.water||0,(r.steps||0)/1250*250);rows.push({d:names[dt.getDay()],v:v,g:r});if(v>max)max=v}
- rows.forEach(r=>{const b=document.createElement('div');b.className='bar';const f=document.createElement('div');f.className='fill';f.style.height=Math.max(4,Math.round(r.v/max*70))+'px';const l=document.createElement('div');l.className='day';l.textContent=r.d;b.appendChild(f);b.appendChild(l);ch.appendChild(b)});
- document.getElementById('junkLog').textContent=(day()[t].junkAt?'נפילה אחרונה: '+new Date(day()[t].junkAt).toLocaleDateString('he-IL')+' (הרצף מתאפס, מחר מתחילים מחדש)':'');
-}
-function toggleRemind(on){
- if(on&&'Notification'in window){Notification.requestPermission().then(p=>{
-  if(p!=='granted'){document.getElementById('remindWater').checked=false;flash('לא אושרו התראות בהגדרות')}
-  else{localStorage.setItem('raze_remind','1');flash('תזכורת שתייה פעילה')}})}
- else{localStorage.setItem('raze_remind',on?'1':'0')}
-}
-function garminStatus(){flash('גרמין: ממתין לשרת הסנכרון')}
-setInterval(()=>{
- if(localStorage.getItem('raze_remind')!=='1')return;
- const h=new Date().getHours();if(h<8||h>=23)return;
- const d=day();const cups=(d[today()].water||0)/250;
- if(cups<GOALS.water&&'Notification'in window&&Notification.permission==='granted'){
-  new Notification('רזה 💧',{body:'שתה כוס מים. '+(GOALS.water-Math.floor(cups))+' כוסות עד היעד.'})}
-},60*60*1000);
+const START = "2026-09-23", W_START = 100, W_GOAL = 90, W_GOAL_DATE = "2027-02-28", W_MILE = 95, W_MILE_DATE = "2026-12-06";
+const LINES = ["אתה לא צריך מוטיבציה. אתה צריך לעשות את הדבר הבא: כוס מים.", "זבל זה החלטה של 3 שניות. תגיד לא ל-3 שניות.", "רעב? קודם כוס מים, אחר כך מחליטים.", "כל הליכה של 15 דקות היא 1,500 צעדים לכיוון 90.", "מי שמגיע ל-90 לא מתמקח עם עצמו. הוא פשוט עושה.", "אוכל מסודר: חלבון, ירק, מים. זה כל הסוד.", "בנית חברות מאפס. אתה יכול לבנות גם את הגוף שלך.", "המטבח נסגר ב-21:00. בלי משא ומתן.", "תסתכל על התמונה. זה אתה. זה לא חלום, זה זיכרון.", "יום נקי אחד בכל פעם. רק היום."];
+const EMPTY_HERO = 'אין עדיין תמונות. לשונית "תמונות", ותוסיף 5 תמונות מהתקופה שהיית רזה.';
+const KEY = "shay95";
+const $ = id => document.getElementById(id);
+const today = (d = new Date()) => d.toLocaleDateString("sv-SE");
+const load = () => { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch { return {}; } };
+let S = Object.assign({ goals: { steps: 10000, water: 12 }, days: {}, weights: [] }, load());
+const save = () => localStorage.setItem(KEY, JSON.stringify(S));
+const day = (k = today()) => { const d = (S.days[k] ||= { steps: 0, water: 0, junk: 0, stepsAt: "" }); d.meals ||= [0, 0, 0]; return d; };
+const toast = t => { $("toast").textContent = t; $("toast").classList.add("on"); setTimeout(() => $("toast").classList.remove("on"), 1800); };
 
-const MOTTO=['חזק. מסודר. בריא. בלי זבל.','כל כוס מים היא ניצחון.','הרזה שבך מחכה לצעד הבא.','לא להיום. למראה שבתמונות.','10 קילו. 4 חודשים. שיהיה.'];
-document.getElementById('motto').textContent=MOTTO[new Date().getDate()%MOTTO.length];
-function enterWeight(){const v=prompt('משקל נוכחי בקילו?');if(!v)return;const n=parseFloat(v.replace(',','.'));if(isNaN(n)||n<30||n>250)return;const d=load();if(!d.weightStart){d.weightStart=n;d.wStart=new Date().toISOString()}d['w_'+today()]=n;d.lastWeight=n;save(d);renderWeight()}
-function renderWeight(){const d=load();const cur=d.lastWeight;document.getElementById('wNow').textContent=cur?(cur+' קיגו'):'לא הוזן';
- if(d.weightStart&&cur){const done=Math.max(0,d.weightStart-cur);document.getElementById('wBar').style.width=Math.min(100,done/10*100)+'%';const days=Math.max(0,120-Math.floor((Date.now()-new Date(d.wStart))/86400000));const weeks=((120-days)/7)||1;const pace=(done/weeks).toFixed(2);document.getElementById('wPace').textContent='הורדת '+done.toFixed(1)+' קיגו. נותרו '+(10-done).toFixed(1)+' קיגו ו-'+days+' ימים. קצב: '+pace+' קיגו/שבוע.'}}
-function addPhoto(inp,kind){const f=inp.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{const d=load();const key='photos_'+kind;d[key]=d[key]||[];d[key].unshift(r.result);d[key]=d[key].slice(0,12);save(d);renderPhotos();flash(kind==='fit'?'נשמר. תסתכל על זה כשקשה 🙌':'נשמר. תזכורת למה לא חוזרים.')};r.readAsDataURL(f);inp.value=''}
-function renderPhotos(){const d=load();if(d.photos&&!d.photos_fit){d.photos_fit=d.photos;delete d.photos;save(d)}['fit','before'].forEach(kind=>{const box=document.getElementById('photos_'+kind);box.innerHTML='';(d['photos_'+kind]||[]).forEach((p,i)=>{const im=document.createElement('img');im.src=p;im.style.cssText='width:100%;aspect-ratio:1;object-fit:cover;border-radius:12px;border:1px solid var(--line)';im.onclick=()=>{const dd=load();dd['photos_'+kind].splice(i,1);save(dd);renderPhotos()};box.appendChild(im)})})}
-renderWeight();renderPhotos();
+function scoreOf(d) {
+  if (!d) return 0;
+  const s = Math.min(1, d.steps / S.goals.steps) * 30;
+  const w = Math.min(1, d.water / S.goals.water) * 25;
+  const m = ((d.meals || []).filter(Boolean).length / 3) * 20;
+  return Math.round(s + w + m + (d.junk ? 0 : 25));
+}
+function cleanStreak() {
+  let n = 0; const d = new Date();
+  for (;;) { const k = today(d); const x = S.days[k]; if (k < START || (x && x.junk)) break; if (!x && k !== today()) break; n++; d.setDate(d.getDate() - 1); }
+  return n;
+}
 
-render();
+// URL actions from iPhone Shortcuts: ?steps=8421  ?water=1  ?weight=99.4
+function handleUrl() {
+  const q = new URLSearchParams(location.search); let msg = "";
+  if (q.has("steps")) { const n = parseInt(q.get("steps"), 10); if (n >= 0 && n < 200000) { const d = day(); d.steps = n; d.stepsAt = new Date().toTimeString().slice(0, 5); msg = `צעדים עודכנו: ${n.toLocaleString()}`; } }
+  if (q.has("water")) { const n = parseInt(q.get("water"), 10) || 1; day().water = Math.max(0, day().water + n); msg = `+${n} כוס מים`; }
+  if (q.has("weight")) { addWeight(parseFloat(q.get("weight"))); msg = "משקל נשמר"; }
+  if (msg) { save(); toast(msg); history.replaceState(null, "", location.pathname); }
+}
+
+function nag(d) {
+  const h = new Date().getHours(), sg = S.goals.steps, wg = S.goals.water;
+  const stepsDue = Math.round(sg * Math.min(1, Math.max(0, (h - 7) / 14)));
+  const waterDue = Math.round(wg * Math.min(1, Math.max(0, (h - 7) / 14)));
+  const lines = [];
+  if (d.junk) lines.push(["bad", `אכלת זבל היום. זה לא מוחק את היום. מים, הליכה, ומחר מתחילים נקי.`]);
+  if (d.water < waterDue - 2) lines.push(["bad", `שי. השעה ${h}:00 ושתית ${d.water} כוסות במקום ${waterDue}. קום, כוס מים, עכשיו.`]);
+  else if (d.water < waterDue) lines.push(["warn", `אתה מאחור במים: ${d.water} מתוך ${waterDue} עד עכשיו. עוד כוס.`]);
+  if (d.steps < stepsDue * 0.6 && h >= 10) lines.push(["bad", `${d.steps.toLocaleString()} צעדים בלבד. אתה צריך ${stepsDue.toLocaleString()} עד עכשיו. 15 דקות הליכה. עכשיו.`]);
+  else if (d.steps < stepsDue && h >= 10) lines.push(["warn", `חסרים ${(stepsDue - d.steps).toLocaleString()} צעדים לקצב של היום. שיחת הטלפון הבאה בהליכה.`]);
+  const mealsDue = h >= 20 ? 3 : h >= 14 ? 2 : h >= 10 ? 1 : 0;
+  if ((d.meals || []).filter(Boolean).length < mealsDue - 1) lines.push(["warn", "דילגת על ארוחה. ככה מגיעים לזבל בערב. תאכל עכשיו משהו מסודר: חלבון וירק."]);
+  if (h >= 21 && !d.junk) lines.push(["warn", "21:00. המטבח סגור. רק מים."]);
+  if (!lines.length) lines.push(["go", d.steps >= sg && d.water >= wg ? "יום מושלם. ככה נראה מי שמגיע ל-95." : "אתה בקצב. תמשיך בדיוק ככה."]);
+  const worst = lines.find(l => l[0] === "bad") || lines.find(l => l[0] === "warn") || lines[0];
+  $("nag").className = "nag " + worst[0]; $("nag").textContent = worst[1];
+}
+
+function ring(score) {
+  const c = 2 * Math.PI * 42, col = score >= 80 ? "var(--go)" : score >= 50 ? "var(--warn)" : "var(--bad)";
+  $("scoreRing").innerHTML = `<circle cx="50" cy="50" r="42" fill="none" stroke="#232a31" stroke-width="9"/><circle cx="50" cy="50" r="42" fill="none" stroke="${col}" stroke-width="9" stroke-linecap="round" stroke-dasharray="${c * score / 100} ${c}" transform="rotate(-90 50 50)"/><text x="50" y="58" text-anchor="middle" font-size="26" font-weight="800" fill="#f2f4f6">${score}</text>`;
+}
+
+function render() {
+  const d = day(), g = S.goals;
+  const n = Math.floor((new Date(today()) - new Date(START)) / 864e5) + 1;
+  $("dayN").textContent = `יום ${n} | מינוס 10 ק"ג ב-4 חודשים`;
+  $("rule").textContent = LINES[(n + new Date().getHours()) % LINES.length];
+  document.querySelectorAll("#meals button").forEach(b => b.classList.toggle("on", !!d.meals[+b.dataset.m]));
+  const mc = d.meals.filter(Boolean).length; $("mealsTxt").textContent = mc === 3 ? "3 ארוחות מסודרות. ככה בונים 90." : `${mc} מתוך 3`;
+  showHero();
+  $("steps").textContent = d.steps.toLocaleString(); $("stepsGoal").textContent = `/ ${g.steps.toLocaleString()}`;
+  $("stepsBar").style.width = Math.min(100, d.steps / g.steps * 100) + "%";
+  $("stepsSrc").textContent = d.stepsAt ? `(מגרמין, ${d.stepsAt})` : "";
+  $("water").textContent = d.water; $("waterGoal").textContent = `/ ${g.water} כוסות (${(d.water * 0.25).toFixed(2)} ל')`;
+  $("glasses").innerHTML = Array.from({ length: Math.max(g.water, d.water) }, (_, i) => `<span class="${i < d.water ? "full" : ""}"></span>`).join("");
+  $("cleanTxt").textContent = d.junk ? `זבל x${d.junk}` : "נקי ✅"; $("cleanTxt").style.color = d.junk ? "var(--bad)" : "var(--go)";
+  const st = cleanStreak(); $("streak").textContent = st === 1 ? "יום נקי ראשון ברצף" : st ? `${st} ימים נקיים ברצף` :"הרצף מתחיל מחר בבוקר";
+  ring(scoreOf(d)); nag(d);
+  const wk = []; for (let i = 6; i >= 0; i--) { const x = new Date(); x.setDate(x.getDate() - i); const k = today(x); const sc = scoreOf(S.days[k]); wk.push(`<div><b style="height:${Math.max(3, sc * .55)}px;background:${sc >= 80 ? "var(--go)" : sc >= 50 ? "var(--warn)" : "var(--bad)"}"></b>${"אבגדהוש"[x.getDay()]}</div>`); }
+  $("week").innerHTML = wk.join("");
+  $("gSteps").value = g.steps; $("gWater").value = g.water;
+  const base = location.href.split(/[?#]/)[0];
+  $("shortcutUrl").textContent = base + "?steps=[סכום הצעדים]"; $("waterUrl").textContent = base + "?water=1";
+  renderWeight();
+}
+
+function addWeight(v) {
+  if (!(v > 40 && v < 250)) return toast("משקל לא תקין");
+  S.weights = S.weights.filter(w => w.d !== today()); S.weights.push({ d: today(), v: +v.toFixed(1) }); S.weights.sort((a, b) => a.d.localeCompare(b.d)); save();
+}
+function renderWeight() {
+  const ws = [{ d: "2026-10-11", v: W_START }, ...S.weights.filter(w => w.d !== "2026-10-11")];
+  const last = ws[ws.length - 1];
+  const daysLeft = Math.ceil((new Date(W_GOAL_DATE) - new Date(today())) / 864e5);
+  $("wTarget").textContent = `${W_GOAL} ק"ג עד 28.02 (${daysLeft} ימים) | אבן דרך ${W_MILE} עד 06.12`;
+  const need = last.v - W_GOAL;
+  $("wStatus").textContent = need <= 0 ? "הגעת ל-90. אתה עשית את זה." : `עכשיו ${last.v} ק"ג. נשארו ${need.toFixed(1)} ק"ג, כלומר ${(need / Math.max(1, daysLeft / 7)).toFixed(2)} ק"ג בשבוע.`;
+  const x0 = new Date("2026-10-11"), x1 = new Date(W_GOAL_DATE), X = d => 20 + (new Date(d) - x0) / (x1 - x0) * 300, Y = v => 20 + (101 - v) / 12 * 140;
+  const pts = ws.map(w => `${X(w.d).toFixed(1)},${Y(w.v).toFixed(1)}`).join(" ");
+  $("wChart").innerHTML = `<line x1="${X("2026-10-11")}" y1="${Y(100)}" x2="${X(W_GOAL_DATE)}" y2="${Y(90)}" stroke="#2fd67b" stroke-dasharray="5 5" stroke-width="2"/>
+    <text x="${X(W_GOAL_DATE) - 4}" y="${Y(90) - 8}" fill="#2fd67b" font-size="12" text-anchor="end">90 ב-28.02</text>
+    <circle cx="${X(W_MILE_DATE)}" cy="${Y(W_MILE)}" r="5" fill="none" stroke="#ffb020" stroke-width="2"/><text x="${X(W_MILE_DATE)}" y="${Y(W_MILE) + 18}" fill="#ffb020" font-size="11" text-anchor="middle">95 ב-06.12</text>
+    <polyline points="${pts}" fill="none" stroke="#f2f4f6" stroke-width="3" stroke-linejoin="round"/>
+    ${ws.map(w => `<circle cx="${X(w.d)}" cy="${Y(w.v)}" r="4" fill="#f2f4f6"/>`).join("")}
+    <text x="20" y="14" fill="#8a96a3" font-size="12">100</text><text x="20" y="${Y(90) + 4}" fill="#8a96a3" font-size="12">90</text>`;
+}
+
+// Photos: stored in IndexedDB on the phone only, never uploaded.
+const DB = new Promise((ok, no) => { const r = indexedDB.open("shay-health", 1); r.onupgradeneeded = () => r.result.createObjectStore("photos", { keyPath: "id" }); r.onsuccess = () => ok(r.result); r.onerror = no; });
+const put = async p => { const db = await DB; return new Promise((ok, no) => { const t = db.transaction("photos", "readwrite"); t.objectStore("photos").put(p); t.oncomplete = ok; t.onerror = no; }); };
+const del = async id => { const db = await DB; return new Promise((ok, no) => { const t = db.transaction("photos", "readwrite"); t.objectStore("photos").delete(id); t.oncomplete = ok; t.onerror = no; }); };
+const allPhotos = async () => { const db = await DB; return new Promise(ok => { const r = db.transaction("photos").objectStore("photos").getAll(); r.onsuccess = () => ok(r.result || []); }); };
+async function shrink(file) { const img = await createImageBitmap(file); const k = Math.min(1, 1080 / Math.max(img.width, img.height)); const c = document.createElement("canvas"); c.width = Math.round(img.width * k); c.height = Math.round(img.height * k); c.getContext("2d").drawImage(img, 0, 0, c.width, c.height); return new Promise(ok => c.toBlob(ok, "image/jpeg", .8)); }
+let heroUrl;
+async function showHero() {
+  const all = await allPhotos(), el = $("hero"), d = day(), h = new Date().getHours();
+  const thin = all.filter(p => (p.kind || "thin") === "thin"), warn = all.filter(p => p.kind === "warn");
+  const slipping = d.junk > 0 || (h >= 18 && scoreOf(d) < 50);
+  const set = slipping && warn.length ? warn : thin.length ? thin : warn;
+  if (!set.length) { el.className = "hero empty"; el.textContent = EMPTY_HERO; return; }
+  const p = set[(new Date().getDate() + h) % set.length];
+  const cap = set === warn ? "לזה אתה רוצה לחזור? עצור עכשיו." : "אתה רוצה להגיע לזה? אתה כבר היית שם.";
+  if (heroUrl) URL.revokeObjectURL(heroUrl); heroUrl = URL.createObjectURL(p.blob);
+  el.className = "hero"; el.innerHTML = '<img alt=""><div class="cap"></div>'; el.querySelector("img").src = heroUrl; el.querySelector(".cap").textContent = cap;
+  el.style.borderColor = set === warn ? "var(--bad)" : "var(--line)";
+}
+async function renderPhotos() {
+  const ps = await allPhotos(); $("pgrid").innerHTML = ""; $("pgridWarn").innerHTML = "";
+  for (const p of ps) {
+    const i = document.createElement("img"); i.src = URL.createObjectURL(p.blob); let t;
+    i.ontouchstart = i.onmousedown = () => t = setTimeout(async () => { if (confirm("למחוק את התמונה?")) { await del(p.id); renderPhotos(); showHero(); } }, 700);
+    i.ontouchend = i.onmouseup = () => clearTimeout(t);
+    $(p.kind === "warn" ? "pgridWarn" : "pgrid").appendChild(i);
+  }
+}
+const addPhotos = kind => { const i = document.createElement("input"); i.type = "file"; i.accept = "image/*"; i.multiple = true; i.onchange = async () => { for (const f of i.files) await put({ id: Date.now() + Math.random(), kind, blob: await shrink(f) }); toast("נוספו " + i.files.length + " תמונות"); renderPhotos(); showHero(); }; i.click(); };
+$("addPh").onclick = () => addPhotos("thin");
+$("addWarn").onclick = () => addPhotos("warn");
+document.querySelectorAll("#meals button").forEach(b => b.onclick = () => { const d = day(); d.meals[+b.dataset.m] = d.meals[+b.dataset.m] ? 0 : 1; save(); render(); });
+$("waterAdd").onclick = () => { day().water++; save(); render(); if (navigator.vibrate) navigator.vibrate(20); };
+$("waterSub").onclick = () => { day().water = Math.max(0, day().water - 1); save(); render(); };
+$("junk").onclick = () => { day().junk++; save(); render(); };
+$("unjunk").onclick = () => { day().junk = 0; save(); render(); };
+$("stepsEdit").onclick = () => { const v = prompt("כמה צעדים עכשיו?", day().steps); if (v !== null && +v >= 0) { day().steps = parseInt(v, 10) || 0; day().stepsAt = ""; save(); render(); } };
+$("wSave").onclick = () => { addWeight(parseFloat($("wIn").value)); $("wIn").value = ""; render(); toast("נשמר"); };
+$("gSave").onclick = () => { S.goals = { steps: Math.max(1000, +$("gSteps").value || 10000), water: Math.max(4, +$("gWater").value || 12) }; save(); render(); toast("היעדים נשמרו"); };
+$("exp").onclick = () => { const b = new Blob([JSON.stringify(S, null, 1)], { type: "application/json" }); const a = document.createElement("a"); a.href = URL.createObjectURL(b); a.download = `shay95-${today()}.json`; a.click(); };
+$("imp").onclick = () => { const i = document.createElement("input"); i.type = "file"; i.accept = ".json"; i.onchange = async () => { try { S = JSON.parse(await i.files[0].text()); save(); render(); toast("שוחזר"); } catch { toast("קובץ לא תקין"); } }; i.click(); };
+document.querySelectorAll(".tabs button").forEach(b => b.onclick = () => { document.querySelectorAll(".tabs button,.page").forEach(x => x.classList.remove("on")); b.classList.add("on"); $(b.dataset.p).classList.add("on"); scrollTo(0, 0); if (b.dataset.p === "p-photos") renderPhotos(); });
+document.addEventListener("visibilitychange", () => { if (!document.hidden) render(); });
+setInterval(render, 60000);
+if ("serviceWorker" in navigator && location.protocol === "https:") navigator.serviceWorker.register("sw.js");
+handleUrl(); render();
 </script>
-<script>if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js").catch(()=>{})}</script>
 </body>
 </html>
