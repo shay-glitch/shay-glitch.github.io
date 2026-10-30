@@ -5,64 +5,74 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#05070c">
-<meta name="apple-mobile-web-app-title" content="שי בריאות">
-<title>שי בריאות</title>
+<meta name="theme-color" content="#04060b">
+<meta name="apple-mobile-web-app-title" content="מגה שי בריאות 1">
+<title>מגה שי בריאות 1</title>
 <link rel="manifest" href="mega-manifest.json">
+<link rel="icon" href="icon.svg">
 <style>
-:root{--bg:#05070c;--card:rgba(255,255,255,.05);--line:rgba(255,255,255,.09);--txt:#f2f6fb;--dim:#8fa2b8;--mint:#34e0c2;--blue:#4aa8ff;--vio:#9d7bff;--red:#ff6b6b;--gold:#ffc53d}
+:root{--bg:#04060b;--card:rgba(255,255,255,.055);--line:rgba(255,255,255,.10);--txt:#f4f7fb;--dim:#8ea3ba;--mint:#3ef0d1;--blue:#5ab0ff;--vio:#a887ff;--red:#ff6b7a;--r:28px}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-body{background:radial-gradient(120% 90% at 80% -10%,#12253d 0%,#05070c 55%) fixed,var(--bg);color:var(--txt);font-family:-apple-system,"SF Pro Display","Segoe UI",system-ui,sans-serif;min-height:100vh;padding-bottom:110px}
-.wrap{max-width:480px;margin:0 auto;padding:10px 18px}
-header{display:flex;justify-content:space-between;align-items:center;padding:18px 2px 8px}
-h1{font-size:26px;font-weight:800;letter-spacing:-.5px;background:linear-gradient(90deg,var(--mint),var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent}
-.sub{color:var(--dim);font-size:13px;margin-top:2px}
-.chip{display:flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-size:14px;font-weight:700;backdrop-filter:blur(14px)}
-.card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:20px;margin-top:14px;backdrop-filter:blur(20px);box-shadow:0 8px 32px rgba(0,0,0,.35)}
-.card h2{font-size:13px;font-weight:700;color:var(--dim);letter-spacing:.4px;margin-bottom:14px;text-transform:uppercase}
-.ringwrap{display:flex;align-items:center;gap:18px}
-.ring{position:relative;width:110px;height:110px;flex:none}
-.ring svg{transform:rotate(-90deg)}
-.ring .val{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;font-size:24px;letter-spacing:-.5px}
-.ring .val small{font-size:10px;color:var(--dim);font-weight:600;letter-spacing:.5px}
-.big{font-size:30px;font-weight:800;letter-spacing:-.5px}
-.mut{color:var(--dim);font-size:13px;margin-top:4px;line-height:1.55}
-.btn{border:none;border-radius:16px;padding:15px;font-size:15px;font-weight:700;width:100%;color:#032a22;background:linear-gradient(180deg,#3ef0d1,#1fc4a8);font-family:inherit;transition:transform .12s}
-.btn:active{transform:scale(.96)}
-.btn.blue{background:linear-gradient(180deg,#63b6ff,#2f8de6);color:#03243f}
-.btn.ghost{background:rgba(255,255,255,.07);border:1px solid var(--line);color:var(--txt)}
-.btn.warn{background:linear-gradient(180deg,#ff7b7b,#e55555);color:#3d0808}
-.btnrow{display:flex;gap:10px;margin-top:14px}
+body{font-family:-apple-system,"SF Pro Display","Segoe UI",system-ui,sans-serif;color:var(--txt);background:radial-gradient(60% 45% at 85% -5%,rgba(62,240,209,.14),transparent 60%),radial-gradient(55% 40% at 0% 0%,rgba(90,176,255,.13),transparent 60%),radial-gradient(50% 40% at 50% 110%,rgba(168,135,255,.10),transparent 60%),var(--bg);background-attachment:fixed;min-height:100vh;padding-bottom:130px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:480px;margin:0 auto;padding:12px 20px}
+header{display:flex;justify-content:space-between;align-items:flex-start;padding:22px 2px 10px}
+h1{font-size:30px;font-weight:800;letter-spacing:-.8px;line-height:1.1;background:linear-gradient(92deg,var(--mint) 0%,var(--blue) 55%,var(--vio) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--dim);font-size:13.5px;margin-top:3px;font-weight:500}
+.chip{display:flex;align-items:center;gap:6px;background:linear-gradient(135deg,rgba(255,197,61,.16),rgba(255,107,122,.12));border:1px solid rgba(255,197,61,.25);border-radius:999px;padding:9px 15px;font-size:14px;font-weight:800;backdrop-filter:blur(16px) saturate(1.6);box-shadow:0 4px 18px rgba(255,197,61,.10)}
+.card{position:relative;background:linear-gradient(160deg,rgba(255,255,255,.075),rgba(255,255,255,.035));border:1px solid var(--line);border-radius:var(--r);padding:22px;margin-top:16px;backdrop-filter:blur(24px) saturate(1.5);box-shadow:0 12px 40px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.07);overflow:hidden}
+.card::before{content:"";position:absolute;top:0;right:0;left:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.22),transparent)}
+.card h2{display:flex;align-items:center;gap:7px;font-size:12.5px;font-weight:700;color:var(--dim);letter-spacing:1.2px;margin-bottom:16px;text-transform:uppercase}
+.card h2::before{content:"";width:6px;height:6px;border-radius:99px;background:linear-gradient(135deg,var(--mint),var(--blue));box-shadow:0 0 8px rgba(62,240,209,.6)}
+.ringwrap{display:flex;align-items:center;gap:20px}
+.ring{position:relative;width:118px;height:118px;flex:none}
+.ring svg{transform:rotate(-90deg);filter:drop-shadow(0 0 10px rgba(62,240,209,.35))}
+.ring circle{transition:stroke-dashoffset .7s cubic-bezier(.22,1,.36,1)}
+.ring .val{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;font-size:26px;letter-spacing:-.6px;font-variant-numeric:tabular-nums}
+.ring .val small{font-size:9.5px;color:var(--dim);font-weight:700;letter-spacing:.8px;margin-top:2px}
+.big{font-size:32px;font-weight:800;letter-spacing:-.7px}
+.mut{color:var(--dim);font-size:13.5px;margin-top:6px;line-height:1.6}
+.btn{position:relative;border:none;border-radius:18px;padding:16px;font-size:15.5px;font-weight:800;width:100%;color:#02231c;background:linear-gradient(180deg,#48f2d6,#17c3a5);font-family:inherit;transition:transform .15s cubic-bezier(.34,1.56,.64,1),box-shadow .15s;box-shadow:0 8px 24px rgba(62,240,209,.28),inset 0 1px 0 rgba(255,255,255,.35);letter-spacing:-.2px}
+.btn:active{transform:scale(.95)}
+.btn.blue{background:linear-gradient(180deg,#6cbcff,#2e8fe8);color:#032543;box-shadow:0 8px 24px rgba(74,168,255,.28),inset 0 1px 0 rgba(255,255,255,.35)}
+.btn.ghost{background:rgba(255,255,255,.08);border:1px solid var(--line);color:var(--txt);box-shadow:none;backdrop-filter:blur(10px)}
+.btn.warn{background:linear-gradient(180deg,#ff8091,#e8556b);color:#40060f;box-shadow:0 8px 24px rgba(255,107,122,.25),inset 0 1px 0 rgba(255,255,255,.3)}
+.btnrow{display:flex;gap:10px;margin-top:16px}
 .btnrow .btn{flex:1}
-.meal{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:1px solid var(--line);font-size:15px}
+.meal{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:15.5px;font-weight:600}
 .meal:last-child{border:none}
-.pill{border:none;border-radius:999px;padding:8px 13px;font-size:12.5px;font-weight:700;font-family:inherit;margin-inline-start:6px}
-.pill.ok{background:rgba(52,224,194,.16);color:var(--mint)}
-.pill.bad{background:rgba(255,107,107,.16);color:var(--red)}
-.chart{display:flex;align-items:flex-end;gap:8px;height:96px;margin-top:8px}
-.bar{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:5px;height:100%}
-.bar .fill{width:100%;border-radius:8px 8px 4px 4px;background:linear-gradient(180deg,var(--blue),#1d5f9e);min-height:3px}
-.bar .day{font-size:10px;color:var(--dim)}
-.foot{color:#4d627a;font-size:11px;text-align:center;margin:26px 0 8px;line-height:1.7}
-.flash{position:fixed;left:50%;transform:translateX(-50%);bottom:100px;background:linear-gradient(90deg,var(--mint),var(--blue));color:#04222c;font-weight:800;padding:12px 24px;border-radius:999px;font-size:14px;opacity:0;transition:.28s;pointer-events:none;z-index:9;box-shadow:0 10px 30px rgba(52,224,194,.35)}
-.flash.on{opacity:1;bottom:114px}
-.tabs{position:fixed;bottom:0;left:0;right:0;display:flex;background:rgba(10,14,22,.82);backdrop-filter:blur(24px);border-top:1px solid var(--line);padding:8px 8px calc(10px + env(safe-area-inset-bottom));z-index:8;max-width:480px;margin:0 auto}
-.tab{flex:1;border:none;background:none;color:var(--dim);font-family:inherit;font-size:10.5px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:3px;padding:4px}
-.tab svg{width:24px;height:24px}
-.tab.on{color:var(--mint)}
-.page{display:none}.page.on{display:block}
-.wrow{display:flex;gap:8px;margin-top:12px}
-.wcup{flex:1;height:44px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--dim);font-size:13px;font-weight:700;font-family:inherit}
-.wcup.on{background:linear-gradient(180deg,rgba(74,168,255,.9),rgba(47,110,200,.9));color:#fff;border-color:transparent}
-input.winp{width:100%;background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:14px;padding:13px 16px;color:var(--txt);font-size:17px;font-weight:700;font-family:inherit;direction:ltr;text-align:center}
-.photoGrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:10px}
-.photoGrid img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:14px;border:1px solid var(--line)}
+.meal b{font-variant-numeric:tabular-nums}
+.pill{border:none;border-radius:999px;padding:9px 15px;font-size:12.5px;font-weight:800;font-family:inherit;margin-inline-start:6px;transition:transform .12s}
+.pill:active{transform:scale(.92)}
+.pill.ok{background:rgba(62,240,209,.18);color:var(--mint);box-shadow:inset 0 0 0 1px rgba(62,240,209,.35)}
+.pill.bad{background:rgba(255,107,122,.16);color:var(--red);box-shadow:inset 0 0 0 1px rgba(255,107,122,.35)}
+.chart{display:flex;align-items:flex-end;gap:9px;height:104px;margin-top:10px}
+.bar{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:6px;height:100%}
+.bar .fill{width:100%;border-radius:10px 10px 5px 5px;background:linear-gradient(180deg,var(--blue),rgba(29,95,158,.65));min-height:4px;transition:height .6s cubic-bezier(.22,1,.36,1);box-shadow:0 0 14px rgba(90,176,255,.25)}
+.bar .day{font-size:10px;color:var(--dim);font-weight:700}
+.foot{color:#46586e;font-size:11px;text-align:center;margin:30px 0 10px;line-height:1.7}
+.flash{position:fixed;left:50%;transform:translateX(-50%);bottom:118px;background:linear-gradient(90deg,var(--mint),var(--blue));color:#032221;font-weight:800;padding:13px 26px;border-radius:999px;font-size:14px;opacity:0;transition:.3s cubic-bezier(.22,1,.36,1);pointer-events:none;z-index:9;box-shadow:0 12px 36px rgba(62,240,209,.4)}
+.flash.on{opacity:1;bottom:132px}
+.tabs{position:fixed;bottom:0;left:50%;transform:translateX(-50%);display:flex;background:rgba(12,17,26,.78);backdrop-filter:blur(28px) saturate(1.8);border:1px solid var(--line);border-radius:26px;margin-bottom:calc(14px + env(safe-area-inset-bottom));padding:8px;z-index:8;max-width:456px;width:calc(100% - 24px);box-shadow:0 14px 44px rgba(0,0,0,.55)}
+.tab{flex:1;border:none;background:none;color:var(--dim);font-family:inherit;font-size:10px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 2px;border-radius:18px;transition:.2s}
+.tab svg{width:23px;height:23px}
+.tab.on{color:#fff;background:linear-gradient(160deg,rgba(62,240,209,.22),rgba(90,176,255,.16));box-shadow:inset 0 0 0 1px rgba(62,240,209,.25)}
+.page{display:none}
+.page.on{display:block;animation:pgIn .34s cubic-bezier(.22,1,.36,1)}
+@keyframes pgIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.wrow{display:flex;gap:9px;margin-top:14px}
+.wcup{flex:1;height:46px;border-radius:13px;border:1px solid var(--line);background:rgba(255,255,255,.05);color:var(--dim);font-size:13px;font-weight:800;font-family:inherit;transition:.2s}
+.wcup.on{background:linear-gradient(180deg,rgba(90,176,255,.95),rgba(46,110,200,.9));color:#fff;border-color:transparent;box-shadow:0 4px 16px rgba(74,168,255,.35)}
+input.winp{width:100%;background:rgba(255,255,255,.07);border:1px solid var(--line);border-radius:16px;padding:14px 16px;color:var(--txt);font-size:18px;font-weight:800;font-family:inherit;direction:ltr;text-align:center}
+input.winp:focus{outline:none;border-color:rgba(62,240,209,.5);box-shadow:0 0 0 4px rgba(62,240,209,.12)}
+.photoGrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;margin-top:12px}
+.photoGrid img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:16px;border:1px solid var(--line);transition:transform .15s}
+.photoGrid img:active{transform:scale(.94)}
 </style>
 </head>
 <body>
 <div class="wrap">
 <header>
- <div><h1 id="hTitle">שי בריאות</h1><div class="sub" id="today"></div><div class="sub" style="color:var(--mint);font-weight:700" id="motto"></div></div>
+ <div><h1 id="hTitle">מגה שי בריאות 1</h1><div class="sub" id="today"></div><div class="sub" style="color:var(--mint);font-weight:700" id="motto"></div></div>
  <div class="chip">🔥 <span id="streak">0</span></div>
 </header>
 
@@ -76,6 +86,21 @@ input.winp{width:100%;background:rgba(255,255,255,.06);border:1px solid var(--li
    <div class="big" id="scoreWord">התחלה</div>
    <div class="mut" id="scoreMut">הציון מחושב ממים, צעדים, ארוחות נקיות והימנעות מזבל. מעל 80 = יום מנצח.</div>
   </div>
+ </div>
+ <div class="card" id="actionCard">
+  <h2>הפעולה הבאה</h2>
+  <div class="big" id="actionNow" style="font-size:22px">–</div>
+  <div class="mut" id="actionWhy">האפליקציה בוחרת לך את הצעד הבא לפי השעה ומה כבר עשית היום.</div>
+  <div class="btnrow">
+   <button class="btn blue" onclick="addWater(250)">+ כוס מים</button>
+   <button class="btn ghost" onclick="quickMeal()">ארוחה נקייה</button>
+   <button class="btn ghost" onclick="go('weight')">שקילה</button>
+  </div>
+ </div>
+ <div class="card" id="inspCard" style="display:none">
+  <h2>התמונה שלך · מי אתה רוצה להיות</h2>
+  <img id="inspImg" style="width:100%;border-radius:18px;border:1px solid var(--line)" onclick="go('photos')">
+  <div class="mut">לחיצה מעבירה לטאב תמונות, שם אפשר להחליף או למחוק.</div>
  </div>
  <div class="card">
   <h2>היום בקצרה</h2>
@@ -193,10 +218,11 @@ function load(){try{return JSON.parse(localStorage.getItem(K))||{}}catch(e){retu
 function save(d){localStorage.setItem(K,JSON.stringify(d))}
 function day(){var d=load();var t=today();if(!d[t])d[t]={water:0,steps:null,meals:[null,null,null],junk:false};if(!d[t].meals)d[t].meals=[null,null,null];return d}
 function flash(t){var f=document.getElementById('flash');f.textContent=t;f.classList.add('on');setTimeout(function(){f.classList.remove('on')},1700)}
+function quickMeal(){var d=day();var t=today();var idx=-1;for(var i=0;i<3;i++)if(!d[t].meals[i]){idx=i;break}if(idx<0){flash('שלושתן סומנו כבר היום. כל הכבוד.');return}d[t].meals[idx]='ok';save(d);render();flash('סומנה ארוחה נקייה. המשך כך.')}
 function addWater(ml){var d=day();var t=today();d[t].water=Math.max(0,(d[t].water||0)+ml);save(d);render();if(ml>0)flash('כל הכבוד, עוד כוס 👍')}
 function cupTap(n){var d=day();var t=today();var cur=Math.round((d[t].water||0)/250);d[t].water=n*250;save(d);render()}
 function enterSteps(){var v=prompt('כמה צעדים היום? (מגרמין או מ-Apple Health)');if(!v)return;var n=parseInt(v.replace(/\D/g,''));if(isNaN(n))return;var d=day();d[today()].steps=n;save(d);render();flash('עודכן: '+n.toLocaleString('he')+' צעדים')}
-function setMeal(i,kind){var d=day();var t=today();d[t].meals[i]=(d[t].meals[i]===kind?null:kind);save(d);render()}
+function setMeal(i,kind){var d=day();var t=today();d[t].meals[i]=(d[t].meals[i]===kind?null:kind);save(d);render();if(kind==='bad')flash('עברנו. הארוחה הבאה נקייה, וזה מה שקובע.')}
 function logJunk(){var d=day();d[today()].junk=true;d[today()].junkAt=new Date().toISOString();save(d);render();flash('יום חדש מחר. בלי אשמה 🙌')}
 function streak(){var d=load();var s=0;for(var i=0;i<120;i++){var r=d[keyOffset(i)];if(!r){if(i===0){continue}else break}
  var good=(r.water||0)>=GOALS.water*250*0.75&&!r.junk&&(r.meals?r.meals.filter(function(x){return x==='ok'}).length>=2:true);if(i===0){if(good)s++}else if(good)s++;else break}return s}
@@ -228,6 +254,13 @@ function render(){
  document.getElementById('sWater').textContent=(r.water||0)+' מ״ל';
  document.getElementById('sSteps').textContent=st.toLocaleString('he');
  var okCount=0;for(var k=0;k<3;k++)if(r.meals[k]==='ok')okCount++;document.getElementById('sMeals').textContent=okCount+' מתוך 3';
+ var nowH=new Date().getHours();var cupsNow=(r.water||0)/250;var act='החזק את הקצב עד הערב';
+ if(cupsNow<6){act='שתה כוס מים עכשיו'}
+ else if(st<5000){act='צא להליכה של 10 דקות'}
+ else{var mi=-1;for(var k2=0;k2<3;k2++)if(!r.meals[k2]){mi=k2;break}
+  if(mi>=0){act=['סמן ארוחת בוקר נקייה','סמן ארוחת צהריים נקייה','סמן ארוחת ערב נקייה'][mi]}
+  else if(nowH>=21){act='רשום את היום וסיים נקי'}}
+ var an=document.getElementById('actionNow');if(an)an.textContent=act;
  document.getElementById('today').textContent=new Date().toLocaleDateString('he-IL',{weekday:'long',day:'numeric',month:'long'});
  if(typeof renderInsights==='function'){try{renderInsights()}catch(e){}}
  var ch=document.getElementById('chart');ch.innerHTML='';var max=1;var rows=[];
@@ -247,6 +280,8 @@ function renderWeight(){var d=load();var cur=d.lastWeight;document.getElementByI
  hist.innerHTML=out}
 function addPhoto(inp,kind){var f=inp.files[0];if(!f)return;var r=new FileReader();r.onload=function(){var d=load();var key='photos_'+kind;d[key]=d[key]||[];d[key].unshift(r.result);d[key]=d[key].slice(0,15);save(d);renderPhotos();flash(kind==='fit'?'נשמר. תסתכל על זה כשקשה 🙌':'נשמר. תזכורת למה לא חוזרים.')};r.readAsDataURL(f);inp.value=''}
 function renderPhotos(){var d=load();if(d.photos&&!d.photos_fit){d.photos_fit=d.photos;delete d.photos;save(d)}
+ var ic=document.getElementById('inspCard'),ii=document.getElementById('inspImg');
+ if(ic&&ii){var fp=(d.photos_fit||[])[0];if(fp){ic.style.display='block';ii.src=fp}else{ic.style.display='none'}}
  ['fit','before'].forEach(function(kind){var box=document.getElementById('photos_'+kind);box.innerHTML='';(d['photos_'+kind]||[]).forEach(function(p,i){var im=document.createElement('img');im.src=p;im.onclick=function(){var dd=load();dd['photos_'+kind].splice(i,1);save(dd);renderPhotos()};box.appendChild(im)})})}
 function renderInsights(){var d=load();var sc=0,w=0,st=0,cl=0,n=0;var rows='';
 for(var i=0;i<14;i++){var kk=keyOffset(i);var r=d[kk];
