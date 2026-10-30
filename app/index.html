@@ -1,0 +1,752 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="שי בריאות">
+<meta name="theme-color" content="#000000">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-180.png">
+<title>שי בריאות</title>
+<style>
+:root{
+  --bg:#000;--s1:#141416;--s2:#1f1f22;--s3:#2c2c30;--sep:rgba(120,120,128,.24);
+  --t1:#f5f5f7;--t2:rgba(235,235,245,.62);--t3:rgba(235,235,245,.32);
+  --move:#3ddc68;--move2:#b4f45a;--water:#2f9bff;--water2:#7fd8ff;--food:#ff9f0a;--food2:#ffd84d;--bad:#ff453a;--bad2:#ff8a65;
+  --ease:cubic-bezier(.22,1,.36,1);--spring:cubic-bezier(.34,1.56,.64,1);
+  --f:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Hebrew","Segoe UI Variable Text","Segoe UI","Arial Hebrew",Arial,sans-serif;
+  --num:ui-rounded,"SF Pro Rounded",-apple-system,BlinkMacSystemFont,"Segoe UI Variable Display","Segoe UI",sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{background:var(--bg)}
+body{font-family:var(--f);color:var(--t1);background:var(--bg);font-size:17px;line-height:1.4;letter-spacing:-.01em;
+  padding-bottom:calc(100px + env(safe-area-inset-bottom));min-height:100vh;-webkit-font-smoothing:antialiased;overscroll-behavior-y:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;touch-action:manipulation}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--water2);outline-offset:3px;border-radius:12px}
+.n{font-family:var(--num);font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.wrap{max-width:520px;margin:0 auto;padding:0 16px}
+.page{display:none}.page.on{display:block}
+.press{transition:transform .25s var(--spring)}.press:active{transform:scale(.95)}
+
+/* compact header that appears on scroll */
+.bar{position:fixed;inset:0 0 auto 0;z-index:30;padding:calc(env(safe-area-inset-top) + 10px) 20px 10px;display:flex;justify-content:space-between;align-items:center;
+  background:rgba(10,10,12,.7);-webkit-backdrop-filter:saturate(180%) blur(24px);backdrop-filter:saturate(180%) blur(24px);border-bottom:.5px solid var(--sep);
+  opacity:0;transform:translateY(-8px);pointer-events:none;transition:opacity .25s,transform .25s var(--ease)}
+.bar.on{opacity:1;transform:none;pointer-events:auto}
+.bar b{font-size:17px;font-weight:700}
+.chip{font-size:13px;font-weight:700;padding:5px 10px;border-radius:99px;background:var(--s3)}
+
+/* page titles (non-hero pages) */
+.head{padding:calc(env(safe-area-inset-top) + 18px) 4px 14px}
+.head small{display:block;color:var(--t2);font-size:13px;font-weight:600}
+.head h1{font-size:34px;font-weight:800;letter-spacing:-.035em;line-height:1.08}
+
+/* HERO: full-bleed portrait under the status bar */
+.hero{position:relative;margin:0 -16px;height:min(74vh,640px);overflow:hidden;background:#0c0c0e}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.07);transition:opacity 1.4s ease,transform 7s linear}
+.hero img.on{opacity:1;transform:scale(1)}
+.hcount{position:absolute;z-index:2;left:20px;bottom:84px;font-size:12px;font-weight:700;padding:4px 9px;border-radius:99px;background:rgba(0,0,0,.4);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);color:rgba(255,255,255,.85)}
+.hcount:empty{display:none}
+.strip{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -16px;padding:2px 16px 4px;scrollbar-width:none}
+.strip::-webkit-scrollbar{display:none}
+.strip button{flex:none;width:128px;aspect-ratio:3/4;border-radius:18px;overflow:hidden;scroll-snap-align:start;position:relative;background:var(--s1)}
+.strip button:first-child{width:200px}
+.strip img{width:100%;height:100%;object-fit:cover;display:block}
+.strip .add{display:grid;place-items:center;color:var(--t2);font-weight:700;font-size:14px;border:1.5px dashed var(--s3)}
+.strip .add b{display:block;font-size:30px;color:var(--t1);font-weight:500;line-height:1}
+.viewer{position:fixed;inset:0;z-index:55;background:#000;display:none}
+.viewer.on{display:block;animation:in .25s var(--ease)}
+.vtrack{display:flex;height:100%;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+.vtrack::-webkit-scrollbar{display:none}
+.vtrack img{flex:none;width:100%;height:100%;object-fit:contain;scroll-snap-align:center}
+.vtop{position:absolute;inset:0 0 auto 0;padding:calc(env(safe-area-inset-top) + 12px) 16px 12px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(180deg,rgba(0,0,0,.6),transparent)}
+.vtop span{font-weight:700;font-size:15px}
+.vcap{position:absolute;inset:auto 0 0 0;padding:40px 22px calc(26px + env(safe-area-inset-bottom));background:linear-gradient(0deg,rgba(0,0,0,.8),transparent);font-size:22px;font-weight:800;letter-spacing:-.02em}
+.hero::before{content:"";position:absolute;inset:0 0 auto 0;height:42%;z-index:1;background:linear-gradient(180deg,rgba(0,0,0,.72),rgba(0,0,0,0))}
+.hero::after{content:"";position:absolute;inset:auto 0 0 0;height:62%;z-index:1;background:linear-gradient(0deg,#000 8%,rgba(0,0,0,.6) 45%,rgba(0,0,0,0))}
+.hero.warn img{filter:grayscale(.75) contrast(1.15) brightness(.85)}
+.hero.warn::after{background:linear-gradient(0deg,#000 8%,rgba(70,0,0,.65) 50%,rgba(120,0,0,.1))}
+.hero .top{position:absolute;inset:0 0 auto 0;z-index:2;padding:calc(env(safe-area-inset-top) + 16px) 20px 0;display:flex;justify-content:space-between;align-items:flex-start}
+.hero .top small{display:block;font-size:14px;font-weight:600;color:rgba(255,255,255,.75)}
+.hero .top h1{font-size:34px;font-weight:800;letter-spacing:-.035em;line-height:1.1}
+.score{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:rgba(0,0,0,.35);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border:.5px solid rgba(255,255,255,.18)}
+.score b{font-size:22px;font-weight:800;line-height:1}.score small{font-size:9.5px;color:var(--t2);font-weight:700;margin-top:-10px}
+.hero .cap{position:absolute;inset:auto 0 0 0;z-index:2;padding:0 20px 84px}
+.hero .cap b{display:block;font-size:30px;line-height:1.08;font-weight:800;letter-spacing:-.035em;max-width:15ch;text-wrap:balance}
+.hero .cap span{display:block;margin-top:8px;color:rgba(255,255,255,.7);font-size:15px;font-weight:600}
+.hero.warn .cap b{color:#fff}
+.hero.warn .cap .tag{display:inline-block;margin-bottom:10px;font-size:13px;font-weight:700;color:#fff;background:var(--bad);padding:4px 10px;border-radius:99px}
+.hero .cap .tag{display:none}
+.hero.empty{height:auto;padding:calc(env(safe-area-inset-top) + 16px) 0 0;background:radial-gradient(90% 60% at 50% 30%,#13301d 0%,#000 70%)}
+.hero.empty::before,.hero.empty::after,.hero.empty .hcount{display:none}
+.hero.empty .top{position:static}
+.hero.empty .cap{position:static;padding:120px 20px 96px;text-align:center}
+.hero.empty .cap b{margin:0 auto;max-width:16ch;font-size:28px}
+.hero.empty .btn{margin-top:20px}
+
+/* activity summary: overlaps the hero, Apple Fitness style */
+.summary{position:relative;z-index:3;margin-top:-64px;border-radius:26px;padding:18px;display:flex;align-items:center;gap:18px;
+  background:rgba(28,28,31,.72);-webkit-backdrop-filter:saturate(180%) blur(30px);backdrop-filter:saturate(180%) blur(30px);border:.5px solid rgba(255,255,255,.08);box-shadow:0 20px 50px rgba(0,0,0,.5)}
+.rings{width:132px;height:132px;flex:none}
+.rings circle{fill:none;stroke-linecap:round;stroke-width:12.5}
+.rings .arc{transition:stroke-dashoffset 1.3s var(--ease)}
+.stats{flex:1;display:grid;gap:10px}
+.stat small{display:block;font-size:13px;font-weight:700}
+.stat b{font-size:24px;font-weight:800;line-height:1.1}
+.stat b>span+span{font-size:15px;color:var(--t2);font-weight:700}
+.c-move{color:var(--move)}.c-water{color:var(--water2)}.c-food{color:var(--food)}
+
+/* coach: styled as an iOS notification, because that is what it is */
+.note{margin-top:14px;border-radius:22px;padding:13px 14px;display:flex;gap:12px;align-items:flex-start;background:var(--s1);border:.5px solid rgba(255,255,255,.06)}
+.note .ic{width:38px;height:38px;border-radius:10px;flex:none;display:grid;place-items:center;background:linear-gradient(145deg,var(--move2),var(--move))}
+.note.warn .ic{background:linear-gradient(145deg,var(--food2),var(--food))}
+.note.bad .ic{background:linear-gradient(145deg,var(--bad2),var(--bad))}
+.note .ic svg{width:22px;height:22px}
+.note .meta{display:flex;justify-content:space-between;font-size:13px;color:var(--t2);font-weight:600}
+.note p{font-size:16px;font-weight:600;margin-top:2px;line-height:1.35}
+.note .act{margin-top:10px;display:flex;gap:8px}
+
+/* section header */
+.sec{display:flex;justify-content:space-between;align-items:baseline;margin:30px 4px 12px}
+.sec h2{font-size:22px;font-weight:800;letter-spacing:-.025em}
+.sec small{color:var(--t2);font-size:14px;font-weight:600}
+
+/* water: the card fills like a glass */
+.water{position:relative;overflow:hidden;border-radius:26px;background:var(--s1);padding:20px;min-height:168px;display:flex;justify-content:space-between;align-items:flex-end;isolation:isolate}
+.water .lvl{position:absolute;inset:auto 0 0 0;z-index:-1;height:0;background:linear-gradient(0deg,rgba(47,155,255,.55),rgba(127,216,255,.35));transition:height 1s var(--ease)}
+.water .lvl::before{content:"";position:absolute;inset:-11px 0 auto 0;height:12px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 12' preserveAspectRatio='none'%3E%3Cpath d='M0 6 Q15 0 30 6 T60 6 T90 6 T120 6 V12 H0Z' fill='rgba(127,216,255,0.35)'/%3E%3C/svg%3E") 0 0/120px 12px repeat-x;animation:wave 4s linear infinite}
+@keyframes wave{to{background-position:120px 0}}
+@media (prefers-reduced-motion:reduce){.water .lvl::before{animation:none}.hero img{transition:none}}
+.water .v b{font-size:56px;font-weight:800;line-height:.95}
+.water .v b>span+span{font-size:22px;color:var(--t2)}
+.water .v small{display:block;color:var(--t2);font-weight:600;font-size:15px;margin-top:6px}
+.water .v .lbl{display:block;font-size:15px;font-weight:700;color:var(--water2);margin-bottom:8px}
+.plus{width:76px;height:76px;border-radius:50%;background:var(--t1);color:#000;display:grid;place-items:center;box-shadow:0 10px 30px rgba(47,155,255,.35)}
+.plus svg{width:34px;height:34px}
+.minus{position:absolute;top:16px;left:16px;font-size:14px;font-weight:700;color:var(--t2);padding:6px 10px;border-radius:99px;background:rgba(0,0,0,.25)}
+
+/* meals */
+.meals{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.meal{border-radius:22px;background:var(--s1);padding:16px 12px 14px;text-align:center;transition:background .3s,transform .25s var(--spring)}
+.meal:active{transform:scale(.95)}
+.meal .ck{width:34px;height:34px;border-radius:50%;margin:0 auto 10px;border:2px solid var(--s3);display:grid;place-items:center;transition:all .3s var(--ease)}
+.meal .ck svg{width:18px;height:18px;opacity:0;transform:scale(.5);transition:all .3s var(--spring)}
+.meal b{display:block;font-size:16px;font-weight:700}
+.meal small{display:block;font-size:12.5px;color:var(--t2);margin-top:2px}
+.meal.on{background:linear-gradient(160deg,rgba(255,159,10,.28),rgba(255,159,10,.08))}
+.meal.on .ck{background:var(--food);border-color:var(--food)}
+.meal.on .ck svg{opacity:1;transform:none}
+
+/* list rows */
+.list{background:var(--s1);border-radius:22px;overflow:hidden}
+.row{display:flex;align-items:center;gap:14px;padding:15px 16px;position:relative;width:100%;text-align:start}
+.row+.row::before{content:"";position:absolute;top:0;right:66px;left:0;height:.5px;background:var(--sep)}
+.row .ico{width:36px;height:36px;border-radius:10px;flex:none;display:grid;place-items:center}
+.row .ico svg{width:20px;height:20px}
+.row .lbl{flex:1;min-width:0}
+.row .lbl b{display:block;font-weight:600;font-size:16px}
+.row .lbl small{display:block;color:var(--t2);font-size:13.5px}
+.row .val{font-size:20px;font-weight:800;white-space:nowrap}
+.row .chev{color:var(--t3);width:8px;height:14px;flex:none}
+.track{height:5px;border-radius:3px;background:var(--s3);overflow:hidden;margin-top:8px}
+.track i{display:block;height:100%;border-radius:3px;transition:width 1s var(--ease)}
+
+/* urge button */
+.urge{margin-top:14px;width:100%;border-radius:22px;padding:18px;display:flex;align-items:center;gap:14px;background:linear-gradient(135deg,rgba(255,69,58,.2),rgba(255,69,58,.06));border:.5px solid rgba(255,69,58,.3);text-align:start}
+.urge .ico{width:44px;height:44px;border-radius:50%;background:var(--bad);display:grid;place-items:center;flex:none}
+.urge .ico svg{width:24px;height:24px}
+.urge b{display:block;font-size:17px;font-weight:700}.urge small{display:block;color:var(--t2);font-size:13.5px}
+.links{display:flex;gap:16px;justify-content:center;margin-top:14px}
+.links button{font-size:14px;font-weight:600;color:var(--t2)}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:11px 18px;border-radius:99px;background:var(--s3);font-weight:700;font-size:15px;white-space:nowrap}
+.btn.pri{background:var(--t1);color:#000}.btn.red{background:rgba(255,69,58,.18);color:#ff6961}
+.btn.sm{padding:7px 13px;font-size:14px}.btn.wide{width:100%;padding:16px;font-size:17px}
+input{font:inherit;color:var(--t1);background:var(--s2);border:0;border-radius:12px;padding:11px 14px;width:100%;font-size:17px}
+
+/* insights */
+.card{background:var(--s1);border-radius:24px;padding:18px}
+.card h3{font-size:15px;font-weight:700;color:var(--t2)}
+.card .lead{font-size:24px;font-weight:800;letter-spacing:-.03em;line-height:1.18;margin-top:6px;text-wrap:balance}
+.card p{color:var(--t2);font-size:14.5px;margin-top:6px}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tile{background:var(--s1);border-radius:22px;padding:16px}
+.tile small{display:block;font-size:13px;font-weight:700}
+.tile b{display:block;font-size:30px;font-weight:800;margin-top:6px;line-height:1}
+.tile p{color:var(--t2);font-size:13px;margin-top:4px}
+svg.chart{width:100%;height:auto;display:block;margin-top:14px;direction:ltr}
+.heat{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:14px}
+.heat span{aspect-ratio:1;border-radius:8px;background:var(--s2)}
+.heat span.today{outline:2px solid var(--t1);outline-offset:2px}
+.wk{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;color:var(--t3);font-size:11px;text-align:center;margin-top:8px;font-weight:600}
+
+/* journal */
+.pipe{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:14px}
+.pipe b{display:block;height:8px;border-radius:4px;background:var(--s3);margin-bottom:10px;overflow:hidden}
+.pipe b i{display:block;height:100%;background:linear-gradient(270deg,var(--move),var(--move2))}
+.pipe span{display:block;text-align:center;font-size:17px;font-weight:800}
+.pipe small{display:block;text-align:center;font-size:11.5px;color:var(--t2);font-weight:600}
+.task .dot{width:24px;height:24px;border-radius:50%;border:2px solid var(--t3);flex:none}
+.task.bad .dot{border-color:var(--bad)}.task.warn .dot{border-color:var(--food)}
+.ev{display:flex;gap:12px;align-items:flex-start;padding:9px 16px}
+.ev time{color:var(--t2);font-size:13px;width:42px;flex:none;padding-top:2px}
+.ev i{width:8px;height:8px;border-radius:50%;flex:none;margin-top:8px}
+.ev p{font-size:15px}
+.dayhead{padding:16px 16px 4px;color:var(--t2);font-size:13px;font-weight:700;display:flex;justify-content:space-between}
+
+/* photos */
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;border-radius:18px;overflow:hidden}
+.pgrid img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;cursor:pointer}
+.pgrid img:first-child{grid-column:span 2;grid-row:span 2;aspect-ratio:auto;height:100%}
+.pgrid:empty{display:none}
+.sub{margin:-6px 4px 12px;color:var(--t2);font-size:14.5px}
+.howto{color:var(--t2);font-size:14.5px;line-height:1.6}
+.howto ol{padding-right:20px;margin-top:8px}
+.howto li+li{margin-top:8px}
+.howto b{color:var(--t1)}
+.howto code{background:var(--s3);padding:2px 7px;border-radius:7px;font-size:12.5px;direction:ltr;display:inline-block;word-break:break-all;color:var(--t1)}
+
+/* tab bar */
+.tabs{position:fixed;inset:auto 0 0 0;z-index:20;display:flex;justify-content:space-around;padding:7px 6px calc(6px + env(safe-area-inset-bottom));
+  background:rgba(14,14,16,.78);-webkit-backdrop-filter:saturate(180%) blur(26px);backdrop-filter:saturate(180%) blur(26px);border-top:.5px solid var(--sep)}
+.tabs button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:10.5px;font-weight:600;color:rgba(235,235,245,.42);transition:color .2s}
+.tabs button svg{width:27px;height:27px}
+.tabs button.on{color:var(--t1)}
+.tabs button.on svg{color:var(--move)}
+
+/* bottom sheet */
+.scrim{position:fixed;inset:0;z-index:40;background:rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:opacity .3s}
+.scrim.on{opacity:1;pointer-events:auto}
+.sheet{position:fixed;inset:auto 0 0 0;z-index:41;max-width:520px;margin:0 auto;background:#1c1c1e;border-radius:28px 28px 0 0;padding:10px 20px calc(24px + env(safe-area-inset-bottom));
+  transform:translateY(105%);transition:transform .45s var(--ease)}
+.sheet.on{transform:none}
+.sheet .grab{width:38px;height:5px;border-radius:3px;background:var(--s3);margin:0 auto 18px}
+.sheet h3{font-size:20px;font-weight:800;text-align:center}
+.sheet p{color:var(--t2);text-align:center;font-size:14.5px;margin-top:4px}
+.stepper{display:flex;align-items:center;justify-content:center;gap:18px;margin:26px 0}
+.stepper button{width:56px;height:56px;border-radius:50%;background:var(--s3);font-size:28px;font-weight:600;display:grid;place-items:center}
+.stepper input{width:180px;text-align:center;font-family:var(--num);font-size:52px;font-weight:800;background:none;padding:0;letter-spacing:-.03em}
+.stepper input::-webkit-inner-spin-button{display:none}
+
+/* intervention */
+.stop{position:fixed;inset:0;z-index:50;background:#000;display:none;flex-direction:column}
+.stop.on{display:flex;animation:in .3s var(--ease)}
+@keyframes in{from{opacity:0;transform:scale(1.05)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.stop.on{animation:none}}
+.stop .ph{flex:1;position:relative;overflow:hidden;background:radial-gradient(100% 70% at 50% 20%,#3a0d0b,#000 75%)}
+.stop .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(.7) contrast(1.15)}
+.stop .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(90,0,0,.3),rgba(0,0,0,.96) 85%)}
+.stop .txt{position:absolute;inset:auto 0 0 0;z-index:2;padding:24px 24px 8px}
+.stop .count{font-family:var(--num);font-size:88px;font-weight:800;line-height:1;color:var(--bad);letter-spacing:-.04em}
+.stop h2{font-size:40px;line-height:1.02;font-weight:900;letter-spacing:-.04em;margin-top:8px}
+.stop p{color:var(--t2);margin-top:12px;font-size:17px}
+.stop .acts{padding:18px 24px calc(22px + env(safe-area-inset-bottom));display:grid;gap:10px}
+
+.toast{position:fixed;top:calc(10px + env(safe-area-inset-top));left:50%;transform:translate(-50%,-180%);z-index:60;background:rgba(40,40,44,.9);-webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px);
+  padding:12px 20px;border-radius:99px;font-weight:700;font-size:15px;transition:transform .5s var(--spring);white-space:nowrap;border:.5px solid rgba(255,255,255,.1);box-shadow:0 10px 30px rgba(0,0,0,.4)}
+.toast.on{transform:translate(-50%,0)}
+</style>
+</head>
+<body>
+<header class="bar" id="bar"><b id="barTitle">היום</b><span class="chip n" id="barScore"></span></header>
+<div class="wrap">
+
+<!-- TODAY -->
+<section class="page on" id="p-today">
+  <div class="hero empty" id="hero">
+    <div class="top"><div><small id="dateTxt"></small><h1 id="hello">היום</h1></div><div class="score"><b class="n" id="scoreN">0</b><small>ציון</small></div></div>
+    <span class="hcount n" id="hcount"></span>
+    <div class="cap"><span class="tag">אזהרה</span><b id="capB"></b><span id="capS"></span><div id="capBtn"></div></div>
+  </div>
+  <div class="summary" id="summary">
+    <svg class="rings" id="rings" viewBox="0 0 132 132" role="img" aria-label="טבעות היום: צעדים, מים, אוכל"></svg>
+    <div class="stats">
+      <div class="stat"><small class="c-move">צעדים</small><b class="n"><span id="sSteps">0</span><span>/<span id="sStepsG"></span></span></b></div>
+      <div class="stat"><small class="c-water">מים</small><b class="n"><span id="sWater">0</span><span>/<span id="sWaterG"></span> כוסות</span></b></div>
+      <div class="stat"><small class="c-food">אוכל נקי</small><b class="n"><span id="sFood">0</span><span>/3 ארוחות</span></b></div>
+    </div>
+  </div>
+  <div class="note" id="note">
+    <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 8 3 8H3s3-1 3-8M10 20a2 2 0 0 0 4 0"/></svg></div>
+    <div style="flex:1;min-width:0"><div class="meta"><span>שי בריאות</span><span>עכשיו</span></div><p id="noteTxt"></p><div class="act" id="noteAct"></div></div>
+  </div>
+
+  <div class="sec"><h2>ככה הייתי</h2><small id="stripN"></small></div>
+  <div class="strip" id="strip"></div>
+
+  <div class="sec"><h2>מים</h2><small id="waterL"></small></div>
+  <div class="water" id="waterCard">
+    <div class="lvl" id="waterLvl"></div>
+    <button class="minus" id="waterSub2" aria-label="הורד כוס">-1</button>
+    <div class="v"><span class="lbl">כוסות היום</span><b class="n"><span id="waterN">0</span><span>/<span id="waterG"></span></span></b><small id="waterSub"></small></div>
+    <button class="plus press" id="waterAdd" aria-label="הוסף כוס מים"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+  </div>
+
+  <div class="sec"><h2>ארוחות</h2><small id="mealsTxt"></small></div>
+  <div class="meals" id="meals">
+    <button class="meal" data-m="0"><div class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></div><b>בוקר</b><small>חלבון</small></button>
+    <button class="meal" data-m="1"><div class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></div><b>צהריים</b><small>חלבון וירק</small></button>
+    <button class="meal" data-m="2"><div class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></div><b>ערב</b><small>עד 21:00</small></button>
+  </div>
+
+  <div class="sec"><h2>תנועה ומשקל</h2></div>
+  <div class="list">
+    <button class="row" id="stepsEdit">
+      <span class="ico" style="background:rgba(61,220,104,.16)"><svg viewBox="0 0 24 24" fill="none" stroke="#3ddc68" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 4a2 2 0 1 0 0 .01M9 20l2-6 3 3v4M7 12l3-4 4 1 2 3"/></svg></span>
+      <span class="lbl"><b>צעדים</b><small id="stepsSrc"></small><span class="track"><i id="stepsBar" style="background:linear-gradient(270deg,var(--move),var(--move2))"></i></span></span>
+      <span class="val n" id="steps">0</span>
+    </button>
+    <button class="row" id="weightEdit">
+      <span class="ico" style="background:rgba(255,255,255,.1)"><svg viewBox="0 0 24 24" fill="none" stroke="#f5f5f7" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="4"/><path d="M9 9a4 4 0 0 1 6 0l-3 3"/></svg></span>
+      <span class="lbl"><b>משקל</b><small id="weightSub"></small></span>
+      <span class="val n" id="weightV"></span>
+    </button>
+    <div class="row">
+      <span class="ico" style="background:rgba(255,159,10,.16)"><svg viewBox="0 0 24 24" fill="none" stroke="#ff9f0a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c1 3 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-4 1-6 1-9z"/></svg></span>
+      <span class="lbl"><b>רצף נקי</b><small id="cleanSub"></small></span>
+      <span class="val n" id="cleanTxt"></span>
+    </div>
+  </div>
+
+  <button class="urge press" id="qUrge">
+    <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M6.5 6.5l11 11"/></svg></span>
+    <span><b>בא לי זבל</b><small>לחץ לפני שאתה אוכל. 10 שניות, ואז תחליט.</small></span>
+  </button>
+  <div class="links"><button id="junk">אכלתי זבל</button><button id="unjunk">ביטול רישום זבל</button></div>
+</section>
+
+<!-- INSIGHTS -->
+<section class="page" id="p-ins">
+  <header class="head"><small>מה הנתונים אומרים</small><h1>תובנות</h1></header>
+  <div class="card"><h3>התחזית</h3><div class="lead" id="fcLead"></div><p id="fcSub"></p><svg class="chart" id="wChart" viewBox="0 0 340 200"></svg></div>
+  <div class="sec"><h2>7 הימים האחרונים</h2></div>
+  <div class="tiles" id="tiles"></div>
+  <div class="sec"><h2>הדבר האחד לתקן</h2></div>
+  <div class="card"><div class="lead" id="fixLead" style="margin-top:0"></div><p id="fixSub"></p></div>
+  <div class="sec"><h2>4 שבועות</h2></div>
+  <div class="card"><p style="margin:0">כל ריבוע הוא יום. ירוק מלא זה ציון 100, מסגרת אדומה זה יום עם זבל.</p><div class="heat" id="heat"></div><div class="wk" id="wk"></div></div>
+  <div class="sec"><h2>דפוסים</h2></div>
+  <div class="list" id="patterns"></div>
+</section>
+
+<!-- JOURNAL -->
+<section class="page" id="p-log">
+  <header class="head"><small>כל מה שקרה, ומה הלאה</small><h1>יומן</h1></header>
+  <div class="card"><h3>הדרך ל-90</h3><div class="pipe" id="pipe"></div></div>
+  <div class="sec"><h2>משימות פתוחות</h2></div>
+  <div class="list" id="tasks"></div>
+  <div class="sec"><h2>ציר זמן</h2></div>
+  <div class="list" id="timeline"></div>
+</section>
+
+<!-- PHOTOS -->
+<section class="page" id="p-photos">
+  <header class="head"><small>נשמרות רק בטלפון</small><h1>תמונות</h1></header>
+  <div class="sec" style="margin-top:6px"><h2>ככה הייתי</h2></div>
+  <p class="sub">עולות כל יום בראש המסך.</p>
+  <div class="pgrid" id="pgrid"></div>
+  <button class="btn pri wide press" id="addPh" style="margin-top:12px">הוסף תמונות רזה</button>
+  <div class="sec"><h2>לשם אני לא חוזר</h2></div>
+  <p class="sub">עולות כשאתה לוחץ "בא לי זבל", כשרשמת זבל, או כשהציון נמוך בערב.</p>
+  <div class="pgrid" id="pgridWarn"></div>
+  <button class="btn red wide press" id="addWarn" style="margin-top:12px">הוסף תמונות אזהרה</button>
+  <p class="sub" style="margin-top:16px">לחיצה ארוכה על תמונה מוחקת אותה.</p>
+</section>
+
+<!-- REMINDERS -->
+<section class="page" id="p-nag">
+  <header class="head"><small>האפליקציה באה אליך</small><h1>תזכורות</h1></header>
+  <div class="list">
+    <div class="row"><span class="ico" style="background:rgba(255,69,58,.16)"><svg viewBox="0 0 24 24" fill="none" stroke="#ff453a" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span>
+      <span class="lbl"><b>לוח שנה: 21 התראות ביום</b><small>מים כל שעה, 4 הליכות, 3 ארוחות, 21:00, 22:00</small></span><a class="btn pri sm" href="nag.ics">הוסף</a></div>
+    <div class="row"><span class="ico" style="background:rgba(61,220,104,.16)"><svg viewBox="0 0 24 24" fill="none" stroke="#3ddc68" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 8 3 8H3s3-1 3-8M10 20a2 2 0 0 0 4 0"/></svg></span>
+      <span class="lbl"><b>התראות מהאפליקציה</b><small id="notifSub">כל 30 דקות כשאתה מאחור</small></span><button class="btn sm" id="notifOn">הפעל</button></div>
+  </div>
+  <div class="sec"><h2>צעדים מגרמין, אוטומטית</h2></div>
+  <div class="card howto">
+    בגרמין Connect: הגדרות, Apple Health, להפעיל צעדים. ואז באפליקציית קיצורים:
+    <ol>
+      <li>קיצור חדש בשם "צעדים": <b>מצא דגימות בריאות</b> (צעדים, היום), <b>חשב סטטיסטיקה</b> (סכום), <b>פתח URL</b>: <code>https://shay-glitch.github.io/?steps=</code> ואחריו התוצאה.</li>
+      <li>אוטומציה, "שעה ביום": 11:00, 14:00, 17:00, 20:00, "הרץ מיד", ומריצה את "צעדים".</li>
+      <li>קיצור "כוס מים": פתח URL <code>https://shay-glitch.github.io/?water=1</code>, ולשים אותו כווידג'ט במסך הנעילה.</li>
+    </ol>
+  </div>
+  <div class="sec"><h2>יעדים</h2></div>
+  <div class="list">
+    <div class="row"><span class="lbl"><b>צעדים ביום</b></span><input id="gSteps" type="number" inputmode="numeric" style="width:120px"></div>
+    <div class="row"><span class="lbl"><b>כוסות מים ביום</b></span><input id="gWater" type="number" inputmode="numeric" style="width:120px"></div>
+  </div>
+  <button class="btn pri wide press" id="gSave" style="margin-top:12px">שמור יעדים</button>
+  <div class="sec"><h2>גיבוי</h2></div>
+  <div style="display:flex;gap:8px"><button class="btn" id="exp">ייצא נתונים</button><button class="btn" id="imp">שחזר מקובץ</button></div>
+  <p class="sub" style="margin-top:12px">הנתונים והתמונות נשמרים רק בטלפון הזה.</p>
+</section>
+</div>
+
+<nav class="tabs" aria-label="ניווט">
+  <button class="on" data-p="p-today"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg>היום</button>
+  <button data-p="p-ins"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 20V11M10 20V5M16 20v-6M21 20H3"/></svg>תובנות</button>
+  <button data-p="p-log"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1.2" fill="currentColor"/><circle cx="4.5" cy="12" r="1.2" fill="currentColor"/><circle cx="4.5" cy="18" r="1.2" fill="currentColor"/></svg>יומן</button>
+  <button data-p="p-photos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><rect x="3" y="5" width="18" height="15" rx="3.5"/><circle cx="9" cy="11" r="2"/><path d="M21 17l-5-5-9 8"/></svg>תמונות</button>
+  <button data-p="p-nag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 8 3 8H3s3-1 3-8M10 20a2 2 0 0 0 4 0"/></svg>תזכורות</button>
+</nav>
+
+<div class="scrim" id="scrim"></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="shH">
+  <div class="grab"></div><h3 id="shH"></h3><p id="shP"></p>
+  <div class="stepper"><button id="shMinus" aria-label="פחות">-</button><input id="shIn" class="n" type="number" inputmode="decimal"><button id="shPlus" aria-label="יותר">+</button></div>
+  <button class="btn pri wide press" id="shSave">שמור</button>
+</div>
+
+<div class="stop" id="stop" role="dialog" aria-modal="true" aria-labelledby="stopH">
+  <div class="ph" id="stopPh"><div class="txt"><div class="count" id="stopCount">10</div><h2 id="stopH">לזה אתה רוצה לחזור?</h2><p>הדחף עובר תוך 10 דקות. שתה כוס מים ותסתכל על התמונה.</p></div></div>
+  <div class="acts"><button class="btn pri wide press" id="stopWin">עצרתי. שותה מים במקום</button><button class="btn red wide press" id="stopLose">אכלתי בכל זאת</button></div>
+</div>
+<div class="viewer" id="viewer" role="dialog" aria-modal="true" aria-label="תמונות">
+  <div class="vtrack" id="vtrack" dir="ltr"></div>
+  <div class="vtop"><button class="btn sm" id="vclose">סגור</button><span class="n" id="vcount"></span></div>
+  <div class="vcap" id="vcap"></div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const W_START = 100, W_GOAL = 90, PLAN_START = "2026-10-30", W_GOAL_DATE = "2027-02-28", W_MILE = 95, W_MILE_DATE = "2026-12-06";
+const LINES = ["אתה לא צריך מוטיבציה. אתה צריך לעשות את הדבר הבא: כוס מים.", "זבל זה החלטה של 3 שניות. תגיד לא ל-3 שניות.", "רעב? קודם כוס מים, אחר כך מחליטים.", "כל הליכה של 15 דקות היא 1,500 צעדים לכיוון 90.", "מי שמגיע ל-90 לא מתמקח עם עצמו. הוא פשוט עושה.", "אוכל מסודר: חלבון, ירק, מים. זה כל הסוד.", "בנית חברות מאפס. אתה יכול לבנות גם את הגוף שלך.", "המטבח נסגר ב-21:00. בלי משא ומתן.", "תסתכל על התמונה. זה אתה. זה לא חלום, זה זיכרון.", "יום נקי אחד בכל פעם. רק היום."];
+const MEALS = ["בוקר", "צהריים", "ערב"], DAYS_HE = ["א", "ב", "ג", "ד", "ה", "ו", "ש"];
+const KEY = "shay95", BLANK = () => ({ goals: { steps: 10000, water: 12 }, days: {}, weights: [], log: [], resisted: 0 });
+const $ = id => document.getElementById(id);
+const today = (d = new Date()) => d.toLocaleDateString("sv-SE");
+const load = () => { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch { return {}; } };
+let S = Object.assign(BLANK(), load());
+const save = () => localStorage.setItem(KEY, JSON.stringify(S));
+const day = (k = today()) => { const d = (S.days[k] ||= { steps: 0, water: 0, junk: 0, stepsAt: "" }); d.meals ||= [0, 0, 0]; return d; };
+const log = (k, text) => { S.log.push({ t: new Date().toISOString(), k, text }); if (S.log.length > 1500) S.log.splice(0, S.log.length - 1500); };
+let toastT; const toast = t => { $("toast").textContent = t; $("toast").classList.add("on"); clearTimeout(toastT); toastT = setTimeout(() => $("toast").classList.remove("on"), 2000); };
+const buzz = () => navigator.vibrate && navigator.vibrate(12);
+const fmt = n => Math.round(n).toLocaleString("he-IL");
+const addDays = (k, n) => { const d = new Date(k + "T12:00:00"); d.setDate(d.getDate() + n); return today(d); };
+const daysBetween = (a, b) => Math.round((new Date(b + "T12:00:00") - new Date(a + "T12:00:00")) / 864e5);
+const heDate = k => new Date(k + "T12:00:00").toLocaleDateString("he-IL", { day: "numeric", month: "long" });
+const mealsOf = d => (d.meals || []).filter(Boolean).length;
+
+function scoreOf(d) {
+  if (!d) return 0;
+  const s = Math.min(1, d.steps / S.goals.steps) * 30, w = Math.min(1, d.water / S.goals.water) * 25, m = mealsOf(d) / 3 * 20;
+  return Math.round(s + w + m + (d.junk ? 0 : 25));
+}
+function cleanStreak() {
+  let n = 0, k = today();
+  for (;;) { const x = S.days[k]; if (x && x.junk) break; if (!x && k !== today()) break; n++; k = addDays(k, -1); }
+  return n;
+}
+function due() {
+  const now = new Date(), h = now.getHours() + now.getMinutes() / 60, g = S.goals;
+  return { h, water: Math.max(0, Math.min(g.water, Math.round((h - 8) / 12 * g.water))), steps: Math.max(0, Math.min(g.steps, Math.round((h - 7) / 14 * g.steps))), meals: h >= 19 ? 3 : h >= 13.5 ? 2 : h >= 9.5 ? 1 : 0 };
+}
+// What is wrong right now, worst first: [level, text, action]
+function issues(d = day()) {
+  const u = due(), out = [], mc = mealsOf(d), H = Math.floor(u.h);
+  if (d.junk) out.push(["bad", "אכלת זבל היום. זה לא מוחק את היום: מים, הליכה, ומחר נקי.", null]);
+  if (d.water < u.water - 2) out.push(["bad", `השעה ${H}:00 ושתית ${d.water} כוסות במקום ${u.water}. קום, כוס מים, עכשיו.`, "water"]);
+  else if (d.water < u.water) out.push(["warn", `${d.water} מתוך ${u.water} כוסות עד עכשיו. עוד כוס.`, "water"]);
+  if (u.h >= 10 && d.steps < u.steps * .6) out.push(["bad", `${fmt(d.steps)} צעדים. צריך ${fmt(u.steps)} עד עכשיו. 15 דקות הליכה, עכשיו.`, "walk"]);
+  else if (u.h >= 10 && d.steps < u.steps) out.push(["warn", `חסרים ${fmt(u.steps - d.steps)} צעדים לקצב. שיחת הטלפון הבאה בהליכה.`, "walk"]);
+  if (mc < u.meals) out.push([u.meals - mc > 1 ? "bad" : "warn", `ארוחת ${MEALS[d.meals.indexOf(0)]} עוד לא נרשמה. מי שמדלג אוכל זבל בערב: חלבון וירק עכשיו.`, "meal"]);
+  if (u.h >= 21) out.push(["warn", "21:00. המטבח סגור. רק מים.", null]);
+  return out;
+}
+const ACT = { water: ["שתיתי כוס", "doWater(1)"], walk: ["יוצא להליכה", "doWalk()"], meal: ["אכלתי", "doMeal()"] };
+
+// Rings with gradients, drawn once and animated by dashoffset.
+const TAU = 2 * Math.PI, RING = [[58, "move", "--move", "--move2"], [43.5, "water", "--water", "--water2"], [29, "food", "--food", "--food2"]];
+function drawRings() {
+  const cs = getComputedStyle(document.documentElement), v = n => cs.getPropertyValue(n).trim();
+  $("rings").innerHTML = `<defs>${RING.map(([, id, a, b]) => `<linearGradient id="g-${id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${v(b)}"/><stop offset="1" stop-color="${v(a)}"/></linearGradient>`).join("")}</defs>` +
+    RING.map(([r, id, a]) => `<circle cx="66" cy="66" r="${r}" stroke="${v(a)}" opacity=".2"/><circle class="arc" id="arc-${id}" cx="66" cy="66" r="${r}" stroke="url(#g-${id})" stroke-dasharray="${(TAU * r).toFixed(1)}" stroke-dashoffset="${(TAU * r).toFixed(1)}" transform="rotate(-90 66 66)"/>`).join("");
+}
+function setRings(d) {
+  const p = [Math.min(1, d.steps / S.goals.steps), Math.min(1, d.water / S.goals.water), mealsOf(d) / 3 * (d.junk ? .5 : 1)];
+  RING.forEach(([r, id], i) => $("arc-" + id).setAttribute("stroke-dashoffset", (TAU * r * (1 - Math.max(.004, p[i]))).toFixed(1)));
+}
+
+function render() {
+  const d = day(), g = S.goals, sc = scoreOf(d), now = new Date(), h = now.getHours();
+  $("dateTxt").textContent = now.toLocaleDateString("he-IL", { weekday: "long", day: "numeric", month: "long" });
+  $("hello").textContent = h < 5 ? "לילה, שי" : h < 12 ? "בוקר טוב, שי" : h < 17 ? "צהריים, שי" : h < 21 ? "ערב, שי" : "לילה, שי";
+  $("scoreN").textContent = sc; $("scoreN").style.color = sc >= 75 ? "var(--move)" : sc >= 50 ? "var(--food)" : "var(--bad)";
+  $("barScore").textContent = `ציון ${sc}`;
+  setRings(d);
+  $("sSteps").textContent = fmt(d.steps); $("sStepsG").textContent = fmt(g.steps);
+  $("sWater").textContent = d.water; $("sWaterG").textContent = g.water;
+  $("sFood").textContent = mealsOf(d);
+  const is = issues(d), top = is[0];
+  $("note").className = "note " + (top ? top[0] : "go");
+  $("noteTxt").textContent = top ? top[1] : (d.steps >= g.steps && d.water >= g.water ? "יום מושלם. ככה נראה מי שמגיע ל-95." : LINES[(now.getDate() + h) % LINES.length]);
+  $("noteAct").innerHTML = top && top[2] ? `<button class="btn pri sm press" onclick="${ACT[top[2]][1]}">${ACT[top[2]][0]}</button>${is.length > 1 ? `<button class="btn sm" onclick="go('p-log')">עוד ${is.length - 1}</button>` : ""}` : "";
+  // water
+  $("waterN").textContent = d.water; $("waterG").textContent = g.water;
+  $("waterLvl").style.height = Math.min(100, d.water / g.water * 100) + "%";
+  $("waterSub").textContent = `${(d.water * .25).toFixed(2)} ליטר מתוך ${(g.water * .25).toFixed(1)}`;
+  const u = due(); $("waterL").textContent = d.water >= u.water ? "בקצב" : `צריך ${u.water} עד עכשיו`;
+  // meals
+  document.querySelectorAll(".meal").forEach(b => { const on = !!d.meals[+b.dataset.m]; b.classList.toggle("on", on); b.setAttribute("aria-pressed", on); });
+  const mc = mealsOf(d); $("mealsTxt").textContent = mc === 3 ? "3 מתוך 3" : `${mc} מתוך 3`;
+  // steps, weight, clean
+  $("steps").textContent = fmt(d.steps);
+  $("stepsBar").style.width = Math.min(100, d.steps / g.steps * 100) + "%";
+  $("stepsSrc").textContent = d.stepsAt ? `מגרמין, עודכן ב-${d.stepsAt}` : `יעד ${fmt(g.steps)}. לחץ לעדכון`;
+  const lw = lastWeight(), wl = weights(); $("weightV").textContent = lw.toFixed(1);
+  $("weightSub").textContent = wl[wl.length - 1].d === today() ? `נשקלת היום. נשארו ${Math.max(0, lw - W_GOAL).toFixed(1)} ק"ג` : `נשארו ${Math.max(0, lw - W_GOAL).toFixed(1)} ק"ג. לחץ לשקילה`;
+  $("cleanTxt").textContent = d.junk ? "0" : cleanStreak(); $("cleanTxt").style.color = d.junk ? "var(--bad)" : "var(--food)";
+  $("cleanSub").textContent = d.junk ? `זבל היום x${d.junk}. מתחילים מחר.` : `ימים בלי זבל. ${S.resisted} דחפים נעצרו`;
+  if (document.activeElement !== $("gSteps") && document.activeElement !== $("gWater")) { $("gSteps").value = g.steps; $("gWater").value = g.water; }
+  showHero();
+  if ($("p-ins").classList.contains("on")) renderInsights();
+  if ($("p-log").classList.contains("on")) renderLog();
+}
+
+// Photos live in IndexedDB on the phone only, never uploaded.
+const DB = new Promise((ok, no) => { const r = indexedDB.open("shay-health", 1); r.onupgradeneeded = () => r.result.createObjectStore("photos", { keyPath: "id" }); r.onsuccess = () => ok(r.result); r.onerror = no; });
+const put = async p => { const db = await DB; return new Promise((ok, no) => { const t = db.transaction("photos", "readwrite"); t.objectStore("photos").put(p); t.oncomplete = ok; t.onerror = no; }); };
+const del = async id => { const db = await DB; return new Promise((ok, no) => { const t = db.transaction("photos", "readwrite"); t.objectStore("photos").delete(id); t.oncomplete = ok; t.onerror = no; }); };
+const allPhotos = async () => { const db = await DB; return new Promise(ok => { const r = db.transaction("photos").objectStore("photos").getAll(); r.onsuccess = () => ok(r.result || []); }); };
+async function shrink(file) { const img = await createImageBitmap(file); const k = Math.min(1, 1440 / Math.max(img.width, img.height)); const c = document.createElement("canvas"); c.width = Math.round(img.width * k); c.height = Math.round(img.height * k); c.getContext("2d").drawImage(img, 0, 0, c.width, c.height); return new Promise(ok => c.toBlob(ok, "image/jpeg", .84)); }
+const urls = new Map(); const urlOf = p => { if (!urls.has(p.id)) urls.set(p.id, URL.createObjectURL(p.blob)); return urls.get(p.id); };
+const pick = (set, salt = 0) => set[(new Date().getDate() + new Date().getHours() + salt) % set.length];
+
+let heroKey = "", heroSet = [], heroIdx = 0, heroTimer;
+const REDUCED = matchMedia("(prefers-reduced-motion: reduce)").matches;
+// Crossfade to heroSet[heroIdx]; advances every 6 seconds while the app is visible.
+function heroShow() {
+  const el = $("hero"), p = heroSet[heroIdx]; if (!p) return;
+  const i = new Image(); i.alt = ""; i.decoding = "async";
+  i.onload = () => requestAnimationFrame(() => { i.classList.add("on"); el.querySelectorAll("img.on").forEach(o => { if (o !== i) { o.classList.remove("on"); setTimeout(() => o.remove(), 1500); } }); });
+  i.src = urlOf(p); el.prepend(i);
+  $("hcount").textContent = heroSet.length > 1 ? `${heroIdx + 1}/${heroSet.length}` : "";
+  clearTimeout(heroTimer);
+  if (heroSet.length > 1 && !REDUCED) heroTimer = setTimeout(() => { if (!document.hidden && page === "p-today") { heroIdx = (heroIdx + 1) % heroSet.length; heroShow(); } else heroTimer = setTimeout(heroShow, 6000); }, 6000);
+}
+function renderStrip(thin) {
+  const st = $("strip"), key = thin.map(p => p.id).join(",");
+  if (st.dataset.key === key) return; st.dataset.key = key;
+  $("stripN").textContent = thin.length ? `${thin.length} תמונות` : "";
+  st.innerHTML = thin.slice(0, 60).map((p, i) => `<button aria-label="תמונה ${i + 1}" onclick="openViewer('thin', ${i})"><img alt="" loading="lazy" src="${urlOf(p)}"></button>`).join("") +
+    `<button class="add" onclick="addPhotos('thin')"><span><b>+</b>הוסף</span></button>`;
+}
+async function openViewer(kind, idx) {
+  const list = (await allPhotos()).filter(p => (p.kind || "thin") === kind); if (!list.length) return;
+  const tr = $("vtrack"); tr.innerHTML = list.map(p => `<img alt="" loading="lazy" src="${urlOf(p)}">`).join("");
+  $("vcap").textContent = kind === "warn" ? "לשם אתה לא חוזר." : "אתה כבר היית שם. אתה יכול לחזור.";
+  const upd = () => { $("vcount").textContent = `${Math.round(tr.scrollLeft / tr.clientWidth) + 1}/${list.length}`; };
+  tr.onscroll = upd; $("viewer").classList.add("on"); document.body.style.overflow = "hidden";
+  requestAnimationFrame(() => { tr.scrollLeft = idx * tr.clientWidth; upd(); });
+}
+const closeViewer = () => { $("viewer").classList.remove("on"); document.body.style.overflow = ""; };
+async function showHero() {
+  const all = await allPhotos(), el = $("hero"), d = day(), h = new Date().getHours();
+  const thin = all.filter(p => (p.kind || "thin") === "thin"), warn = all.filter(p => p.kind === "warn");
+  const slipping = d.junk > 0 || (h >= 18 && scoreOf(d) < 50);
+  const set = slipping && warn.length ? warn : thin.length ? thin : warn;
+  const left = Math.max(0, daysBetween(today(), W_GOAL_DATE));
+  if (!set.length) {
+    el.className = "hero empty"; el.querySelectorAll("img").forEach(x => x.remove()); heroKey = ""; clearTimeout(heroTimer); $("hcount").textContent = ""; renderStrip(thin);
+    $("capB").textContent = "תוסיף תמונות מהתקופה שהיית רזה."; $("capS").textContent = "הן יעלו כאן כל בוקר, על כל המסך.";
+    $("capBtn").innerHTML = `<button class="btn pri press" onclick="go('p-photos')">הוסף תמונות</button>`;
+    return;
+  }
+  const isWarn = set === warn, key = set.map(p => p.id).join(",") + "|" + isWarn;
+  el.className = "hero" + (isWarn ? " warn" : "");
+  if (key !== heroKey) { heroKey = key; heroSet = set; heroIdx = set.indexOf(pick(set)); heroShow(); }
+  renderStrip(thin);
+  $("capB").textContent = isWarn ? "לזה אתה רוצה לחזור? עצור עכשיו." : "אתה רוצה להגיע לזה? אתה כבר היית שם.";
+  $("capS").textContent = `${lastWeight().toFixed(1)} ק"ג עכשיו, ${left} ימים ל-90`; $("capBtn").innerHTML = "";
+}
+async function renderPhotos() {
+  const ps = await allPhotos(); $("pgrid").innerHTML = ""; $("pgridWarn").innerHTML = "";
+  for (const p of ps) {
+    const i = document.createElement("img"), kind = p.kind === "warn" ? "warn" : "thin", grid = $(kind === "warn" ? "pgridWarn" : "pgrid"); i.src = urlOf(p); i.alt = ""; i.loading = "lazy"; let t, long = false;
+    i.ontouchstart = i.onmousedown = () => { long = false; t = setTimeout(async () => { long = true; if (confirm("למחוק את התמונה?")) { await del(p.id); heroKey = ""; $("strip").dataset.key = ""; renderPhotos(); showHero(); } }, 700); };
+    i.ontouchend = i.onmouseup = () => clearTimeout(t);
+    const idx = grid.children.length; i.onclick = () => { if (!long) openViewer(kind, idx); };
+    grid.appendChild(i);
+  }
+}
+function addPhotos(kind) { const i = document.createElement("input"); i.type = "file"; i.accept = "image/*"; i.multiple = true; i.onchange = async () => { for (const f of i.files) await put({ id: Date.now() + Math.random(), kind, blob: await shrink(f) }); log("photo", `נוספו ${i.files.length} תמונות ${kind === "warn" ? "אזהרה" : "רזה"}`); save(); toast(`נוספו ${i.files.length} תמונות`); heroKey = ""; renderPhotos(); showHero(); }; i.click(); }
+
+// Weight and forecast
+const weights = () => S.weights.length ? [...S.weights].sort((a, b) => a.d.localeCompare(b.d)) : [{ d: PLAN_START, v: W_START }];
+const lastWeight = () => { const w = weights(); return w[w.length - 1].v; };
+function addWeight(v) {
+  if (!(v > 40 && v < 250)) { toast("משקל לא תקין"); return false; }
+  S.weights = S.weights.filter(w => w.d !== today()); S.weights.push({ d: today(), v: +v.toFixed(1) }); log("weight", `שקילה: ${v.toFixed(1)} ק"ג`); save(); return true;
+}
+function forecast() {
+  const ws = weights().filter(w => daysBetween(w.d, today()) <= 28);
+  if (ws.length < 3 || daysBetween(ws[0].d, ws[ws.length - 1].d) < 10) return null;
+  const xs = ws.map(w => daysBetween(PLAN_START, w.d)), ys = ws.map(w => w.v), n = xs.length;
+  const mx = xs.reduce((a, b) => a + b) / n, my = ys.reduce((a, b) => a + b) / n;
+  const slope = xs.reduce((a, x, i) => a + (x - mx) * (ys[i] - my), 0) / (xs.reduce((a, x) => a + (x - mx) ** 2, 0) || 1);
+  const last = ws[ws.length - 1];
+  return { perWeek: slope * 7, hit: slope < 0 ? addDays(last.d, Math.ceil((last.v - W_GOAL) / -slope)) : null };
+}
+
+function renderInsights() {
+  const ws = weights(), last = ws[ws.length - 1], left = Math.max(1, daysBetween(today(), W_GOAL_DATE)), need = last.v - W_GOAL, fc = forecast();
+  const needWeek = need / Math.max(1, left / 7);
+  if (need <= 0) { $("fcLead").textContent = "הגעת ל-90. עשית את זה."; $("fcSub").textContent = ""; }
+  else if (!fc) { $("fcLead").textContent = `${last.v} ק"ג. נשארו ${need.toFixed(1)} ק"ג ב-${left} ימים.`; $("fcSub").textContent = `צריך ${needWeek.toFixed(2)} ק"ג בשבוע. אחרי 10 ימים של שקילות אראה לך מתי תגיע ל-90 בקצב שלך.`; }
+  else if (fc.hit && fc.hit <= W_GOAL_DATE) { $("fcLead").textContent = `בקצב הזה אתה ב-90 ב-${heDate(fc.hit)}.`; $("fcSub").textContent = `יורד ${(-fc.perWeek).toFixed(2)} ק"ג בשבוע, לפני היעד. אל תשנה כלום.`; }
+  else { $("fcLead").textContent = fc.hit ? `בקצב הזה תגיע ל-90 רק ב-${heDate(fc.hit)}.` : "המשקל לא יורד ב-4 השבועות האחרונים."; $("fcSub").textContent = `צריך ${needWeek.toFixed(2)} ק"ג בשבוע כדי להגיע ב-28.02.${fc.perWeek < 0 ? ` עכשיו ${(-fc.perWeek).toFixed(2)}.` : ""}`; }
+  // Time runs right to left, like Hebrew.
+  const x0 = new Date(ws[0].d < PLAN_START ? ws[0].d : PLAN_START), x1 = new Date(W_GOAL_DATE), X = k => 284 - (new Date(k) - x0) / (x1 - x0) * 264;
+  const top = Math.max(101, Math.ceil(Math.max(...ws.map(w => w.v)))), Y = v => 14 + (top - v) / (top - 89) * 160;
+  const pts = ws.map(w => `${X(w.d).toFixed(1)},${Y(w.v).toFixed(1)}`);
+  $("wChart").innerHTML = `<defs><linearGradient id="wa" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3ddc68" stop-opacity=".35"/><stop offset="1" stop-color="#3ddc68" stop-opacity="0"/></linearGradient></defs>
+    ${[100, 95, 90].map(v => `<line x1="20" x2="296" y1="${Y(v)}" y2="${Y(v)}" stroke="rgba(120,120,128,.3)" stroke-width=".6"/><text x="304" y="${Y(v) + 4}" fill="rgba(235,235,245,.5)" font-size="11" font-weight="600">${v}</text>`).join("")}
+    <line x1="${X(PLAN_START)}" y1="${Y(100)}" x2="${X(W_GOAL_DATE)}" y2="${Y(90)}" stroke="rgba(235,235,245,.35)" stroke-dasharray="3 5" stroke-width="1.6"/>
+    ${ws.length > 1 ? `<polygon points="${pts.join(" ")} ${X(ws[ws.length - 1].d).toFixed(1)},${Y(89)} ${X(ws[0].d).toFixed(1)},${Y(89)}" fill="url(#wa)"/>` : ""}
+    <circle cx="${X(W_MILE_DATE)}" cy="${Y(W_MILE)}" r="5" fill="#141416" stroke="#ffd84d" stroke-width="2"/><text x="${X(W_MILE_DATE)}" y="${Y(W_MILE) + 20}" fill="#ffd84d" font-size="11" font-weight="700" text-anchor="middle">95 (6.12)</text>
+    <circle cx="${X(W_GOAL_DATE)}" cy="${Y(90)}" r="5" fill="#141416" stroke="#3ddc68" stroke-width="2"/><text x="${X(W_GOAL_DATE) + 8}" y="${Y(90) - 10}" fill="#3ddc68" font-size="11" font-weight="700">90 (28.2)</text>
+    <polyline points="${pts.join(" ")}" fill="none" stroke="#3ddc68" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="${X(last.d).toFixed(1)}" cy="${Y(last.v).toFixed(1)}" r="5.5" fill="#fff" stroke="#3ddc68" stroke-width="3"/>`;
+
+  const last7 = Array.from({ length: 7 }, (_, i) => S.days[addDays(today(), -i)]).filter(Boolean), n7 = last7.length;
+  const avg = f => n7 ? last7.reduce((a, d) => a + f(d), 0) / n7 : 0;
+  const aS = avg(d => d.steps), aW = avg(d => d.water), aM = avg(mealsOf), clean = last7.filter(d => !d.junk).length;
+  $("tiles").innerHTML = [
+    ["ציון ממוצע", Math.round(avg(scoreOf)), "מתוך 100", "var(--t1)"], ["צעדים ביום", fmt(aS), `יעד ${fmt(S.goals.steps)}`, "var(--move)"],
+    ["מים ביום", aW.toFixed(1), `כוסות, יעד ${S.goals.water}`, "var(--water2)"], ["ימים נקיים", `${clean}/${n7 || 7}`, `${S.resisted} דחפים נעצרו`, "var(--food)"]
+  ].map(([a, b, c, col]) => `<div class="tile"><small style="color:${col}">${a}</small><b class="n">${b}</b><p>${c}</p></div>`).join("");
+
+  const gaps = [[1 - aS / S.goals.steps, "צעדים", `ממוצע ${fmt(aS)} ביום. 2 הליכות של 15 דקות סוגרות את הפער.`],
+    [1 - aW / S.goals.water, "מים", `ממוצע ${aW.toFixed(1)} כוסות. כוס אחת עם כל התראה בלוח השנה.`],
+    [1 - aM / 3, "ארוחות", `ממוצע ${aM.toFixed(1)} ארוחות. ארוחה שמדלגים עליה הופכת לזבל בערב.`],
+    [(n7 - clean) / Math.max(1, n7) * 1.5, "זבל", `${n7 - clean} ימים עם זבל השבוע. לחץ "בא לי זבל" לפני, לא אחרי.`]].sort((a, b) => b[0] - a[0]);
+  if (!n7) { $("fixLead").textContent = "עוד אין מספיק נתונים."; $("fixSub").textContent = "תרשום מים וארוחות יומיים, ותקבל כאן את הדבר האחד לתקן."; }
+  else if (gaps[0][0] <= .05) { $("fixLead").textContent = "אין מה לתקן. שבוע מושלם."; $("fixSub").textContent = "ככה מגיעים ל-90 לפני הזמן."; }
+  else { $("fixLead").textContent = gaps[0][1]; $("fixSub").textContent = gaps[0][2]; }
+
+  const dow = new Date().getDay(), start = addDays(today(), -21 - dow);
+  $("heat").innerHTML = Array.from({ length: 22 + dow }, (_, i) => {
+    const k = addDays(start, i), d = S.days[k], s = d ? scoreOf(d) : 0;
+    return `<span class="${k === today() ? "today" : ""}" title="${heDate(k)}${d ? ", ציון " + s : ""}" style="${d ? `background:rgba(61,220,104,${(.14 + s / 100 * .86).toFixed(2)})` : ""}${d && d.junk ? ";box-shadow:inset 0 0 0 2px #ff453a" : ""}"></span>`;
+  }).join("");
+  $("wk").innerHTML = DAYS_HE.map(x => `<span>${x}</span>`).join("");
+
+  const junkDays = Object.entries(S.days).filter(([, d]) => d.junk).map(([k]) => new Date(k + "T12:00:00").getDay());
+  const byDow = DAYS_HE.map((_, i) => junkDays.filter(x => x === i).length), worst = byDow.indexOf(Math.max(...byDow));
+  const hours = Array(24).fill(0); S.log.filter(e => e.k === "urge" || e.k === "junk").forEach(e => hours[new Date(e.t).getHours()]++);
+  const peak = hours.indexOf(Math.max(...hours)), anyUrge = hours.some(Boolean);
+  const best = Object.entries(S.days).sort((a, b) => scoreOf(b[1]) - scoreOf(a[1]))[0], st = cleanStreak();
+  $("patterns").innerHTML = [
+    ["היום המסוכן בשבוע", junkDays.length ? `יום ${DAYS_HE[worst]}': ${byDow[worst] === 1 ? "פעם אחת" : byDow[worst] + " פעמים"} זבל. תכנן אותו מראש.` : "עוד אין ימי זבל רשומים. מצוין."],
+    ["שעת הדחף", anyUrge ? `סביב ${peak}:00. שם להציב כוס מים והליכה.` : "לחץ \"בא לי זבל\" כשיש דחף, ואראה לך מתי זה קורה."],
+    ["רצף נקי", `${st} ימים. היעד הבא: ${Math.ceil((st + 1) / 7) * 7}.`],
+    ["היום הכי טוב שלך", best ? `${heDate(best[0])}, ציון ${scoreOf(best[1])}. אתה יודע איך.` : "יופיע אחרי היום הראשון."]
+  ].map(([a, b]) => `<div class="row"><span class="lbl"><b>${a}</b><small>${b}</small></span></div>`).join("");
+}
+
+// Journal: the road to 90, open tasks, every action with a timestamp.
+function renderLog() {
+  const lw = lastWeight();
+  const stages = [[100, 97.5, "97.5", "נובמבר"], [97.5, 95, "95", "עד 6.12"], [95, 92.5, "92.5", "ינואר"], [92.5, 90, "90", "עד 28.2"]];
+  $("pipe").innerHTML = stages.map(([a, b, t, s]) => `<div><b><i style="width:${(Math.max(0, Math.min(1, (a - lw) / (a - b))) * 100).toFixed(0)}%"></i></b><span class="n">${t}</span><small>${s}</small></div>`).join("");
+  const is = issues();
+  $("tasks").innerHTML = is.length ? is.map(([lv, t, a]) => `<div class="row task ${lv}"><span class="dot"></span><span class="lbl"><b style="font-weight:500;font-size:15px">${t}</b></span>${a ? `<button class="btn sm press" onclick="${ACT[a][1]}">${ACT[a][0]}</button>` : ""}</div>`).join("")
+    : `<div class="row task"><span class="dot" style="border-color:var(--move);background:var(--move)"></span><span class="lbl"><b>אין משימות פתוחות</b><small>אתה בקצב של היום.</small></span></div>`;
+  const color = { water: "--water2", meal: "--food", steps: "--move", walk: "--move", weight: "--t1", junk: "--bad", urge: "--food2", photo: "--t2" };
+  let html = "", cur = "";
+  for (const e of S.log.slice(-80).reverse()) {
+    const t = new Date(e.t), k = today(t);
+    if (k !== cur) { cur = k; const d = S.days[k]; html += `<div class="dayhead"><span>${k === today() ? "היום" : heDate(k)}</span><span class="n">${d ? `ציון ${scoreOf(d)}` : ""}</span></div>`; }
+    html += `<div class="ev"><time class="n">${t.toTimeString().slice(0, 5)}</time><i style="background:var(${color[e.k] || "--t2"})"></i><p>${e.text}</p></div>`;
+  }
+  $("timeline").innerHTML = html || `<div class="row"><span class="lbl"><b>עוד אין רישומים</b><small>כל כוס מים, ארוחה, שקילה ודחף שעצרת יופיעו כאן.</small></span></div>`;
+}
+
+// Actions
+function doWater(n) { const d = day(); d.water = Math.max(0, d.water + n); if (n > 0) log("water", `כוס מים (${d.water}/${S.goals.water})`); save(); render(); buzz(); if (n > 0) toast(d.water >= S.goals.water ? "3 ליטר. יעד המים הושלם." : `+1 כוס, ${d.water}/${S.goals.water}`); }
+function doMeal(i) { const d = day(); if (i === undefined) i = d.meals.indexOf(0); if (i < 0) return toast("3 ארוחות כבר נרשמו"); d.meals[i] = d.meals[i] ? 0 : 1; if (d.meals[i]) { log("meal", `ארוחת ${MEALS[i]}`); toast(`ארוחת ${MEALS[i]} נרשמה`); } save(); render(); buzz(); }
+function doWalk() { log("walk", "יצאתי ל-15 דקות הליכה"); save(); toast("15 דקות. הצעדים יתעדכנו מגרמין."); render(); }
+function doJunk() { day().junk++; log("junk", "אכלתי זבל"); save(); render(); }
+
+// Bottom sheet for steps and weight
+let sheetFn;
+function openSheet(title, sub, val, step, fn) {
+  $("shH").textContent = title; $("shP").textContent = sub; $("shIn").value = val; $("shIn").step = step; sheetFn = fn;
+  $("shMinus").onclick = () => { $("shIn").value = Math.max(0, +(+$("shIn").value - step).toFixed(1)); buzz(); };
+  $("shPlus").onclick = () => { $("shIn").value = +(+$("shIn").value + step).toFixed(1); buzz(); };
+  $("scrim").classList.add("on"); $("sheet").classList.add("on"); setTimeout(() => $("shIn").focus({ preventScroll: true }), 350);
+}
+const closeSheet = () => { $("scrim").classList.remove("on"); $("sheet").classList.remove("on"); };
+$("scrim").onclick = closeSheet;
+$("shSave").onclick = () => { if (sheetFn(parseFloat($("shIn").value)) !== false) closeSheet(); };
+$("stepsEdit").onclick = () => openSheet("כמה צעדים עכשיו?", "בדרך כלל זה מתעדכן לבד מגרמין.", day().steps, 500, v => { if (!(v >= 0)) return false; day().steps = Math.round(v); day().stepsAt = ""; log("steps", `צעדים (ידני): ${fmt(v)}`); save(); render(); toast("צעדים עודכנו"); });
+$("weightEdit").onclick = () => openSheet("שקילה", "בבוקר, לפני אוכל, אחרי שירותים.", lastWeight().toFixed(1), .1, v => { if (!addWeight(v)) return false; render(); toast(`נשמר: ${v.toFixed(1)} ק"ג`); });
+
+let stopTimer, warnTimer;
+async function openStop() {
+  const warn = (await allPhotos()).filter(p => p.kind === "warn"), ph = $("stopPh");
+  ph.querySelectorAll("img").forEach(x => x.remove());
+  let wi = Math.floor(Math.random() * Math.max(1, warn.length));
+  const showWarn = () => { if (!warn.length) return; ph.querySelectorAll("img").forEach(x => x.remove()); const i = document.createElement("img"); i.alt = ""; i.src = urlOf(warn[wi % warn.length]); ph.prepend(i); wi++; };
+  showWarn(); clearInterval(warnTimer); if (warn.length > 1) warnTimer = setInterval(showWarn, 2500);
+  $("stop").classList.add("on"); document.body.style.overflow = "hidden"; log("urge", "היה דחף לזבל"); save(); $("stopWin").focus();
+  let n = 10; $("stopCount").textContent = n; clearInterval(stopTimer);
+  stopTimer = setInterval(() => { n--; $("stopCount").textContent = n > 0 ? n : "עבר"; if (n <= 0) clearInterval(stopTimer); }, 1000);
+}
+const closeStop = () => { clearInterval(stopTimer); clearInterval(warnTimer); document.body.style.overflow = ""; $("stop").classList.remove("on"); };
+$("stopWin").onclick = () => { S.resisted++; day().water++; log("urge", `עצרתי את הדחף ושתיתי מים (פעם ${S.resisted})`); save(); closeStop(); render(); toast(`עצרת. זו הפעם ה-${S.resisted}.`); };
+$("stopLose").onclick = () => { closeStop(); doJunk(); toast("נרשם. מים, הליכה, ומחר נקי."); };
+$("vclose").onclick = closeViewer;
+document.addEventListener("keydown", e => { if (e.key !== "Escape") return; if ($("viewer").classList.contains("on")) closeViewer(); else if ($("stop").classList.contains("on")) closeStop(); else closeSheet(); });
+
+// URL actions from iPhone Shortcuts and calendar alerts: ?steps=8421 ?water=1 ?meal=0 ?weight=99.4
+function handleUrl() {
+  const q = new URLSearchParams(location.search); let msg = "";
+  if (q.has("steps")) { const n = parseInt(q.get("steps"), 10); if (n >= 0 && n < 200000) { const d = day(); d.steps = n; d.stepsAt = new Date().toTimeString().slice(0, 5); log("steps", `צעדים מגרמין: ${fmt(n)}`); msg = `צעדים עודכנו: ${fmt(n)}`; } }
+  if (q.has("water")) { const n = Math.min(4, parseInt(q.get("water"), 10) || 1); day().water += n; log("water", `כוס מים מהתזכורת (${day().water}/${S.goals.water})`); msg = `+${n} כוס מים`; }
+  if (q.has("meal")) { const i = parseInt(q.get("meal"), 10); if (i >= 0 && i < 3) { day().meals[i] = 1; log("meal", `ארוחת ${MEALS[i]}`); msg = `ארוחת ${MEALS[i]} נרשמה`; } }
+  if (q.has("weight") && addWeight(parseFloat(q.get("weight")))) msg = "משקל נשמר";
+  if (msg) { save(); setTimeout(() => toast(msg), 400); }
+  if (location.search) history.replaceState(null, "", location.pathname);
+}
+
+// Notifications while the app is open or just backgrounded.
+function notifyCheck() {
+  if (!("Notification" in window) || Notification.permission !== "granted") return;
+  const top = issues()[0], h = new Date().getHours(); if (!top || h < 8 || h >= 22) return;
+  if (Date.now() - (S.lastNotif || 0) < 30 * 60e3) return;
+  S.lastNotif = Date.now(); save();
+  navigator.serviceWorker?.ready.then(r => r.showNotification("שי בריאות", { body: top[1], icon: "icon-180.png", tag: "nag", renotify: true }));
+}
+function notifState() { const p = "Notification" in window ? Notification.permission : "unsupported"; $("notifOn").textContent = p === "granted" ? "פעיל" : "הפעל"; if (p === "unsupported") $("notifSub").textContent = "עובד אחרי הוספה למסך הבית"; }
+$("notifOn").onclick = async () => { if (!("Notification" in window)) return toast("קודם להוסיף למסך הבית"); const p = await Notification.requestPermission(); notifState(); if (p === "granted") { S.lastNotif = 0; notifyCheck(); toast("התראות פעילות"); } };
+
+// Navigation and the compact header
+const TITLES = { "p-today": "היום", "p-ins": "תובנות", "p-log": "יומן", "p-photos": "תמונות", "p-nag": "תזכורות" };
+let page = "p-today";
+function go(p) { page = p; document.querySelectorAll(".tabs button,.page").forEach(x => x.classList.remove("on")); document.querySelector(`.tabs button[data-p="${p}"]`).classList.add("on"); $(p).classList.add("on"); $("barTitle").textContent = TITLES[p]; scrollTo(0, 0); onScroll(); if (p === "p-photos") renderPhotos(); render(); }
+function onScroll() { const lim = page === "p-today" ? $("hero").offsetHeight - 90 : 60; $("bar").classList.toggle("on", scrollY > lim); }
+addEventListener("scroll", onScroll, { passive: true });
+document.querySelectorAll(".tabs button").forEach(b => b.onclick = () => go(b.dataset.p));
+$("addPh").onclick = () => addPhotos("thin"); $("addWarn").onclick = () => addPhotos("warn");
+$("waterAdd").onclick = () => doWater(1);
+$("waterSub2").onclick = () => doWater(-1);
+document.querySelectorAll(".meal").forEach(b => b.onclick = () => doMeal(+b.dataset.m));
+$("qUrge").onclick = openStop;
+$("junk").onclick = () => { doJunk(); openStop(); };
+$("unjunk").onclick = () => { day().junk = 0; log("junk", "ביטלתי רישום זבל"); save(); render(); toast("בוטל"); };
+$("gSave").onclick = () => { S.goals = { steps: Math.max(1000, +$("gSteps").value || 10000), water: Math.max(4, +$("gWater").value || 12) }; save(); render(); toast("היעדים נשמרו"); };
+$("exp").onclick = () => { const b = new Blob([JSON.stringify(S, null, 1)], { type: "application/json" }); const a = document.createElement("a"); a.href = URL.createObjectURL(b); a.download = `shay95-${today()}.json`; a.click(); };
+$("imp").onclick = () => { const i = document.createElement("input"); i.type = "file"; i.accept = ".json"; i.onchange = async () => { try { S = Object.assign(BLANK(), JSON.parse(await i.files[0].text())); save(); render(); toast("שוחזר"); } catch { toast("הקובץ לא תקין"); } }; i.click(); };
+document.addEventListener("visibilitychange", () => { if (!document.hidden) render(); else notifyCheck(); });
+setInterval(() => { render(); notifyCheck(); }, 60000);
+if ("serviceWorker" in navigator && location.protocol === "https:") navigator.serviceWorker.register("sw.js");
+drawRings(); handleUrl(); notifState(); render();
+</script>
+</body>
+</html>
