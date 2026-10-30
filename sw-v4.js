@@ -1,1 +1,3 @@
-Y29uc3QgQyA9ICJzaGF5LWhlYWx0aC12MyI7CnNlbGYuYWRkRXZlbnRMaXN0ZW5lcigiaW5zdGFsbCIsIGUgPT4gZS53YWl0VW50aWwoY2FjaGVzLm9wZW4oQykudGhlbihjID0+IGMuYWRkQWxsKFsiLi8iLCAidjQuaHRtbCIsICJtYW5pZmVzdC5qc29uIl0pKSkpOwpzZWxmLmFkZEV2ZW50TGlzdGVuZXIoImZldGNoIiwgZSA9PiBlLnJlc3BvbmRXaXRoKGZldGNoKGUucmVxdWVzdCkuY2F0Y2goKCkgPT4gY2FjaGVzLm1hdGNoKGUucmVxdWVzdCwgeyBpZ25vcmVTZWFyY2g6IHRydWUgfSkpKSk7Cg==
+const C = "shay-health-v3";
+self.addEventListener("install", e => e.waitUntil(caches.open(C).then(c => c.addAll(["./", "v4.html", "manifest.json"]))));
+self.addEventListener("fetch", e => e.respondWith(fetch(e.request).catch(() => caches.match(e.request, { ignoreSearch: true }))));
